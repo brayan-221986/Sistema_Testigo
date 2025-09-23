@@ -1,0 +1,8 @@
+// Inicicar postgre en CMD
+psql -U postgres
+
+// conectar a la BD
+\c sistema_testigo;
+
+// listar tablas
+\dt
