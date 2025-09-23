@@ -1,12 +1,30 @@
-# Node / backend
+# =========================
+# Node.js / Backend
+# =========================
 /backend/node_modules
-/backend/.env
 /backend/dist
+/backend/.env
+/backend/npm-debug.log*
+/backend/yarn-debug.log*
+/backend/yarn-error.log*
 
-# React / frontend
+# =========================
+# React / Frontend
+# =========================
 /frontend/node_modules
 /frontend/build
 /frontend/.env
+/frontend/npm-debug.log*
+/frontend/yarn-debug.log*
+/frontend/yarn-error.log*
 
+# =========================
 # Logs
+# =========================
 *.log
+
+# =========================
+# Sistema / OS
+# =========================
+.DS_Store
+Thumbs.db
