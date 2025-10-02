@@ -1,0 +1,394 @@
+/* Contenedor principal */
+.crear-usuario {
+  display: flex;
+  font-family: 'Arial', sans-serif;
+  margin-left: 240px; /* Compensa el sidebar fijo en desktop */
+}
+
+/* Botón de menú hamburguesa (oculto por defecto) */
+.menu-toggle {
+  display: none;
+  background-color: #17C23C;
+  color: white;
+  font-size: 24px;
+  padding: 10px 20px;
+  border: none;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1001;
+}
+
+/* Sidebar verde */
+.sidebar {
+  width: 240px;
+  background-color: #17C23C;
+  color: white;
+  padding: 30px 20px;
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+  z-index: 1000;
+}
+
+.sidebar h2 {
+  font-size: 24px;
+  margin-bottom: 40px;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar li {
+  margin-bottom: 25px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.sidebar li:hover {
+  text-decoration: underline;
+}
+
+/* Contenedor del formulario */
+.form-container {
+  flex: 1;
+  background-color: #f8f9fa;
+  min-height: 100vh;
+}
+
+.form-container h1 {
+  font-size: 28px;
+  margin-bottom: 30px;
+  font-weight: bold;
+}
+
+/* División del contenido */
+.content {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+}
+
+/* Formulario a la izquierda */
+.left-form {
+  flex: 1 1 60%;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  padding-top: 20px;
+}
+
+.user-form {
+  width: 100%;
+  max-width: 400px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 600;
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 20px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  border-color: #28a745;
+  outline: none;
+}
+
+/* Botones de acción */
+.form-actions {
+  margin-top: 30px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 15px;
+}
+
+.cancel-button,
+.submit-button {
+  border: none;
+  padding: 12px 25px;
+  border-radius: 20px;
+  font-size: 15px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin: 0 0 20px 0;
+}
+
+.cancel-button {
+  background-color: #6c757d;
+  color: white;
+}
+
+.cancel-button:hover {
+  background-color: #5a6268;
+}
+
+.submit-button {
+  background-color: #0d8b26;
+  color: white;
+}
+
+.submit-button:hover {
+  background-color: #0b7a1f;
+}
+
+/* Imagen de perfil a la derecha */
+.right-profile {
+  flex: 0 0 500px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.profile-upload {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 30px;
+}
+
+.profile-upload img {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  background-color: #ddd;
+  margin-bottom: 20px;
+  object-fit: cover;
+}
+
+.upload-label {
+  background-color: #17C23C;
+  color: white;
+  padding: 8px 14px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  text-align: center;
+  transition: background-color 0.3s ease;
+}
+
+.upload-label:hover {
+  background-color: #2e6f31;
+}
+
+.logo {
+  width: 160px;
+  margin-bottom: 40px;
+  display: block;
+}
+
+.menu-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.menu-item {
+  background-color: #00871D;
+  color: white;
+  padding: 12px 18px;
+  margin-bottom: 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 15px;
+  transition: background-color 0.2s ease;
+}
+
+.menu-item:hover {
+  background-color: #006b17;
+}
+
+/* Estilo del título */
+.titulo {
+  background-color: #EAEAEA;
+  padding: 30px 30px;
+  width: 100%;
+  box-sizing: border-box;
+  margin: 0;
+}
+
+.DNI {
+  display: flex;
+  align-items: center;
+}
+
+.DNI input {
+  width: 250px;
+  border-radius: 20px;
+  margin: 0px 0px 0px 10px;
+}
+
+/* ========== MEDIA QUERIES ========== */
+
+@media (max-width: 1024px) {
+  .crear-usuario {
+    margin-left: 0;
+  }
+  
+  .content {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .left-form,
+  .right-profile {
+    flex: 1 1 100%;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .right-profile {
+    margin-bottom: 20px;
+    order: -1;
+  }
+
+  .user-form {
+    max-width: 90%;
+    width: 100%;
+  }
+  
+  .sidebar {
+    width: 200px;
+  }
+}
+
+@media (max-width: 768px) {
+  /* Muestra el botón hamburguesa en móviles */
+  .menu-toggle {
+    display: block;
+  }
+
+  .crear-usuario {
+    flex-direction: column;
+    margin-left: 0;
+  }
+
+  /* Sidebar oculto por defecto en móviles */
+  .sidebar {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: #17C23C;
+    z-index: 1000;
+    padding: 60px 20px 20px 20px;
+  }
+
+  /* Sidebar visible cuando tiene la clase sidebar-open */
+  .sidebar.sidebar-open {
+    display: block;
+  }
+
+  .menu-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .menu-item {
+    padding: 15px;
+    text-align: center;
+    font-size: 16px;
+  }
+
+  .titulo {
+    font-size: 22px;
+    padding: 70px 20px 20px 20px; /* Compensa el botón hamburguesa */
+  }
+
+  .profile-upload img {
+    width: 140px;
+    height: 140px;
+  }
+
+  .cancel-button,
+  .submit-button {
+    width: 100%;
+    margin: 5px 0;
+  }
+
+  .form-actions {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+  
+  .DNI {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .DNI input {
+    width: 100%;
+    margin: 8px 0 0 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .form-group input,
+  .form-group select {
+    font-size: 14px;
+    padding: 8px 10px;
+  }
+
+  .upload-label {
+    font-size: 12px;
+    padding: 6px 10px;
+  }
+
+  .DNI {
+    flex-direction: column;
+  }
+
+  .DNI input {
+    width: 100%;
+    margin: 8px 0 0 0;
+    border-radius: 20px;
+  }
+  
+  .cancel-button,
+  .submit-button {
+    width: 100%;
+    padding: 10px 20px;
+  }
+  
+  .titulo {
+    padding: 60px 15px 15px 15px;
+    font-size: 20px;
+  }
+  
+  .profile-upload img {
+    width: 120px;
+    height: 120px;
+  }
+  
+  .menu-item {
+    padding: 12px;
+    font-size: 14px;
+  }
+}
