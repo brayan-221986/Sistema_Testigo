@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { login } from '../services/api';
-import '../components/login.css';
+import '../components/sesion.css';
 
 const Login = () => {
     const [formData, setFormData] = useState({
@@ -92,10 +92,10 @@ const Login = () => {
         <div className="login-page">
             {/* Panel izquierdo con logo */}
             <div className="login-sidebar">
-              <img src="/logo.png" alt="Logo" style={{width: '70%', cursor: 'pointer', transition: 'transform 0.2s ease'}}
-                  onClick={() => navigate('/')} onMouseOver={(e) => e.target.style.transform = 'scale(1.05)'} onMouseOut={(e) => e.target.style.transform = 'scale(1)'}
-              />
-          </div>
+                <img src="/logo.png" alt="Logo" style={{width: '70%', cursor: 'pointer', transition: 'transform 0.2s ease'}}
+                    onClick={() => navigate('/')} onMouseOver={(e) => e.target.style.transform = 'scale(1.05)'} onMouseOut={(e) => e.target.style.transform = 'scale(1)'}
+                />
+            </div>
 
             {/* Formulario de login */}
             <div className="login-container">
@@ -111,9 +111,7 @@ const Login = () => {
                                 placeholder="Ingresa tu correo o DNI" value={formData.username} onChange={handleChange}
                                 disabled={loading}
                             />
-                            {errors.username && (
-                                <div className="error-message">{errors.username}</div>
-                            )}
+                            {errors.username && (<div className="error-message">{errors.username}</div>)}
                         </div>
                         
                         <div className="form-group">
@@ -122,22 +120,18 @@ const Login = () => {
                                 placeholder="Ingresa tu contraseña" value={formData.password} onChange={handleChange}
                                 disabled={loading}
                             />
-                            {errors.password && (
-                                <div className="error-message">{errors.password}</div>
-                            )}
+                            {errors.password && (<div className="error-message">{errors.password}</div>)}
                         </div>
 
-                        {errors.submit && (
-                            <div className="error-message submit-error">{errors.submit}</div>
-                        )}
+                        {errors.submit && (<div className="error-message submit-error">{errors.submit}</div>)}
                         
                         <div className="btn-container">
-                          <button type="submit" className="btn btn-login"  disabled={loading}>
-                              {loading ? 'Iniciando Sesión...' : 'Iniciar Sesión'}
-                          </button>
-                          <button type="button" className="btn btn-cancel" onClick={handleCancel} disabled={loading}>
+                        <button type="submit" className="btn btn-login"  disabled={loading}>
+                            {loading ? 'Iniciando Sesión...' : 'Iniciar Sesión'}
+                        </button>
+                        <button type="button" className="btn btn-cancel" onClick={handleCancel} disabled={loading}>
                             Cancelar
-                          </button>
+                        </button>
                         </div>
                     </form>
                     

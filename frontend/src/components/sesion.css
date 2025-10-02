@@ -6,6 +6,7 @@
     --cancel-gray: #848484;
     --text-dark: #1A1A1A;
     --text-light: #666666;
+    --warning-yellow:#d6b706;
 }
 
 * {
@@ -101,6 +102,35 @@
     border-color: #e74c3c;
 }
 
+/* Contenedor DNI especial */
+.dni-container {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.dni-container .form-control {
+    flex: 1;
+}
+
+.consultar-btn {
+    padding: 16px 20px;
+    background-color: var(--warning-yellow);
+    color: black;
+    border: none;
+    border-radius: 27px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.consultar-btn:hover {
+    background-color: #b69b00;
+    transform: translateY(-2px);
+}
+
 /* Contenedor de botones */
 .btn-container {
     display: flex;
@@ -139,7 +169,7 @@
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
 }
 
-/* Botón Iniciar Sesión */
+/* Botón Registrarse */
 .btn-login {
     background-color: var(--primary-green);
     color: white;
@@ -150,7 +180,7 @@
     transform: translateY(-2px);
 }
 
-/* Enlace de registro */
+/* Enlace de login */
 .register-link {
     text-align: center;
     color: var(--text-light);
@@ -166,6 +196,58 @@
 
 .register-link a:hover {
     text-decoration: underline;
+}
+
+/* Estados de validación */
+.form-control.valid {
+  border-color: var(--primary-green);
+  background-color: var(--light-green);
+}
+
+.consultar-btn.validated {
+  background-color: var(--cancel-gray);
+  cursor: not-allowed;
+}
+
+.consultar-btn.validated:hover {
+  transform: none;
+  background-color: var(--cancel-gray);
+}
+
+/* Mensajes de error */
+.error-message {
+  color: #e74c3c;
+  font-size: 12px;
+  margin-top: 5px;
+  display: block;
+}
+
+/* Estilos para campos deshabilitados/readonly */
+.form-control:read-only {
+  background-color: #f8f9fa;
+  cursor: not-allowed;
+}
+
+/* Estados de botón deshabilitado */
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none !important;
+}
+
+.btn:disabled:hover {
+  transform: none !important;
+}
+
+/* Contenedor DNI especial */
+.dni-container {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.dni-container .form-control {
+  flex: 1;
 }
 
 /* Mensajes de error */
@@ -246,6 +328,14 @@
     .btn-container {
         flex-direction: column;
     }
+    
+    .dni-container {
+        flex-direction: column;
+    }
+    
+    .consultar-btn {
+        width: 100%;
+    }
 }
 
 @media (max-width: 480px) {
@@ -259,6 +349,10 @@
     }
     
     .btn {
+        padding: 14px 16px;
+    }
+    
+    .consultar-btn {
         padding: 14px 16px;
     }
 }
