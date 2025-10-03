@@ -7,7 +7,7 @@ DB_NAME=sistema_testigo
 DB_PASS=-
 DB_PORT=5432--creo varia
 
-JWT_SECRET=unasecretoseguro123
+JWT_SECRET=G7h3$kL9pQ2!xZ1rW4m8vT6yB0aU5nE
 
 
 /frontend/.env
