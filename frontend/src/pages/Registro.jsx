@@ -26,7 +26,7 @@ const Registro = () => {
 
   const [isDNIValidated, setIsDNIValidated] = useState(false);
   const [isConsulting, setIsConsulting] = useState(false);
-  const [apiStatus, setApiStatus] = useState('Verificando API...');
+  //const [apiStatus, setApiStatus] = useState('Verificando API...');
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -153,10 +153,10 @@ const Registro = () => {
         <img src="/logo.png"  alt="Logo"  style={{width: '70%', cursor: 'pointer', transition: 'transform 0.2s ease'}} onClick={() => navigate('/')} 
           onMouseOver={(e) => e.target.style.transform = 'scale(1.05)'} onMouseOut={(e) => e.target.style.transform = 'scale(1)'}/>
         {/* Estado de la API */}
-        <div style={{position: 'absolute', bottom: '20px', left: '20px', right: '20px', color: 'white', fontSize: '12px', background: 'rgba(0,0,0,0.7)',
+        {/* <div style={{position: 'absolute', bottom: '20px', left: '20px', right: '20px', color: 'white', fontSize: '12px', background: 'rgba(0,0,0,0.7)',
           padding: '8px', borderRadius: '5px', textAlign: 'center' }}>
           {apiStatus}
-        </div>
+        </div> */}
       </div>
 
       {/* Contenedor del formulario */}

@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { login } from '../services/api';
+import { useAutentificacion } from "../context/AutentificacionContext";
 import '../components/sesion.css';
 
 const Login = () => {
+    const { login } = useAutentificacion();
     const [formData, setFormData] = useState({
         username: '',
         password: ''
@@ -65,14 +66,17 @@ const Login = () => {
         }
 
         setLoading(true);
+        setErrors({}); // limpiar errores previos
 
         try {
-            const response = await login(formData);
+            const usuario = await login(formData);
             
-            if (response.data.token) {
-                localStorage.setItem('token', response.data.token);
-                // Redirigir al inicio después del login exitoso
-                navigate('/');
+            if (usuario.rol === "admin") {
+            navigate("/admin/dashboard");
+            } else if (usuario.rol === "institucion") {
+            navigate("/institucion/home");
+            } else {
+            navigate("/ciudadano/home");
             }
         } catch (error) {
             console.error('Error en login:', error);

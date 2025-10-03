@@ -36,19 +36,34 @@ api.interceptors.response.use(
 // Servicios de autenticación
 export const authService = {
     login: async (credentials) => {
-        return await api.post('/api/auth/login', credentials);
+        const payload = {
+            correoODni: credentials.username,
+            contrasena: credentials.password
+        };
+        return await api.post('/usuarios/login', payload);
     },
     
     register: async (userData) => {
-        return await api.post('/api/auth/register', userData);
+        return await api.post('/usuarios', {
+            dni: userData.dni,
+            nombres: userData.nombres,
+            apellido_paterno: userData.apellidos.split(' ')[0] || '',
+            apellido_materno: userData.apellidos.split(' ')[1] || '',
+            nro_celular: userData.celular,
+            correo: userData.correo,
+            contraseña: userData.contrasenia,
+            rol: 'ciudadano'
+        });
     },
     
     logout: () => {
         localStorage.removeItem('token');
+        localStorage.removeItem('rol');
+        localStorage.removeItem('usuario');
     },
     
     getProfile: async () => {
-        return await api.get('/api/auth/profile');
+        return await api.get('/usuarios/perfil');
     }
 };
 
