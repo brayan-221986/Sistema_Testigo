@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { consultarRENIEC } from '../services/reniecService';
+import { register } from '../services/api'
 import '../components/sesion.css';
 
 const Registro = () => {
@@ -77,10 +78,7 @@ const Registro = () => {
     setErrors(prev => ({ ...prev, dni: '' }));
 
     try {
-      console.log('Iniciando consulta a Decolecta para DNI:', formData.dni);
       const userData = await consultarRENIEC(formData.dni);
-      
-      console.log('Datos recibidos:', userData);
       
       setFormData(prev => ({
         ...prev,
@@ -90,8 +88,6 @@ const Registro = () => {
       
       setIsDNIValidated(true);
       setErrors(prev => ({ ...prev, dni: '' }));
-      
-      console.log('DNI validado exitosamente!');
       
     } catch (error) {
       console.error('Error en consulta:', error);
@@ -105,31 +101,34 @@ const Registro = () => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    
-    // validar que las contraseñas coincidan
+
+    // Validar que las contraseñas coincidan
     if (formData.contrasenia !== formData.confirmarContrasenia) {
-      alert('Las contraseñas no coinciden');
-      return;
+        alert('Las contraseñas no coinciden');
+        return;
     }
 
-    // validar que el DNI esté verificado
+    // Validar que el DNI esté verificado
     if (!isDNIValidated) {
-      alert('Por favor, valide su DNI primero');
-      return;
+        alert('Por favor, valide su DNI primero');
+        return;
     }
 
-    // Lógica de registro
-    console.log('Enviando datos de registro:', {
-      ...formData,
-      contrasenia: '***',
-      confirmarContrasenia: '***'
-    });
+    try {
+        // Enviar datos al backend
+        const response = await register(formData);
+        console.log('Usuario registrado:', response.data);
 
-    alert('Registro exitoso!');
-    navigate('/login');
-  };
+        alert('Registro exitoso! Ahora inicie sesión.');
+        navigate('/login');
+
+    } catch (error) {
+        console.error('Error en registro:', error);
+        alert(error.response?.data?.error || 'Ocurrió un error durante el registro.');
+    }
+};
 
   const handleCancelar = () => {
     setFormData({

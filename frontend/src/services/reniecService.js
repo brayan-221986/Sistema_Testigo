@@ -52,7 +52,6 @@ export const consultarRENIEC = async (dni) => {
     }
 
     const result = await response.json();
-    console.log('Respuesta de API:', result);
 
     // Manejar respuestas de error
     if (result.message === "not found" || result.error) {
@@ -71,7 +70,6 @@ export const consultarRENIEC = async (dni) => {
       };
       
       cache.set(dni, userData);
-      console.log('DNI validado:', userData.nombres, userData.apellidos);
       return userData;
     }
 

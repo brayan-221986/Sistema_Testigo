@@ -51,7 +51,7 @@ export const authService = {
             apellido_materno: userData.apellidos.split(' ')[1] || '',
             nro_celular: userData.celular,
             correo: userData.correo,
-            contraseña: userData.contrasenia,
+            contrasena: userData.contrasenia,
             rol: 'ciudadano'
         });
     },
