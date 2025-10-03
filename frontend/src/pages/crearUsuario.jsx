@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
+import axios from "axios";
+import SidebarAdm from '../components/SidebarAdm';
 import '../components/CrearUsuario.css';
 
 const CrearUsuario = () => {
+  // Estado para los datos del formulario
   const [formData, setFormData] = useState({
     dni: '',
     nombres: '',
@@ -12,14 +15,16 @@ const CrearUsuario = () => {
     password: '',
     confirmarPassword: '',
   });
-
+  // Estado para la imagen de perfil
   const [imagen, setImagen] = useState(null);
 
+  // Maneja cambios en los campos del formulario
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
+  // Maneja la subida de imagen de perfil
   const handleImagenChange = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -27,37 +32,52 @@ const CrearUsuario = () => {
     }
   };
 
-  const handleSubmit = (e) => {
+  // Enviar el formulario al backend
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Lógica para guardar datos
-    console.log('Formulario enviado:', formData);
+
+    // Validación simple de contraseñas
+    if (formData.password !== formData.confirmarPassword) {
+      alert('Las contraseñas no coinciden');
+      return;
+    }
+
+    try {
+      const response = await axios.post("http://localhost:5000/usuarios", {
+        dni: formData.dni,
+        nombres: formData.nombres,
+        apellidos: formData.apellidos,
+        correo: formData.correo,
+        celular: formData.celular,
+        password: formData.password,
+        rol: formData.rol
+      });
+
+      console.log("Usuario creado:", response.data);
+      alert("✅ Usuario creado con éxito");
+
+      // Resetear formulario
+      setFormData({
+        dni: '',
+        nombres: '',
+        apellidos: '',
+        rol: 'Usuario',
+        correo: '',
+        celular: '',
+        password: '',
+        confirmarPassword: ''
+      });
+      setImagen(null);
+
+    } catch (error) {
+      console.error("Error al crear usuario:", error);
+      alert("❌ Error al registrar el usuario");
+    }
   };
 
   return (
     <div className="crear-usuario">
-        <div className="buttommenu">
-            <button
-                className="menu-toggle"
-                onClick={() =>
-                    document.querySelector('.sidebar').classList.toggle('sidebar-open')
-                }
-            >
-                ☰
-            </button>
-        </div>
-        
-      {/* Sidebar */}
-      <div className="sidebar">
-        <img src="/logo.png" alt="Logo testiGO" className="logo" />
-        <ul className="menu-list">
-          <li className="menu-item">Usuarios</li>
-          <li className="menu-item">Instituciones</li>
-          <li className="menu-item">Reportes Totales</li>
-          <li className="menu-item">Estadísticas</li>
-          <li className="menu-item">Cerrar Sesión</li>
-        </ul>
-      </div>
-
+      <SidebarAdm />
       {/* Formulario principal */}
       <div className="form-container">
         <h1 className="titulo">Crear Usuario</h1>
@@ -66,13 +86,13 @@ const CrearUsuario = () => {
             <form className="user-form" onSubmit={handleSubmit}>
               <div className="form-group">
                 <div className='DNI'>
-                    <label>Nº de DNI:</label>
-                    <input
+                  <label>Nº de DNI:</label>
+                  <input
                     type="text"
                     name="dni"
                     value={formData.dni}
                     onChange={handleChange}
-                    />
+                  />
                 </div>
               </div>
               <div className="form-group">

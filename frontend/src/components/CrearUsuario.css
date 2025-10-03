@@ -1,60 +1,10 @@
+/* ===================== CrearUsuario.css ===================== */
+
 /* Contenedor principal */
 .crear-usuario {
   display: flex;
   font-family: 'Arial', sans-serif;
-  margin-left: 240px; /* Compensa el sidebar fijo en desktop */
-}
-
-/* Botón de menú hamburguesa (oculto por defecto) */
-.menu-toggle {
-  display: none;
-  background-color: #17C23C;
-  color: white;
-  font-size: 24px;
-  padding: 10px 20px;
-  border: none;
-  width: 100%;
-  text-align: left;
-  cursor: pointer;
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 1001;
-}
-
-/* Sidebar verde */
-.sidebar {
-  width: 240px;
-  background-color: #17C23C;
-  color: white;
-  padding: 30px 20px;
-  position: fixed;
-  left: 0;
-  top: 0;
-  height: 100vh;
-  overflow-y: auto;
-  z-index: 1000;
-}
-
-.sidebar h2 {
-  font-size: 24px;
-  margin-bottom: 40px;
-}
-
-.sidebar ul {
-  list-style: none;
-  padding: 0;
-}
-
-.sidebar li {
-  margin-bottom: 25px;
-  cursor: pointer;
-  font-size: 16px;
-  font-weight: 500;
-}
-
-.sidebar li:hover {
-  text-decoration: underline;
+  margin-left: 240px;
 }
 
 /* Contenedor del formulario */
@@ -194,33 +144,6 @@
   background-color: #2e6f31;
 }
 
-.logo {
-  width: 160px;
-  margin-bottom: 40px;
-  display: block;
-}
-
-.menu-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.menu-item {
-  background-color: #00871D;
-  color: white;
-  padding: 12px 18px;
-  margin-bottom: 12px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 15px;
-  transition: background-color 0.2s ease;
-}
-
-.menu-item:hover {
-  background-color: #006b17;
-}
-
 /* Estilo del título */
 .titulo {
   background-color: #EAEAEA;
@@ -230,6 +153,7 @@
   margin: 0;
 }
 
+/* Grupo especial para DNI */
 .DNI {
   display: flex;
   align-items: center;
@@ -241,13 +165,13 @@
   margin: 0px 0px 0px 10px;
 }
 
-/* ========== MEDIA QUERIES ========== */
+/* ========== MEDIA QUERIES (CrearUsuario) ========== */
 
 @media (max-width: 1024px) {
   .crear-usuario {
     margin-left: 0;
   }
-  
+
   .content {
     flex-direction: column;
     align-items: center;
@@ -269,51 +193,12 @@
     max-width: 90%;
     width: 100%;
   }
-  
-  .sidebar {
-    width: 200px;
-  }
 }
 
 @media (max-width: 768px) {
-  /* Muestra el botón hamburguesa en móviles */
-  .menu-toggle {
-    display: block;
-  }
-
   .crear-usuario {
     flex-direction: column;
     margin-left: 0;
-  }
-
-  /* Sidebar oculto por defecto en móviles */
-  .sidebar {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
-    background-color: #17C23C;
-    z-index: 1000;
-    padding: 60px 20px 20px 20px;
-  }
-
-  /* Sidebar visible cuando tiene la clase sidebar-open */
-  .sidebar.sidebar-open {
-    display: block;
-  }
-
-  .menu-list {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  .menu-item {
-    padding: 15px;
-    text-align: center;
-    font-size: 16px;
   }
 
   .titulo {
@@ -337,12 +222,12 @@
     align-items: stretch;
     gap: 10px;
   }
-  
+
   .DNI {
     flex-direction: column;
     align-items: flex-start;
   }
-  
+
   .DNI input {
     width: 100%;
     margin: 8px 0 0 0;
@@ -370,25 +255,20 @@
     margin: 8px 0 0 0;
     border-radius: 20px;
   }
-  
+
   .cancel-button,
   .submit-button {
     width: 100%;
     padding: 10px 20px;
   }
-  
+
   .titulo {
     padding: 60px 15px 15px 15px;
     font-size: 20px;
   }
-  
+
   .profile-upload img {
     width: 120px;
     height: 120px;
-  }
-  
-  .menu-item {
-    padding: 12px;
-    font-size: 14px;
   }
 }
