@@ -48,7 +48,7 @@ export const authService = {
     
     // Registro de usuario
     register: async (userData) => {
-        return await api.post('/usuarios', {
+        return await api.post('/usuarios/register', {
             dni: userData.dni,
             nombres: userData.nombres,
             apellido_paterno: userData.apellidos.split(' ')[0] || '',
@@ -67,11 +67,6 @@ export const authService = {
         localStorage.removeItem('usuario');
     },
     
-    // Obtener perfil de usuario
-    getProfile: async () => {
-        return await api.get('/usuarios/perfil');
-    },
-
     createUserAdmin: async (userData) => {
         const data = new FormData();
         data.append("dni", userData.dni);
@@ -87,7 +82,27 @@ export const authService = {
             data.append("foto", userData.foto);
         }
 
-        return await api.post("/usuarios", data, {
+        // Enviar a /usuarios/admin para diferenciarnos del registro público
+        return await api.post("/usuarios/admin", data, {
+            headers: { "Content-Type": "multipart/form-data" }
+        });
+    },
+
+    // Obtener perfil del usuario autenticado
+    getProfile: async () => {
+        return await api.get('/usuarios/perfil');
+    },
+
+    // Actualizar perfil del usuario autenticado (foto opcional)
+    updateProfile: async (profileData) => {
+        const data = new FormData();
+        if (profileData.dni) data.append('dni', profileData.dni); // <-- incluir dni
+        if (profileData.correo) data.append('correo', profileData.correo);
+        if (profileData.nro_celular) data.append('nro_celular', profileData.nro_celular);
+        if (profileData.contrasena) data.append('contrasena', profileData.contrasena);
+        if (profileData.foto) data.append('foto', profileData.foto);
+
+        return await api.put('/usuarios/perfil', data, {
             headers: { "Content-Type": "multipart/form-data" }
         });
     }
@@ -99,5 +114,7 @@ export const login = authService.login;
 export const register = authService.register;
 export const logout = authService.logout;
 export const createUserAdmin = authService.createUserAdmin;
+export const getProfile = authService.getProfile;
+export const updateProfile = authService.updateProfile;
 
 export default api;

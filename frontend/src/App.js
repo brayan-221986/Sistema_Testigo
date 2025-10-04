@@ -12,6 +12,7 @@ import CrearUsuario from './pages/crearUsuario';
 import AdminDashboard from './pages/AdminDashboard';
 import InstitucionHome from './pages/InstitucionHome';
 import CiudadanoHome from './pages/CiudadanoHome';
+import EditarPerfil from './pages/EditarPerfil'; // NUEVO
 
 import RutaPrivada from "./components/RutaPrivada"
 
@@ -59,6 +60,16 @@ function App() {
               <CiudadanoHome /> 
             </RutaPrivada> 
           } 
+        />
+
+        {/* Ruta para editar perfil: requiere autenticación, cualquier rol */}
+        <Route
+          path="/perfil"
+          element={
+            <RutaPrivada>
+              <EditarPerfil />
+            </RutaPrivada>
+          }
         />
       </Routes>
     </AutentificacionProvider>

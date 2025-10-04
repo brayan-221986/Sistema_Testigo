@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, useEffect, useRef, useCallback } from "react";
 import { login as loginService } from "../services/api";
-import {jwtDecode} from 'jwt-decode';
+import { jwtDecode } from 'jwt-decode'; // <-- CORRECCIÓN: usar named export
 
 const AutentificacionContext = createContext();
 
@@ -98,8 +98,15 @@ export const AutentificacionProvider = ({ children }) => {
     return usuario;
   };
 
+  // Función para actualizar usuario en contexto y localStorage
+  const actualizarUsuario = useCallback((nuevoUsuario) => {
+    if (!nuevoUsuario) return;
+    localStorage.setItem('usuario', JSON.stringify(nuevoUsuario));
+    setUsuario(nuevoUsuario);
+  }, []);
+
   return (
-    <AutentificacionContext.Provider value={{ usuario, token, login, logout }}>
+    <AutentificacionContext.Provider value={{ usuario, token, login, logout, actualizarUsuario }}>
       {children}
     </AutentificacionContext.Provider>
   );
