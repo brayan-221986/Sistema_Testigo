@@ -3,7 +3,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useAutentificacion } from "../context/AutentificacionContext";
-import SidebarAdm from "../components/SidebarAdm";
+//import PlantillaAdmin from '../components/PlantillaAdmin';
 import '../components/AdminDashboard.css'; // Opcional para estilos de layout
 
 const AdminDashboard = () => {
