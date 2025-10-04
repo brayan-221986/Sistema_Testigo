@@ -1,8 +1,9 @@
+// inicio.jsx
+
 import React from 'react';
 import { Link } from 'react-router-dom';
 
 const Inicio = () => {
-    const token = localStorage.getItem('token');
     
     return (
         <div style={{ padding: '20px' }}>

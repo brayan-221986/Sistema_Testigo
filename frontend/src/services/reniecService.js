@@ -1,20 +1,20 @@
-// services/reniecService.js
+// reniecService.js
 const BASE_URL = process.env.NODE_ENV === 'development' 
-  ? ''                                // En desarrollo, React proxy
-  : 'https://api.decolecta.com/v1';   // En producción, URL directa
+  ? ''                                // En desarrollo, se usa proxy de React
+  : 'https://api.decolecta.com/v1';   // URL de producción
 
 const API_TOKEN = process.env.REACT_APP_DECOLECTA_TOKEN;
 
-// cache para evitar consultas duplicadas
+// Cache para evitar consultas repetidas
 const cache = new Map();
 
 export const consultarRENIEC = async (dni) => {
-  // Validación 
+  // Validación básica del DNI
   if (!dni || dni.length !== 8 || !/^\d+$/.test(dni)) {
     throw new Error('DNI debe tener 8 dígitos numéricos');
   }
 
-  // Verificar cache
+  // Verificar si ya está en cache
   if (cache.has(dni)) {
     const cached = cache.get(dni);
     if (cached) {
@@ -37,10 +37,7 @@ export const consultarRENIEC = async (dni) => {
       }
     });
 
-    // console.log('Status de respuesta:', response.status);
-
     if (!response.ok) {
-      // Manejar errores 
       if (response.status === 404) {
         cache.set(dni, null);
         throw new Error('DNI no encontrado en RENIEC');
@@ -53,7 +50,7 @@ export const consultarRENIEC = async (dni) => {
 
     const result = await response.json();
 
-    // Manejar respuestas de error
+    // Validar errores en la respuesta
     if (result.message === "not found" || result.error) {
       cache.set(dni, null);
       throw new Error('DNI no encontrado en RENIEC');
@@ -77,12 +74,12 @@ export const consultarRENIEC = async (dni) => {
 
   } catch (error) {
     console.error('Error en consulta:', error.message);
-    
-    // Si es error de CORS aún, dar mensaje específico
+
+    // Mensaje específico si es problema de CORS
     if (error.message.includes('Failed to fetch') || error.message.includes('CORS')) {
       console.error('Problema de CORS - Verifica la configuración del proxy');
     }
-    
+
     throw error;
   }
 };

@@ -1,3 +1,5 @@
+// crearUsuario.jsx
+
 import React, { useState } from 'react';
 import axios from "axios";
 import SidebarAdm from '../components/SidebarAdm';
@@ -15,6 +17,7 @@ const CrearUsuario = () => {
     password: '',
     confirmarPassword: '',
   });
+
   // Estado para la imagen de perfil
   const [imagen, setImagen] = useState(null);
 
@@ -28,7 +31,7 @@ const CrearUsuario = () => {
   const handleImagenChange = (e) => {
     const file = e.target.files[0];
     if (file) {
-      setImagen(URL.createObjectURL(file));
+      setImagen(URL.createObjectURL(file)); // Muestra una previsualización
     }
   };
 
@@ -54,9 +57,9 @@ const CrearUsuario = () => {
       });
 
       console.log("Usuario creado:", response.data);
-      alert("✅ Usuario creado con éxito");
+      alert("Usuario creado con éxito");
 
-      // Resetear formulario
+      // Resetear formulario e imagen
       setFormData({
         dni: '',
         nombres: '',
@@ -71,7 +74,7 @@ const CrearUsuario = () => {
 
     } catch (error) {
       console.error("Error al crear usuario:", error);
-      alert("❌ Error al registrar el usuario");
+      alert("Error al registrar el usuario");
     }
   };
 
@@ -84,6 +87,7 @@ const CrearUsuario = () => {
         <div className="content">
           <div className="left-form">
             <form className="user-form" onSubmit={handleSubmit}>
+              {/* Campos del formulario */}
               <div className="form-group">
                 <div className='DNI'>
                   <label>Nº de DNI:</label>
@@ -161,6 +165,7 @@ const CrearUsuario = () => {
                 />
               </div>
 
+              {/* Botones del formulario */}
               <div className="form-actions">
                 <button type="button" className="cancel-button">
                   Cancelar

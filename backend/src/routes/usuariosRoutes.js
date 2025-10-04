@@ -1,18 +1,17 @@
-// src/routes/usuariosRoutes.js
+// usuariosRoutes.js
+
 const express = require('express');
 const router = express.Router();
 const usuariosController = require('../controllers/usuariosController');
-
 const { verificarToken, permitirRol } = require('../middlewares/authMiddleware');
 
-
-// Solo admin puede listar usuarios
+// Listar usuarios (solo admin)
 router.get('/', verificarToken, permitirRol(['admin']), usuariosController.listarUsuarios);
 
-// Registro abierto
+// Registro de usuario (abierto)
 router.post('/', usuariosController.crearUsuario);
 
-// Login abierto
+// Login de usuario (abierto)
 router.post('/login', usuariosController.loginUsuario);
 
 module.exports = router;

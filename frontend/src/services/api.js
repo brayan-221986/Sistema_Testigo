@@ -1,9 +1,11 @@
+// api.js
+
 import axios from 'axios';
 
 // Configuración base de Axios
 const api = axios.create({
-    baseURL: 'http://localhost:4000',
-    timeout: 10000,
+    baseURL: 'http://192.168.1.4:4000', // URL base del backend
+    timeout: 10000, // Tiempo máximo de espera en ms
 });
 
 // Interceptor para agregar el token automáticamente a las peticiones
@@ -11,7 +13,7 @@ api.interceptors.request.use(
     (config) => {
         const token = localStorage.getItem('token');
         if (token) {
-            config.headers.Authorization = `Bearer ${token}`;
+            config.headers.Authorization = `Bearer ${token}`; // Agrega token a headers
         }
         return config;
     },
@@ -25,7 +27,7 @@ api.interceptors.response.use(
     (response) => response,
     (error) => {
         if (error.response?.status === 401) {
-            // Token expirado o inválido
+            // Token expirado o inválido: limpiar almacenamiento y redirigir
             localStorage.removeItem('token');
             window.location.href = '/login';
         }
@@ -35,6 +37,7 @@ api.interceptors.response.use(
 
 // Servicios de autenticación
 export const authService = {
+    // Login de usuario
     login: async (credentials) => {
         const payload = {
             correoODni: credentials.username,
@@ -43,6 +46,7 @@ export const authService = {
         return await api.post('/usuarios/login', payload);
     },
     
+    // Registro de usuario
     register: async (userData) => {
         return await api.post('/usuarios', {
             dni: userData.dni,
@@ -56,12 +60,14 @@ export const authService = {
         });
     },
     
+    // Logout
     logout: () => {
         localStorage.removeItem('token');
         localStorage.removeItem('rol');
         localStorage.removeItem('usuario');
     },
     
+    // Obtener perfil de usuario
     getProfile: async () => {
         return await api.get('/usuarios/perfil');
     }

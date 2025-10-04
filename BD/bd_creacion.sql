@@ -14,6 +14,7 @@ CREATE TABLE usuarios (
     contrasena VARCHAR(200),
     fecha_registro TIMESTAMP DEFAULT NOW(),
     estado VARCHAR(20) DEFAULT 'activo',
+    foto VARCHAR(100),
     rol VARCHAR(20) -- ciudadano, autoridad, admin
 );
 -- Tabla de categorías
@@ -46,14 +47,14 @@ CREATE TABLE reportes (
 -- Tabla de evidencias
 CREATE TABLE evidencias (
     id SERIAL PRIMARY KEY,
-    reporte_id INT REFERENCES reportes(id),
+    reporte_id INT REFERENCES reportes(id) ON DELETE CASCADE
     url_archivo TEXT,
     tipo VARCHAR(20) CHECK (tipo IN ('foto','video'))
 );
 -- Tabla de notificaciones
 CREATE TABLE notificaciones (
     id SERIAL PRIMARY KEY,
-    reporte_id INT REFERENCES reportes(id),
+    reporte_id INT REFERENCES reportes(id) ON DELETE CASCADE,
     usuario_id INT REFERENCES usuarios(id),
     tipo VARCHAR(50),
     fecha TIMESTAMP DEFAULT NOW()

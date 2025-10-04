@@ -1,21 +1,24 @@
+// SidebarAdm.jsx
+
 import React from 'react';
 import './SidebarAdm.css';
 
 const SidebarAdm = () => {
+  // Función para alternar la clase que abre/cierra el sidebar
   const toggleSidebar = () => {
     document.querySelector('.sidebar').classList.toggle('sidebar-open');
   };
 
   return (
     <>
-      {/* Botón de menú */}
+      {/* Botón para mostrar/ocultar el sidebar */}
       <div className="buttommenu">
         <button className="menu-toggle" onClick={toggleSidebar}>
           ☰
         </button>
       </div>
 
-      {/* Sidebar */}
+      {/* Sidebar con menú */}
       <div className="sidebar">
         <img src="/logo.png" alt="Logo testiGO" className="logo" />
         <ul className="menu-list">

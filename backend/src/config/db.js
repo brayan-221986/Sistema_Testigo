@@ -8,8 +8,17 @@ const pool = new Pool({
   port: process.env.DB_PORT,
 });
 
-pool.connect()
-  .then(() => console.log('Conexión a PostgreSQL exitosa'))
-  .catch(err => console.error('Error de conexión a PostgreSQL', err));
+// Función para probar conexión y reconectar si falla
+const conectarDB = async () => {
+  try {
+    await pool.query('SELECT 1'); // prueba simple de conexión
+    console.log('Conexión a PostgreSQL exitosa');
+  } catch (err) {
+    console.error('Error de conexión a PostgreSQL', err);
+    setTimeout(conectarDB, 5000); // reintento en 5 segundos
+  }
+};
 
-module.exports = pool;
+conectarDB();
+
+module.exports = pool; // Pool reutilizable en el proyecto
