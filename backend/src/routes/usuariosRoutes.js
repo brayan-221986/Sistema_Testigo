@@ -9,13 +9,14 @@ const upload = require('../middlewares/upload');
 // Listar usuarios (solo admin)
 router.get('/', verificarToken, permitirRol(['admin']), usuariosController.listarUsuarios);
 
-// Crear usuario con foto
-router.post('/', upload.single("foto"), usuariosController.crearUsuarioAdm);
+// Crear usuario administrador (solo admin autenticado)
+router.post('/admin', verificarToken, permitirRol(['admin']), upload.single("foto"), usuariosController.crearUsuarioAdm);
 
-// Registro de usuario (abierto)
-router.post('/', usuariosController.crearUsuario);
+// Registro público de usuario normal
+router.post('/', upload.single("foto"), usuariosController.crearUsuario);
 
 // Login de usuario (abierto)
 router.post('/login', usuariosController.loginUsuario);
 
 module.exports = router;
+

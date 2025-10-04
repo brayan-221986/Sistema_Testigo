@@ -135,7 +135,7 @@ const CrearUsuario = () => {
           {/* Imagen de perfil */}
           <div className="right-profile">
             <div className="profile-upload">
-              <img src={imagen || 'https://via.placeholder.com/120'} alt="Perfil"/>
+              <img src={imagen || '/usuario-img.jpg'} alt="Perfil"/>
               <label htmlFor="upload-input" className="upload-label">Subir Imagen</label>
               <input type="file" id="upload-input" accept="image/*" style={{ display: 'none' }} onChange={handleImagenChange}/>
             </div>
