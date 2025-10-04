@@ -3,27 +3,47 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useAutentificacion } from "../context/AutentificacionContext";
+import SidebarAdm from "../components/SidebarAdm";
+import '../components/AdminDashboard.css'; // Opcional para estilos de layout
 
 const AdminDashboard = () => {
   const navigate = useNavigate();
   const { usuario, logout } = useAutentificacion();
 
-  // Función para cerrar sesión usando contexto
   const handleLogout = () => {
-    logout();       // Elimina token, rol y usuario
-    navigate("/login"); // Redirige al login
+    logout();
+    navigate("/login");
   };
 
-  // Mostrar mensaje de carga si usuario no está listo
   if (!usuario) return <p>Cargando...</p>;
 
   return (
-    <div>
-      <h1>Panel de Administrador</h1>
-      <p>Bienvenido, {usuario.nombres}. Aquí puedes gestionar usuarios y el sistema.</p>
-      <button onClick={handleLogout} style={{ marginTop: "20px" }}>
-        Cerrar Sesión
-      </button>
+    <div className="admin-container">
+      {/* Sidebar a la izquierda */}
+
+      {/* Contenido principal */}
+      <div className="admin-content">
+        <h1>Bienvenido, {usuario.nombres}</h1>
+        <p>Panel de Administrador: gestiona usuarios y el sistema.</p>
+
+        {/* Botón para crear usuario */}
+        <button
+          className="btn-crear-usuario"
+          onClick={() => navigate("/admin/crear-usuario")}
+          style={{ marginTop: "20px" }}
+        >
+          Crear Usuario
+        </button>
+
+        {/* Botón de cerrar sesión */}
+        <button
+          className="btn-logout"
+          onClick={handleLogout}
+          style={{ marginTop: "10px" }}
+        >
+          Cerrar Sesión
+        </button>
+      </div>
     </div>
   );
 };

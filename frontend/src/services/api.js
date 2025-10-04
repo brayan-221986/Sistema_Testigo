@@ -4,7 +4,7 @@ import axios from 'axios';
 
 // Configuración base de Axios
 const api = axios.create({
-    baseURL: 'http://192.168.1.4:4000', // URL base del backend
+    baseURL: 'http://localhost:4000', // URL base del backend
     timeout: 10000, // Tiempo máximo de espera en ms
 });
 
@@ -70,12 +70,34 @@ export const authService = {
     // Obtener perfil de usuario
     getProfile: async () => {
         return await api.get('/usuarios/perfil');
+    },
+
+    createUserAdmin: async (userData) => {
+        const data = new FormData();
+        data.append("dni", userData.dni);
+        data.append("nombres", userData.nombres);
+        data.append("apellido_paterno", userData.apellidos.split(" ")[0] || "");
+        data.append("apellido_materno", userData.apellidos.split(" ")[1] || "");
+        data.append("nro_celular", userData.celular);
+        data.append("correo", userData.correo);
+        data.append("contrasena", userData.contrasena);
+        data.append("rol", userData.rol || "Usuario");
+
+        if (userData.foto) {
+            data.append("foto", userData.foto);
+        }
+
+        return await api.post("/usuarios", data, {
+            headers: { "Content-Type": "multipart/form-data" }
+        });
     }
 };
+
 
 // Exportar funciones individuales para uso directo
 export const login = authService.login;
 export const register = authService.register;
 export const logout = authService.logout;
+export const createUserAdmin = authService.createUserAdmin;
 
 export default api;

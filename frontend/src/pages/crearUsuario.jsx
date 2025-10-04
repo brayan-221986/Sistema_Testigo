@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import axios from "axios";
 import SidebarAdm from '../components/SidebarAdm';
 import '../components/CrearUsuario.css';
+import { createUserAdmin } from '../services/api';
 
 const CrearUsuario = () => {
   // Estado para los datos del formulario
@@ -48,25 +49,10 @@ const CrearUsuario = () => {
     }
 
     try {
-      // Usamos FormData porque incluye imagen + datos
-      const data = new FormData();
-      data.append("dni", formData.dni);
-      data.append("nombres", formData.nombres);
-      data.append("apellidos", formData.apellidos);
-      data.append("correo", formData.correo);
-      data.append("celular", formData.celular);
-      data.append("contrasena", formData.contrasena);
-      data.append("rol", formData.rol);
-      if (archivo) {
-        data.append("foto", archivo); // el backend recibe req.file
-      }
-
-      const response = await axios.post("http://localhost:4000/usuarios", data, {
-        headers: { "Content-Type": "multipart/form-data" },
-      });
-
+      // Enviamos todo junto, incluida la foto
+      const response = await createUserAdmin({ ...formData, foto: archivo });
       console.log("Usuario creado:", response.data);
-      alert("Usuario creado con éxito");
+      alert("Usuario creado correctamente");
 
       // Resetear formulario e imagen
       setFormData({
@@ -133,8 +119,8 @@ const CrearUsuario = () => {
                   value={formData.rol}
                   onChange={handleChange}
                 >
-                  <option value="Usuario">Usuario</option>
-                  <option value="Administrador">Administrador</option>
+                  <option value="ciudadano">Usuario</option>
+                  <option value="admin">Administrador</option>
                 </select>
               </div>
 

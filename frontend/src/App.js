@@ -17,14 +17,13 @@ import RutaPrivada from "./components/RutaPrivada"
 
 function App() {
   return (
-    // Contexto de autenticación disponible para toda la app
     <AutentificacionProvider>
       <Routes>
         {/* Rutas públicas */}
         <Route path="/" element={<Inicio />} />
         <Route path="/login" element={<Login />} />
         <Route path="/registro" element={<Registro />} />
-        
+
         {/* Rutas protegidas por rol */}
         <Route 
           path="/admin/dashboard" 
@@ -34,6 +33,17 @@ function App() {
             </RutaPrivada> 
           } 
         />
+        
+        {/* Crear usuario solo para admin */}
+        <Route 
+          path="/admin/crear-usuario" 
+          element={
+            <RutaPrivada roles={["admin"]}>
+              <CrearUsuario />
+            </RutaPrivada>
+          }
+        />
+
         <Route 
           path="/institucion/home" 
           element={ 
@@ -50,9 +60,6 @@ function App() {
             </RutaPrivada> 
           } 
         />
-
-        {/* Ruta para creación de usuario, accesible públicamente (si es intencional) */}
-        <Route path="/crearUsuario" element={<CrearUsuario />} />
       </Routes>
     </AutentificacionProvider>
   );

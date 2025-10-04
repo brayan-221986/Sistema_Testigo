@@ -9,6 +9,10 @@ DB_PORT=5432--creo varia
 
 JWT_SECRET=G7h3$kL9pQ2!xZ1rW4m8vT6yB0aU5nE
 
+CLOUDINARY_CLOUD_NAME=----
+CLOUDINARY_API_KEY=----
+CLOUDINARY_API_SECRET=---
+
 
 /frontend/.env
 REACT_APP_DECOLECTA_TOKEN=--token de decolecta para la API del DNI

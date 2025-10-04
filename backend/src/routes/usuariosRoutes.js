@@ -10,7 +10,7 @@ const upload = require('../middlewares/upload');
 router.get('/', verificarToken, permitirRol(['admin']), usuariosController.listarUsuarios);
 
 // Crear usuario con foto
-router.post('/', upload.single("foto"), usuariosController.crearUsuario);
+router.post('/', upload.single("foto"), usuariosController.crearUsuarioAdm);
 
 // Registro de usuario (abierto)
 router.post('/', usuariosController.crearUsuario);
