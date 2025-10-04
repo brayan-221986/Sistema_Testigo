@@ -1,5 +1,3 @@
-// CiudadanoHome.jsx
-
 import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import LayoutPrincipal from "../components/PlantillaCiudadano";
@@ -7,14 +5,14 @@ import '../components/CiudadanoHome.css';
 
 const CiudadanoHome = () => {
   const navigate = useNavigate();
-  const [aceptado, setAceptado] = useState(false); // Estado para controlar si el usuario aceptó los términos
+  const [aceptado, setAceptado] = useState(false); // Controla si el usuario aceptó los términos
 
   // Alterna el estado del checkbox
   const manejarCheckbox = () => {
     setAceptado(!aceptado);
   };
 
-  // Navega a la descripción del reporte si el usuario aceptó los términos
+  // Navega a la página de descripción del reporte si el usuario aceptó los términos
   const manejarSiguiente = () => {
     if (aceptado) {
       navigate('/descripcion-reporte');
@@ -30,9 +28,10 @@ const CiudadanoHome = () => {
     <LayoutPrincipal tituloHeader="Nuevo Reporte">
       <div className="terminos-legales">
         <h3>TÉRMINOS LEGALES</h3>
+
+        {/* Contenedor con los términos y condiciones */}
         <div className="terminos-contenedor">
           <div className="terminos-texto">
-            {/* Sección con los términos y condiciones */}
             <h4>1. Introducción</h4>
             <p>Bienvenido a TestiGO, la plataforma digital destinada a la gestión de denuncias ciudadanas sobre problemas urbanos. Al acceder y utilizar nuestros servicios, usted acepta cumplir con los siguientes términos y condiciones.</p>
             
@@ -62,7 +61,7 @@ const CiudadanoHome = () => {
             type="checkbox"
             id="acepto"
             checked={aceptado}
-            onChange={manejarCheckbox}
+            onChange={manejarCheckbox} // Cambia estado de aceptación
           />
           <label htmlFor="acepto">He leído y acepto los términos.</label>
         </div>
@@ -75,7 +74,7 @@ const CiudadanoHome = () => {
           <button
             className="siguiente"
             onClick={manejarSiguiente}
-            disabled={!aceptado} // Se asegura de que solo se pueda avanzar si se aceptan los términos
+            disabled={!aceptado} // Solo se puede avanzar si se aceptan los términos
           >
             Siguiente
           </button>

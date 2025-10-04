@@ -1,5 +1,3 @@
-// PlantillaCiudadano.jsx
-
 import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import { useAutentificacion } from "../context/AutentificacionContext";
@@ -7,25 +5,25 @@ import './PlantillaCiudadano.css';
 
 const LayoutPrincipal = ({ children, tituloHeader = "Dashboard" }) => {
   const navigate = useNavigate();
-  const { usuario, logout } = useAutentificacion(); // Usamos contexto
-  const [menuAbierto, setMenuAbierto] = useState(false);
+  const { usuario, logout } = useAutentificacion(); // Contexto de usuario y funciones de login/logout
+  const [menuAbierto, setMenuAbierto] = useState(false); // Estado del menú lateral
 
-  // Mostrar mensaje mientras se carga usuario desde contexto
+  // Mostrar mensaje mientras se carga el usuario desde contexto
   if (!usuario) return <p>Cargando...</p>;
 
   // Funciones para manejar menú lateral
-  const toggleMenu = () => setMenuAbierto(!menuAbierto);
-  const cerrarMenu = () => setMenuAbierto(false);
-  const navegarConCierre = (ruta) => {
+  const toggleMenu = () => setMenuAbierto(!menuAbierto); // Abrir/Cerrar menú
+  const cerrarMenu = () => setMenuAbierto(false);        // Cerrar menú
+  const navegarConCierre = (ruta) => {                   // Navegar y cerrar menú
     navigate(ruta);
     cerrarMenu();
   };
 
-  // Cerrar sesión usando contexto
+  // Función para cerrar sesión
   const manejarCerrarSesion = () => {
-    logout();
-    cerrarMenu();
-    navigate("/login");
+    logout();                 // Limpia usuario y token
+    cerrarMenu();             // Cierra menú
+    navigate("/login");       // Redirige a login
   };
 
   return (
@@ -39,10 +37,13 @@ const LayoutPrincipal = ({ children, tituloHeader = "Dashboard" }) => {
       {/* Sidebar */}
       <aside className={`sidebar ${menuAbierto ? 'active' : ''}`}>
         <div className="perfil">
+          {/* Foto del usuario, usa ruta por defecto si no hay foto */}
           <img className="foto-usuario" src={usuario?.foto || '/usuario-img.jpg'}/>
           <p>BIENVENIDO:</p>
           <p>{usuario?.nombres || 'Usuario'}</p>
         </div>
+
+        {/* Menú de navegación */}
         <nav className="menu">
           <button onClick={() => navegarConCierre('/reportes')}>Reportes</button>
           <button onClick={() => navegarConCierre('/mis-reportes')}>Mis Reportes</button>
@@ -50,6 +51,8 @@ const LayoutPrincipal = ({ children, tituloHeader = "Dashboard" }) => {
           <button className="activo" onClick={() => navegarConCierre('/ciudadano/home')}>Nuevo Reporte</button>
           <button onClick={manejarCerrarSesion}>Cerrar Sesión</button>
         </nav>
+
+        {/* Logo de la app */}
         <div className="logo">
           <img src="/logo.png" alt="testiGO" />
         </div>
@@ -71,9 +74,11 @@ const LayoutPrincipal = ({ children, tituloHeader = "Dashboard" }) => {
             </button>
           </div>
           <div className="header-derecho">
-            <h2>{tituloHeader}</h2>
+            <h2>{tituloHeader}</h2> {/* Título dinámico de la página */}
           </div>
         </div>
+
+        {/* Contenido dinámico que se renderiza dentro del layout */}
         <div className="contenido-dinamico">
           {children}
         </div>
