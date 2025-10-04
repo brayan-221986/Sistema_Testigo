@@ -11,17 +11,17 @@ const getUsuarios = async () => {
 
 // Crear un nuevo usuario con contraseña cifrada
 const crearUsuario = async (usuario) => {
-  const { dni, nombres, apellido_paterno, apellido_materno, nro_celular, correo, contrasena, rol } = usuario;
+  const { dni, nombres, apellido_paterno, apellido_materno, nro_celular, correo, contrasena, foto, rol } = usuario;
 
   const hashedPassword = await bcrypt.hash(contrasena, 10); // Cifrado de contraseña
 
   const query = `
-    INSERT INTO usuarios (dni, nombres, apellido_paterno, apellido_materno, nro_celular, correo, contrasena, rol)
-    VALUES ($1,$2,$3,$4,$5,$6,$7,$8)
-    RETURNING id, dni, nombres, apellido_paterno, apellido_materno, nro_celular, correo, rol
+    INSERT INTO usuarios (dni, nombres, apellido_paterno, apellido_materno, nro_celular, correo, contrasena, foto, rol)
+    VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9)
+    RETURNING id, dni, nombres, apellido_paterno, apellido_materno, nro_celular, correo, foto, rol
   `;
 
-  const values = [dni, nombres, apellido_paterno, apellido_materno, nro_celular, correo, hashedPassword, rol];
+  const values = [dni, nombres, apellido_paterno, apellido_materno, nro_celular, correo, hashedPassword, foto, rol];
   const result = await pool.query(query, values);
   return result.rows[0]; // Devuelve el usuario creado
 };

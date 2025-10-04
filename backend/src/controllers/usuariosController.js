@@ -22,6 +22,32 @@ const crearUsuario = async (req, res, next) => {
   }
 };
 
+// Crear un nuevo usuario para administrador
+const crearUsuarioAdm = async (req, res, next) => {
+  try {
+    const { dni, nombres, apellidos, correo, celular, password, rol } = req.body;
+
+    // Guardar URL de Cloudinary si se subió foto
+    const fotoUrl = req.file ? req.file.path : null;
+
+    const usuario = await usuariosModel.crearUsuario({
+      dni,
+      nombres,
+      apellidos,
+      correo,
+      celular,
+      contrasena: password, 
+      rol,
+      foto: fotoUrl
+    });
+
+    res.status(201).json(usuario); 
+  } catch (error) {
+    next(error);
+  }
+};
+
+
 // Login de usuario
 const loginUsuario = async (req, res, next) => {
   const { correoODni, contrasena } = req.body;
@@ -56,5 +82,6 @@ const loginUsuario = async (req, res, next) => {
 module.exports = {
   listarUsuarios,
   crearUsuario,
+  crearUsuarioAdm,
   loginUsuario 
 };

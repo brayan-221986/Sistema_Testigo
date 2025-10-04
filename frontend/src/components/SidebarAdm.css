@@ -18,7 +18,7 @@
 }
 
 /* Sidebar verde */
-.sidebar {
+.sidebarAdm {
   width: 240px;
   background-color: #17C23C;
   color: white;
@@ -31,7 +31,7 @@
   z-index: 1000;
 }
 
-.sidebar h2 {
+.sidebarAdm h2 {
   font-size: 24px;
   margin-bottom: 40px;
 }
@@ -72,7 +72,7 @@
   }
 
   /* Sidebar oculto por defecto en móviles */
-  .sidebar {
+  .sidebarAdm {
     display: none;
     position: fixed;
     top: 0;
@@ -85,7 +85,7 @@
   }
 
   /* Sidebar visible cuando tiene la clase sidebar-open */
-  .sidebar.sidebar-open {
+  .sidebarAdm.sidebarAdm-open {
     display: block;
   }
 

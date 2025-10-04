@@ -14,12 +14,13 @@ const CrearUsuario = () => {
     rol: 'Usuario',
     correo: '',
     celular: '',
-    password: '',
-    confirmarPassword: '',
+    contrasena: '',
+    confirmarContrasena: '',
   });
 
-  // Estado para la imagen de perfil
-  const [imagen, setImagen] = useState(null);
+  // Estado para archivo e imagen de previsualización
+  const [imagen, setImagen] = useState(null);      // previsualización
+  const [archivo, setArchivo] = useState(null);    // archivo real para enviar
 
   // Maneja cambios en los campos del formulario
   const handleChange = (e) => {
@@ -31,7 +32,8 @@ const CrearUsuario = () => {
   const handleImagenChange = (e) => {
     const file = e.target.files[0];
     if (file) {
-      setImagen(URL.createObjectURL(file)); // Muestra una previsualización
+      setArchivo(file); // guardamos el archivo para backend
+      setImagen(URL.createObjectURL(file)); // previsualización
     }
   };
 
@@ -40,20 +42,27 @@ const CrearUsuario = () => {
     e.preventDefault();
 
     // Validación simple de contraseñas
-    if (formData.password !== formData.confirmarPassword) {
+    if (formData.contrasena !== formData.confirmarContrasena) {
       alert('Las contraseñas no coinciden');
       return;
     }
 
     try {
-      const response = await axios.post("http://localhost:5000/usuarios", {
-        dni: formData.dni,
-        nombres: formData.nombres,
-        apellidos: formData.apellidos,
-        correo: formData.correo,
-        celular: formData.celular,
-        password: formData.password,
-        rol: formData.rol
+      // Usamos FormData porque incluye imagen + datos
+      const data = new FormData();
+      data.append("dni", formData.dni);
+      data.append("nombres", formData.nombres);
+      data.append("apellidos", formData.apellidos);
+      data.append("correo", formData.correo);
+      data.append("celular", formData.celular);
+      data.append("contrasena", formData.contrasena);
+      data.append("rol", formData.rol);
+      if (archivo) {
+        data.append("foto", archivo); // el backend recibe req.file
+      }
+
+      const response = await axios.post("http://localhost:4000/usuarios", data, {
+        headers: { "Content-Type": "multipart/form-data" },
       });
 
       console.log("Usuario creado:", response.data);
@@ -67,10 +76,11 @@ const CrearUsuario = () => {
         rol: 'Usuario',
         correo: '',
         celular: '',
-        password: '',
-        confirmarPassword: ''
+        contrasena: '',
+        confirmarContrasena: ''
       });
       setImagen(null);
+      setArchivo(null);
 
     } catch (error) {
       console.error("Error al crear usuario:", error);
@@ -89,16 +99,13 @@ const CrearUsuario = () => {
             <form className="user-form" onSubmit={handleSubmit}>
               {/* Campos del formulario */}
               <div className="form-group">
-                <div className='DNI'>
-                  <label>Nº de DNI:</label>
-                  <input
-                    type="text"
-                    name="dni"
-                    value={formData.dni}
-                    onChange={handleChange}
-                  />
+                <div className='DNI'> 
+                  <label>Nº de DNI:</label> 
+                  <input type="text" name="dni" value={formData.dni} onChange={handleChange} 
+                  /> 
                 </div>
               </div>
+
               <div className="form-group">
                 <label>Nombres:</label>
                 <input
@@ -108,6 +115,7 @@ const CrearUsuario = () => {
                   onChange={handleChange}
                 />
               </div>
+
               <div className="form-group">
                 <label>Apellidos:</label>
                 <input
@@ -117,6 +125,7 @@ const CrearUsuario = () => {
                   onChange={handleChange}
                 />
               </div>
+
               <div className="form-group">
                 <label>Rol:</label>
                 <select
@@ -128,6 +137,7 @@ const CrearUsuario = () => {
                   <option value="Administrador">Administrador</option>
                 </select>
               </div>
+
               <div className="form-group">
                 <label>Correo:</label>
                 <input
@@ -137,6 +147,7 @@ const CrearUsuario = () => {
                   onChange={handleChange}
                 />
               </div>
+
               <div className="form-group">
                 <label>Nro de Celular:</label>
                 <input
@@ -146,21 +157,23 @@ const CrearUsuario = () => {
                   onChange={handleChange}
                 />
               </div>
+
               <div className="form-group">
                 <label>Nueva Contraseña:</label>
                 <input
                   type="password"
-                  name="password"
-                  value={formData.password}
+                  name="contrasena"
+                  value={formData.contrasena}
                   onChange={handleChange}
                 />
               </div>
+
               <div className="form-group">
                 <label>Confirmar Contraseña:</label>
                 <input
                   type="password"
-                  name="confirmarPassword"
-                  value={formData.confirmarPassword}
+                  name="confirmarContrasena"
+                  value={formData.confirmarContrasena}
                   onChange={handleChange}
                 />
               </div>

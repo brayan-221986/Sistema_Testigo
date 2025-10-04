@@ -6,7 +6,7 @@ import './SidebarAdm.css';
 const SidebarAdm = () => {
   // Función para alternar la clase que abre/cierra el sidebar
   const toggleSidebar = () => {
-    document.querySelector('.sidebar').classList.toggle('sidebar-open');
+    document.querySelector('.sidebarAdm').classList.toggle('sidebarAdm-open');
   };
 
   return (
@@ -19,7 +19,7 @@ const SidebarAdm = () => {
       </div>
 
       {/* Sidebar con menú */}
-      <div className="sidebar">
+      <div className="sidebarAdm">
         <img src="/logo.png" alt="Logo testiGO" className="logo" />
         <ul className="menu-list">
           <li className="menu-item">Usuarios</li>
