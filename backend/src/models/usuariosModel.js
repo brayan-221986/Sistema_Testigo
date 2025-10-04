@@ -36,8 +36,54 @@ const buscarUsuarioPorCorreoODni = async (correoODni) => {
   return result.rows[0]; // Devuelve solo un usuario
 };
 
+// Obtener usuario por id (campos públicos)
+const getUsuarioPorId = async (id) => {
+  const query = `
+    SELECT id, dni, nombres, apellido_paterno, apellido_materno, nro_celular, correo, foto, rol
+    FROM usuarios
+    WHERE id = $1
+  `;
+  const result = await pool.query(query, [id]);
+  return result.rows[0];
+};
+
+// Actualizar usuario dinámicamente; si viene contrasena, la hashea
+const actualizarUsuario = async ({ id, dni, correo, nro_celular, contrasena, foto }) => {
+  const campos = [];
+  const valores = [];
+  let idx = 1;
+
+  if (dni !== undefined) { campos.push(`dni = $${idx++}`); valores.push(dni); }
+  if (correo !== undefined) { campos.push(`correo = $${idx++}`); valores.push(correo); }
+  if (nro_celular !== undefined) { campos.push(`nro_celular = $${idx++}`); valores.push(nro_celular); }
+  if (foto !== undefined) { campos.push(`foto = $${idx++}`); valores.push(foto); }
+
+  if (contrasena) {
+    const hashed = await bcrypt.hash(contrasena, 10);
+    campos.push(`contrasena = $${idx++}`);
+    valores.push(hashed);
+  }
+
+  if (campos.length === 0) {
+    return getUsuarioPorId(id);
+  }
+
+  const query = `
+    UPDATE usuarios
+    SET ${campos.join(', ')}
+    WHERE id = $${idx}
+    RETURNING id, dni, nombres, apellido_paterno, apellido_materno, nro_celular, correo, foto, rol
+  `;
+  valores.push(id);
+
+  const result = await pool.query(query, valores);
+  return result.rows[0];
+};
+
 module.exports = {
   getUsuarios,
   crearUsuario,
-  buscarUsuarioPorCorreoODni
+  buscarUsuarioPorCorreoODni,
+  getUsuarioPorId,
+  actualizarUsuario
 };

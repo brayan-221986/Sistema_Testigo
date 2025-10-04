@@ -80,9 +80,47 @@ const loginUsuario = async (req, res, next) => {
   }
 };
 
+// Obtener perfil del usuario autenticado
+const obtenerPerfil = async (req, res, next) => {
+  try {
+    const userId = req.user.id;
+    const usuario = await usuariosModel.getUsuarioPorId(userId);
+    if (!usuario) return res.status(404).json({ error: 'Usuario no encontrado' });
+    res.json({ usuario });
+  } catch (error) {
+    next(error);
+  }
+};
+
+// Actualizar perfil del usuario autenticado
+const actualizarPerfil = async (req, res, next) => {
+  try {
+    const userId = req.user.id;
+    // Si se subió archivo con multer+cloudinary, req.file.path tiene la URL
+    const fotoUrl = req.file ? req.file.path : undefined;
+
+    const { dni, correo, nro_celular, contrasena } = req.body;
+
+    const usuarioActualizado = await usuariosModel.actualizarUsuario({
+      id: userId,
+      dni,
+      correo,
+      nro_celular,
+      contrasena,
+      foto: fotoUrl
+    });
+
+    res.json({ usuario: usuarioActualizado });
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   listarUsuarios,
   crearUsuario,
   crearUsuarioAdm,
-  loginUsuario 
+  loginUsuario,
+  obtenerPerfil,
+  actualizarPerfil
 };
