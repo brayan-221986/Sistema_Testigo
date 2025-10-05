@@ -66,12 +66,18 @@ const loginUsuario = async (req, res, next) => {
       { expiresIn: '8h' } 
     );
 
+    // Enviar datos públicos completos del usuario (sin contraseña)
     res.json({
       token,
       usuario: {
         id: usuario.id,
+        dni: usuario.dni,
         nombres: usuario.nombres,
+        apellido_paterno: usuario.apellido_paterno,
+        apellido_materno: usuario.apellido_materno,
+        nro_celular: usuario.nro_celular,
         correo: usuario.correo,
+        foto: usuario.foto || null,
         rol: usuario.rol
       }
     });
