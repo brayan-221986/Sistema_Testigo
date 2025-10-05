@@ -38,18 +38,16 @@ const LayoutPrincipal = ({ children, tituloHeader = "Dashboard" }) => {
       <aside className={`sidebar ${menuAbierto ? 'active' : ''}`}>
         <div className="perfil">
           {/* Foto del usuario, usa ruta por defecto si no hay foto */}
-          <img className="foto-usuario" src={usuario?.foto || '/usuario-img.jpg'} alt='foto del ciudadano'/>
           <p>BIENVENIDO:</p>
-          <p>{usuario?.nombres || 'Usuario'}</p>
+          <p>{usuario?.nombres || 'Administrador'}</p>
         </div>
 
         {/* Menú de navegación */}
         <nav className="menu">
-          <button onClick={() => navegarConCierre('/reportes')}>Reportes</button>
-          <button onClick={() => navegarConCierre('/mis-reportes')}>Mis Reportes</button>
-          <button onClick={() => navegarConCierre('/estadisticas')}>Estadísticas</button>
-          <button className="activo" onClick={() => navegarConCierre('/ciudadano/home')}>Nuevo Reporte</button>
-          <button onClick={() => navegarConCierre('/perfil')}>Editar Perfil</button>
+          <button onClick={() => navegarConCierre('/reportes')}>Usuarios</button>
+          <button onClick={() => navegarConCierre('/mis-reportes')}>Instituciones</button>
+          <button onClick={() => navegarConCierre('/estadisticas')}>Reportes Totales</button>
+          <button className="activo" onClick={() => navegarConCierre('/ciudadano/home')}>Estadisticas</button>
           <button onClick={manejarCerrarSesion}>Cerrar Sesión</button>
         </nav>
 

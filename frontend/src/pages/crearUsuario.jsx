@@ -1,10 +1,9 @@
 // crearUsuario.jsx
 
 import React, { useState } from 'react';
-import axios from "axios";
-import SidebarAdm from '../components/SidebarAdm';
-import '../components/CrearUsuario.css';
 import { createUserAdmin } from '../services/api';
+import PlantillaAdmin from '../components/PlantillaAdmin';
+import '../components/CrearUsuario.css';
 
 const CrearUsuario = () => {
   // Estado para los datos del formulario
@@ -19,9 +18,8 @@ const CrearUsuario = () => {
     confirmarContrasena: '',
   });
 
-  // Estado para archivo e imagen de previsualización
-  const [imagen, setImagen] = useState(null);      // previsualización
-  const [archivo, setArchivo] = useState(null);    // archivo real para enviar
+  const [imagen, setImagen] = useState(null);
+  const [archivo, setArchivo] = useState(null);
 
   // Maneja cambios en los campos del formulario
   const handleChange = (e) => {
@@ -33,8 +31,8 @@ const CrearUsuario = () => {
   const handleImagenChange = (e) => {
     const file = e.target.files[0];
     if (file) {
-      setArchivo(file); // guardamos el archivo para backend
-      setImagen(URL.createObjectURL(file)); // previsualización
+      setArchivo(file);
+      setImagen(URL.createObjectURL(file));
     }
   };
 
@@ -75,11 +73,8 @@ const CrearUsuario = () => {
   };
 
   return (
-    <div className="crear-usuario">
-      <SidebarAdm />
-      {/* Formulario principal */}
+    <PlantillaAdmin tituloHeader="Crear Usuario">
       <div className="form-container">
-        <h1 className="titulo">Crear Usuario</h1>
         <div className="content">
           <div className="left-form">
             <form className="user-form" onSubmit={handleSubmit}>
@@ -87,38 +82,23 @@ const CrearUsuario = () => {
               <div className="form-group">
                 <div className='DNI'> 
                   <label>Nº de DNI:</label> 
-                  <input type="text" name="dni" value={formData.dni} onChange={handleChange} 
-                  /> 
+                  <input type="text" name="dni" value={formData.dni} onChange={handleChange}/> 
                 </div>
               </div>
 
               <div className="form-group">
                 <label>Nombres:</label>
-                <input
-                  type="text"
-                  name="nombres"
-                  value={formData.nombres}
-                  onChange={handleChange}
-                />
+                <input type="text" name="nombres" value={formData.nombres} onChange={handleChange}/>
               </div>
 
               <div className="form-group">
                 <label>Apellidos:</label>
-                <input
-                  type="text"
-                  name="apellidos"
-                  value={formData.apellidos}
-                  onChange={handleChange}
-                />
+                <input type="text" name="apellidos" value={formData.apellidos} onChange={handleChange}/>
               </div>
 
               <div className="form-group">
                 <label>Rol:</label>
-                <select
-                  name="rol"
-                  value={formData.rol}
-                  onChange={handleChange}
-                >
+                <select name="rol" value={formData.rol} onChange={handleChange}>
                   <option value="ciudadano">Usuario</option>
                   <option value="admin">Administrador</option>
                 </select>
@@ -126,52 +106,28 @@ const CrearUsuario = () => {
 
               <div className="form-group">
                 <label>Correo:</label>
-                <input
-                  type="email"
-                  name="correo"
-                  value={formData.correo}
-                  onChange={handleChange}
-                />
+                <input type="email" name="correo" value={formData.correo} onChange={handleChange}/>
               </div>
 
               <div className="form-group">
                 <label>Nro de Celular:</label>
-                <input
-                  type="text"
-                  name="celular"
-                  value={formData.celular}
-                  onChange={handleChange}
-                />
+                <input type="text" name="celular" value={formData.celular} onChange={handleChange}/>
               </div>
 
               <div className="form-group">
                 <label>Nueva Contraseña:</label>
-                <input
-                  type="password"
-                  name="contrasena"
-                  value={formData.contrasena}
-                  onChange={handleChange}
-                />
+                <input type="password" name="contrasena" value={formData.contrasena} onChange={handleChange}/>
               </div>
 
               <div className="form-group">
                 <label>Confirmar Contraseña:</label>
-                <input
-                  type="password"
-                  name="confirmarContrasena"
-                  value={formData.confirmarContrasena}
-                  onChange={handleChange}
-                />
+                <input type="password" name="confirmarContrasena" value={formData.confirmarContrasena} onChange={handleChange}/>
               </div>
 
               {/* Botones del formulario */}
               <div className="form-actions">
-                <button type="button" className="cancel-button">
-                  Cancelar
-                </button>
-                <button type="submit" className="submit-button">
-                  Guardar Cambios
-                </button>
+                <button type="submit" className="submit-button">Guardar Cambios</button>
+                <button type="button" className="cancel-button">Cancelar</button>
               </div>
             </form>
           </div>
@@ -179,25 +135,14 @@ const CrearUsuario = () => {
           {/* Imagen de perfil */}
           <div className="right-profile">
             <div className="profile-upload">
-              <img
-                src={imagen || 'https://via.placeholder.com/120'}
-                alt="Perfil"
-              />
-              <label htmlFor="upload-input" className="upload-label">
-                Subir Imagen
-              </label>
-              <input
-                type="file"
-                id="upload-input"
-                accept="image/*"
-                style={{ display: 'none' }}
-                onChange={handleImagenChange}
-              />
+              <img src={imagen || '/usuario-img.jpg'} alt="Perfil"/>
+              <label htmlFor="upload-input" className="upload-label">Subir Imagen</label>
+              <input type="file" id="upload-input" accept="image/*" style={{ display: 'none' }} onChange={handleImagenChange}/>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </PlantillaAdmin>
   );
 };
 

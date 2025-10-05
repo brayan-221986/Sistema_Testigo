@@ -25,3 +25,4 @@ router.get('/perfil', verificarToken, usuariosController.obtenerPerfil);
 router.put('/perfil', verificarToken, upload.single('foto'), usuariosController.actualizarPerfil);
 
 module.exports = router;
+
