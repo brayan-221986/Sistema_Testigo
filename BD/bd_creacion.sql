@@ -47,7 +47,7 @@ CREATE TABLE reportes (
 -- Tabla de evidencias
 CREATE TABLE evidencias (
     id SERIAL PRIMARY KEY,
-    reporte_id INT REFERENCES reportes(id) ON DELETE CASCADE
+    reporte_id INT REFERENCES reportes(id) ON DELETE CASCADE,
     url_archivo TEXT,
     tipo VARCHAR(20) CHECK (tipo IN ('foto','video'))
 );
