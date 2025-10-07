@@ -85,17 +85,17 @@
 
 .form-control {
     width: 100%;
-    padding: 16px 20px;
-    border: 2px solid var(--border-green);
-    border-radius: 27px;
-    font-size: 16px;
+    padding: 14px 18px;
+    border: 2px solid #656ed3; 
+    border-radius: 24px;
+    font-size: 15px;
     background-color: white;
-    transition: all 0.3s ease;
+    transition: all 0.2s ease;
 }
 
 .form-control:focus {
     outline: none;
-    box-shadow: 0 0 0 3px rgba(101, 110, 211, 0.1);
+    box-shadow: 0 0 0 6px rgba(101,110,211,0.08);
 }
 
 .form-control.error {
@@ -134,9 +134,10 @@
 /* Contenedor de botones */
 .btn-container {
     display: flex;
-    gap: 20px;
+    gap: 70px;           /* <-- aumentar para más separación (por ejemplo 32px, 40px, 48px) */
     margin-top: 40px;
     margin-bottom: 30px;
+    justify-content: flex-end; /* opcional: empuja los botones hacia la derecha */
 }
 
 .btn {
@@ -161,6 +162,7 @@
     background-color: var(--cancel-gray);
     color: white;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    margin-right: 72px;
 }
 
 .btn-cancel:hover:not(:disabled) {
@@ -289,70 +291,4 @@
 /* Mostrar errores cuando existen */
 .error-message:not(:empty) {
     display: block;
-}
-
-/* Responsive */
-@media (max-width: 1024px) {
-    .login-sidebar {
-        width: 400px;
-    }
-    
-    .login-graphic {
-        width: 350px;
-        height: 132px;
-    }
-}
-
-@media (max-width: 768px) {
-    .login-page {
-        flex-direction: column;
-    }
-    
-    .login-sidebar {
-        width: 100%;
-        min-height: 200px;
-        padding: 20px;
-    }
-    
-    .login-graphic {
-        width: 100%;
-        max-width: 300px;
-        height: 120px;
-    }
-    
-    .login-form-container {
-        padding: 30px 20px;
-        margin: 20px;
-    }
-    
-    .btn-container {
-        flex-direction: column;
-    }
-    
-    .dni-container {
-        flex-direction: column;
-    }
-    
-    .consultar-btn {
-        width: 100%;
-    }
-}
-
-@media (max-width: 480px) {
-    .login-form-container {
-        padding: 25px 15px;
-        margin: 10px;
-    }
-    
-    .form-control {
-        padding: 14px 16px;
-    }
-    
-    .btn {
-        padding: 14px 16px;
-    }
-    
-    .consultar-btn {
-        padding: 14px 16px;
-    }
 }

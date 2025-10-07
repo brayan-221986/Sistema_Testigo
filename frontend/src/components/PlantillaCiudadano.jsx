@@ -73,9 +73,8 @@ const LayoutPrincipal = ({ children, tituloHeader = "Dashboard" }) => {
               <span></span>
               <span></span>
             </button>
-          </div>
-          <div className="header-derecho">
-            <h2>{tituloHeader}</h2> {/* Título dinámico de la página */}
+            {/* Título ahora a la izquierda */}
+            <h2 style={{ marginLeft: 12 }}>{tituloHeader}</h2>
           </div>
         </div>
 

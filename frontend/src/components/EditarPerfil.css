@@ -1,0 +1,165 @@
+/* Estilos específicos para la página Editar Perfil (movidos desde sesion.css) */
+
+/* Fondo gris específico para DNI, Nombres, Apellidos (solo lectura visual) */
+.readonly-grey {
+  background-color: #f0f0f0; /* gris solicitado */
+  color: #222;
+}
+
+/* Filas label/input: label a la izquierda, input a la derecha */
+.field-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+/* Etiqueta fija a la izquierda (no en negrita) */
+.field-label {
+  width: 150px; /* ajustar según necesidad */
+  font-weight: 400; /* ya no en negrita */
+  color: #222;
+  text-align: left;
+}
+
+/* Contenedor del input */
+.field-input {
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+
+/* Bloque superior y bloque inferior */
+.top-fields {
+  max-width: 520px;
+  margin-left: 0;
+}
+
+/* mover el bloque inferior más a la izquierda y apilar inputs (labels arriba) */
+.bottom-fields {
+  margin-top: 22px; /* más espacio solicitado entre bloques */
+  max-width: 520px;
+  margin-left: -90px; /* mueve el bloque inferior más a la izquierda respecto al superior */
+  margin-right: auto;
+  box-sizing: border-box;
+}
+
+/* Cada fila del bloque inferior: apilar (label arriba, input abajo) */
+.bottom-fields .field-row {
+  display: flex;
+  flex-direction: column; /* label arriba, input debajo */
+  align-items: flex-start;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+/* En el bloque inferior la "label" usada (field-label) debe ocupar 100% y no usar el ancho fijo */
+.bottom-fields .field-label {
+  width: 100%;
+  font-weight: 400;
+  color: #222;
+  margin-bottom: 4px;
+}
+
+/* Asegurar que el contenedor del input use todo el ancho y el edit-wrapper deje el lápiz a la derecha */
+.bottom-fields .field-input {
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+/* Input dentro del edit-wrapper ocupa todo el espacio disponible */
+.bottom-fields .edit-wrapper .form-control {
+  flex: 1 1 auto;
+  min-width: 0; /* evita overflow en contenedores flex */
+}
+
+/* Separación pequeña entre input y botón editar, botón fijado a la derecha */
+.bottom-fields .edit-wrapper .edit-btn {
+  margin-left: 10px;
+  flex: 0 0 28px;   /* <-- reducir para un botón más pequeño (antes 36px) */
+  height: 28px;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.bottom-fields .edit-wrapper .edit-btn img {
+  width: 32px;       /* tamaño reducido (consistente con sesion.css) */
+  height: 32px;
+  object-fit: contain;
+}
+
+/* Clase para imagen de perfil (ajusta width/height para achicar) */
+.perfil-img {
+  width: 140px;      /* <-- valor para cambiar */
+  height: 140px;     /* <-- valor para cambiar */
+  border-radius: 50%;
+  object-fit: cover;
+  background-color: #f0f0f0;
+}
+
+/* Upload label (botón subir imagen) específico para editar perfil */
+.upload-label {
+  background-color: #17C23C;
+  color: white;
+  padding: 8px 14px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  text-align: center;
+  transition: background-color 0.3s ease;
+}
+.upload-label:hover {
+  background-color: #2e6f31;
+}
+
+/* Botones de la sección perfil (alineación / espaciado) */
+.perfil-btns {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-start; /* mover a la izquierda */
+  align-items: center;
+}
+
+/* Evitar que los botones crezcan ocupando todo el ancho */
+.perfil-btns .btn {
+  flex: 0 0 auto;
+}
+
+/* Quitar el margen derecho grande impuesto por .btn-cancel en sesion.css */
+.perfil-btns .btn-cancel {
+  margin-right: 35px;
+}
+
+/* Mantener una separación pequeña entre cancelar y guardar */
+.perfil-btns .btn-cancel + .btn {
+  margin-left: 8px;
+}
+
+/* En móviles, centrar los botones para mejor UX */
+@media (max-width: 768px) {
+  .perfil-btns {
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .perfil-btns .btn {
+    flex: 1 1 100%;
+  }
+}
+
+/* Fondo distinto SOLO para los campos del bloque superior (DNI / Nombres / Apellidos) */
+.top-fields .form-control,
+.top-fields .form-control[readonly],
+.top-fields input.readonly-grey {
+  background-color: #e9e8e8; /* fondo distinto para top-fields (ajusta si quieres otro color) */
+  border-color: #656ed3;     /* borde sutil coherente con el fondo */
+}
+
