@@ -12,7 +12,8 @@ import CrearUsuario from './pages/crearUsuario';
 import AdminDashboard from './pages/AdminDashboard';
 import InstitucionHome from './pages/InstitucionHome';
 import CiudadanoHome from './pages/CiudadanoHome';
-import EditarPerfil from './pages/EditarPerfil'; // NUEVO
+import EditarPerfil from './pages/EditarPerfil'; 
+import EditarUsuarioAdmin from './pages/EditarUsuarioAdm';
 
 import RutaPrivada from "./components/RutaPrivada"
 
@@ -44,6 +45,15 @@ function App() {
             </RutaPrivada>
           }
         />
+        <Route
+          path="/admin/usuarios/:id"
+          element={
+            <RutaPrivada roles={["admin"]}>
+              <EditarUsuarioAdmin />
+            </RutaPrivada>
+          }
+        />
+
 
         <Route 
           path="/institucion/home" 
