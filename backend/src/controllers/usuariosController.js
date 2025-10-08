@@ -164,11 +164,34 @@ const actualizarPerfil = async (req, res, next) => {
   }
 };
 
+// Obtener usuario por ID (modo admin)
+const obtenerUsuarioPorId = async (id) => {
+  return await usuariosModel.getUsuarioPorId(id);
+};
+
+// Actualizar usuario por ID (modo admin)
+const actualizarUsuarioPorId = async (id, data, file) => {
+  const fotoUrl = file ? file.path : undefined;
+  const { dni, correo, nro_celular, contrasena, rol } = data;
+
+  return await usuariosModel.actualizarUsuario({
+    id,
+    dni,
+    correo,
+    nro_celular,
+    contrasena,
+    rol,
+    foto: fotoUrl
+  });
+};
+
 module.exports = {
   listarUsuarios,
   crearUsuario,
   crearUsuarioAdm,
   loginUsuario,
   obtenerPerfil,
-  actualizarPerfil
+  actualizarPerfil,
+  obtenerUsuarioPorId,
+  actualizarUsuarioPorId
 };

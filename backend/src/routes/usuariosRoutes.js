@@ -24,5 +24,26 @@ router.get('/perfil', verificarToken, usuariosController.obtenerPerfil);
 // Actualizar perfil del usuario autenticado (foto opcional)
 router.put('/perfil', verificarToken, upload.single('foto'), usuariosController.actualizarPerfil);
 
+// Obtener usuario por ID (solo admin)
+router.get('/:id', verificarToken, permitirRol(['admin']), async (req, res, next) => {
+  try {
+    const usuario = await usuariosController.obtenerUsuarioPorId(req.params.id);
+    if (!usuario) return res.status(404).json({ error: 'Usuario no encontrado' });
+    res.json(usuario);
+  } catch (error) {
+    next(error);
+  }
+});
+
+// Actualizar usuario por ID (solo admin)
+router.put('/:id', verificarToken, permitirRol(['admin']), upload.single('foto'), async (req, res, next) => {
+  try {
+    const usuarioActualizado = await usuariosController.actualizarUsuarioPorId(req.params.id, req.body, req.file);
+    res.json({ ok: true, usuario: usuarioActualizado });
+  } catch (error) {
+    next(error);
+  }
+});
+
 module.exports = router;
 

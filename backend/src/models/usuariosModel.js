@@ -48,7 +48,7 @@ const getUsuarioPorId = async (id) => {
 };
 
 // Actualizar usuario dinámicamente; si viene contrasena, la hashea
-const actualizarUsuario = async ({ id, dni, correo, nro_celular, contrasena, foto }) => {
+const actualizarUsuario = async ({ id, dni, correo, nro_celular, contrasena, foto, rol }) => {
   const campos = [];
   const valores = [];
   let idx = 1;
@@ -57,6 +57,7 @@ const actualizarUsuario = async ({ id, dni, correo, nro_celular, contrasena, fot
   if (correo !== undefined) { campos.push(`correo = $${idx++}`); valores.push(correo); }
   if (nro_celular !== undefined) { campos.push(`nro_celular = $${idx++}`); valores.push(nro_celular); }
   if (foto !== undefined) { campos.push(`foto = $${idx++}`); valores.push(foto); }
+  if (rol !== undefined) { campos.push(`rol = $${idx++}`); valores.push(rol); }
 
   if (contrasena) {
     const hashed = await bcrypt.hash(contrasena, 10);
