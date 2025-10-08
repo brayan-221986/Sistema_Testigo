@@ -76,7 +76,7 @@ export const authService = {
         data.append("nro_celular", userData.celular);
         data.append("correo", userData.correo);
         data.append("contrasena", userData.contrasena);
-        data.append("rol", userData.rol || "Usuario");
+        data.append("rol", userData.rol || "ciudadano");
 
         if (userData.foto) {
             data.append("foto", userData.foto);

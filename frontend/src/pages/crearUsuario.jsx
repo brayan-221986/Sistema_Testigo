@@ -99,9 +99,9 @@ const CrearUsuario = () => {
               <div className="form-group">
                 <label>Rol:</label>
                 <select name="rol" value={formData.rol} onChange={handleChange}>
-                  <option value="ciudadano">Usuario</option>
+                  <option value="ciudadano">Ciudadano</option>
                   <option value="admin">Administrador</option>
-                  <option value="institucion">Institucion</option>
+                  <option value="autoridad">Autoridad</option>
                 </select>
               </div>
 
