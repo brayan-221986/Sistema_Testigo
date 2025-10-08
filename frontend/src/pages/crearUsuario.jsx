@@ -101,6 +101,7 @@ const CrearUsuario = () => {
                 <select name="rol" value={formData.rol} onChange={handleChange}>
                   <option value="ciudadano">Usuario</option>
                   <option value="admin">Administrador</option>
+                  <option value="institucion">Institucion</option>
                 </select>
               </div>
 
