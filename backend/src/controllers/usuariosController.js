@@ -1,3 +1,4 @@
+/* usuariosController.js */
 const usuariosModel = require('../models/usuariosModel');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
@@ -8,7 +9,7 @@ const listarUsuarios = async (req, res, next) => {
     const usuarios = await usuariosModel.getUsuarios();
     res.json(usuarios);
   } catch (error) {
-    next(error); // pasa el error al middleware global
+    next(error);
   }
 };
 
@@ -16,9 +17,22 @@ const listarUsuarios = async (req, res, next) => {
 const crearUsuario = async (req, res, next) => {
   try {
     const usuario = await usuariosModel.crearUsuario(req.body);
-    res.status(201).json(usuario); 
+    res.status(201).json({
+      ok: true,
+      mensaje: "Usuario registrado correctamente",
+      usuario
+    }); 
   } catch (error) {
-    next(error); // pasa el error al middleware global
+    if (error.code === '23505') {
+      if (error.detail.includes('(correo)')) {
+        return res.status(400).json({ ok: false, error: "El correo ya está registrado" });
+      }
+      if (error.detail.includes('(dni)')) {
+        return res.status(400).json({ ok: false, error: "El DNI ya está registrado" });
+      }
+      return res.status(400).json({ ok: false, error: "Ya existe un registro con esos datos" });
+    }
+    next(error);
   }
 };
 
@@ -37,13 +51,26 @@ const crearUsuarioAdm = async (req, res, next) => {
       apellido_materno,
       correo,
       nro_celular,
-      contrasena: contrasena, 
+      contrasena: contrasena,
       rol,
       foto: fotoUrl
     });
 
-    res.status(201).json(usuario); 
+    res.status(201).json({
+      ok: true,
+      mensaje: "Usuario registrado correctamente",
+      usuario
+    }); 
   } catch (error) {
+    if (error.code === '23505') {
+      if (error.detail.includes('(correo)')) {
+        return res.status(400).json({ ok: false, error: "El correo ya está registrado" });
+      }
+      if (error.detail.includes('(dni)')) {
+        return res.status(400).json({ ok: false, error: "El DNI ya está registrado" });
+      }
+      return res.status(400).json({ ok: false, error: "Ya existe un registro con esos datos" });
+    }
     next(error);
   }
 };
@@ -55,19 +82,31 @@ const loginUsuario = async (req, res, next) => {
 
   try {
     const usuario = await usuariosModel.buscarUsuarioPorCorreoODni(correoODni);
-    if (!usuario) return res.status(400).json({ error: 'Usuario no encontrado' });
+
+    if (!usuario) {
+      return res.status(404).json({
+        ok: false,
+        error: "Usuario no encontrado"
+      });
+    }
 
     const esValida = await bcrypt.compare(contrasena, usuario.contrasena);
-    if (!esValida) return res.status(400).json({ error: 'Contraseña incorrecta' });
+    if (!esValida) {
+      return res.status(401).json({
+        ok: false,
+        error: "Contraseña incorrecta"
+      });
+    }
 
     const token = jwt.sign(
       { id: usuario.id, rol: usuario.rol },
       process.env.JWT_SECRET,
-      { expiresIn: '8h' } 
+      { expiresIn: '8h' }
     );
 
-    // Enviar datos públicos completos del usuario (sin contraseña)
     res.json({
+      ok: true,
+      mensaje: "Inicio de sesión exitoso",
       token,
       usuario: {
         id: usuario.id,
@@ -82,7 +121,11 @@ const loginUsuario = async (req, res, next) => {
       }
     });
   } catch (error) {
-    next(error); // pasa el error al middleware global
+    console.error("Error en loginUsuario:", error);
+    return res.status(500).json({
+      ok: false,
+      error: "Error interno del servidor al iniciar sesión"
+    });
   }
 };
 
@@ -102,7 +145,6 @@ const obtenerPerfil = async (req, res, next) => {
 const actualizarPerfil = async (req, res, next) => {
   try {
     const userId = req.user.id;
-    // Si se subió archivo con multer+cloudinary, req.file.path tiene la URL
     const fotoUrl = req.file ? req.file.path : undefined;
 
     const { dni, correo, nro_celular, contrasena } = req.body;

@@ -29,10 +29,13 @@ app.get('/', (req, res) => {
 // Middleware global de manejo de errores
 app.use((err, req, res, next) => {
   console.error(err); // Logging interno
+
   res.status(err.status || 500).json({
-    error: err.message || 'Error interno del servidor'
+    ok: false,
+    mensaje: err.message || 'Ocurrió un error interno en el servidor'
   });
 });
+
 
 // Puerto desde .env o 4000 por defecto
 const PORT = process.env.PORT || 4000;

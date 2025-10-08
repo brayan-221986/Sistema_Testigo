@@ -71,7 +71,9 @@ const Registro = () => {
     if (!formData.contrasenia) newErrors.contrasenia = 'La contraseña es requerida';
     else if (formData.contrasenia.length < 6) newErrors.contrasenia = 'La contraseña debe tener al menos 6 caracteres';
 
-    if (formData.contrasenia !== formData.confirmarContrasenia) newErrors.confirmarContrasenia = 'Las contraseñas no coinciden';
+    if (formData.contrasenia !== formData.confirmarContrasenia) {
+      newErrors.confirmarContrasenia = 'Las contraseñas no coinciden';
+    }
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -100,10 +102,17 @@ const Registro = () => {
 
       const backendError = error.response?.data?.error || error.response?.data?.message || 'Ocurrió un error durante el registro.';
 
-      if (backendError.includes('usuarios_dni_key')) {
-        setErrors(prev => ({ ...prev, dni: `El DNI ${formData.dni} ya está registrado.` }));
-      } else if (backendError.includes('usuarios_correo_key')) {
-        setErrors(prev => ({ ...prev, correo: `El correo ${formData.correo} ya está registrado.` }));
+      if (backendError.includes('DNI')) {
+        setErrors(prev => ({ ...prev, dni: backendError }));
+        setIsDNIValidated(false); 
+        setFormData(prev => ({ 
+          ...prev, 
+          dni: '',         // limpiamos el campo de DNI
+          nombres: '', 
+          apellidos: '' 
+        }));
+      } else if (backendError.includes('correo')) {
+        setErrors(prev => ({ ...prev, correo: backendError }));
       } else {
         setErrors(prev => ({ ...prev, submit: backendError }));
       }
@@ -136,56 +145,133 @@ const Registro = () => {
           <div className="login-header"><h1>Crea tu cuenta</h1></div>
 
           <form onSubmit={handleSubmit} className="login-form">
+            {/* DNI */}
             <div className="form-group">
               <label htmlFor="dni">Nº de DNI:</label>
               <div className="dni-container">
-                <input type="text" id="dni" name="dni" value={formData.dni} onChange={handleChange} 
-                  className={`form-control ${errors.dni ? 'error' : ''} ${isDNIValidated ? 'valid' : ''}`} 
-                  maxLength="8" required disabled={isDNIValidated} placeholder="Ingrese su DNI (8 dígitos)"/>
-                <button type="button" className={`consultar-btn ${isDNIValidated ? 'validated' : ''}`} 
-                  onClick={handleConsultarDNI} disabled={isConsulting || isDNIValidated}>
+                <input
+                  type="text"
+                  id="dni"
+                  name="dni"
+                  value={formData.dni}
+                  onChange={handleChange}
+                  className={`form-control ${errors.dni ? 'error' : ''} ${isDNIValidated && !errors.dni ? 'valid' : ''}`}
+                  maxLength="8"
+                  required
+                  disabled={isDNIValidated}
+                  placeholder="Ingrese su DNI (8 dígitos)"
+                />
+                <button
+                  type="button"
+                  className={`consultar-btn ${isDNIValidated ? 'validated' : ''}`}
+                  onClick={handleConsultarDNI}
+                  disabled={isConsulting || isDNIValidated}
+                >
                   {isConsulting ? 'Consultando...' : isDNIValidated ? 'Validado' : 'Consultar'}
                 </button>
               </div>
-              {errors.dni && <div className="error-message">{errors.dni}</div>}
-              {isDNIValidated && <div style={{ color: 'green', fontSize: '12px', marginTop: '5px' }}>DNI verificado correctamente</div>}
+              {/* Solo uno: error o éxito */}
+              {errors.dni ? (
+                <div className="error-message">{errors.dni}</div>
+              ) : (
+                isDNIValidated && (
+                  <div style={{ color: 'green', fontSize: '12px', marginTop: '5px' }}>
+                    DNI verificado correctamente
+                  </div>
+                )
+              )}
             </div>
 
             {/* Nombres y Apellidos */}
             <div className="form-group">
               <label htmlFor="nombres">Nombres:</label>
-              <input type="text" id="nombres" name="nombres" value={formData.nombres} onChange={handleChange} 
-                placeholder={isDNIValidated ? "" : "Se completará automáticamente"} className={`form-control ${errors.nombres ? 'error' : ''}`} 
-                required readOnly={isDNIValidated}/>
+              <input
+                type="text"
+                id="nombres"
+                name="nombres"
+                value={formData.nombres}
+                onChange={handleChange}
+                placeholder={isDNIValidated ? "" : "Se completará automáticamente"}
+                className={`form-control ${errors.nombres ? 'error' : ''}`}
+                required
+                readOnly={isDNIValidated}
+              />
             </div>
             <div className="form-group">
               <label htmlFor="apellidos">Apellidos:</label>
-              <input type="text" id="apellidos" name="apellidos" value={formData.apellidos} onChange={handleChange} 
-                placeholder={isDNIValidated ? "" : "Se completará automáticamente"} className={`form-control ${errors.apellidos ? 'error' : ''}`} 
-                required readOnly={isDNIValidated}/>
+              <input
+                type="text"
+                id="apellidos"
+                name="apellidos"
+                value={formData.apellidos}
+                onChange={handleChange}
+                placeholder={isDNIValidated ? "" : "Se completará automáticamente"}
+                className={`form-control ${errors.apellidos ? 'error' : ''}`}
+                required
+                readOnly={isDNIValidated}
+              />
             </div>
 
-            {/* Correo y Celular */}
+            {/* Correo */}
             <div className="form-group">
               <label htmlFor="correo">Correo:</label>
-              <input type="email" id="correo" name="correo" value={formData.correo} onChange={handleChange} className={`form-control ${errors.correo ? 'error' : ''}`} required placeholder="ejemplo@correo.com"/>
+              <input
+                type="email"
+                id="correo"
+                name="correo"
+                value={formData.correo}
+                onChange={handleChange}
+                className={`form-control ${errors.correo ? 'error' : ''}`}
+                required
+                placeholder="ejemplo@correo.com"
+              />
               {errors.correo && <div className="error-message">{errors.correo}</div>}
             </div>
+
+            {/* Celular */}
             <div className="form-group">
               <label htmlFor="celular">Número de celular:</label>
-              <input type="tel" id="celular" name="celular" value={formData.celular} onChange={handleChange} className={`form-control ${errors.celular ? 'error' : ''}`} maxLength="9" required placeholder="912345678"/>
+              <input
+                type="tel"
+                id="celular"
+                name="celular"
+                value={formData.celular}
+                onChange={handleChange}
+                className={`form-control ${errors.celular ? 'error' : ''}`}
+                maxLength="9"
+                required
+                placeholder="912345678"
+              />
               {errors.celular && <div className="error-message">{errors.celular}</div>}
             </div>
 
             {/* Contraseña */}
             <div className="form-group">
               <label htmlFor="contrasenia">Contraseña:</label>
-              <input type="password" id="contrasenia" name="contrasenia" value={formData.contrasenia} onChange={handleChange} className={`form-control ${errors.contrasenia ? 'error' : ''}`} required placeholder="Mínimo 6 caracteres"/>
+              <input
+                type="password"
+                id="contrasenia"
+                name="contrasenia"
+                value={formData.contrasenia}
+                onChange={handleChange}
+                className={`form-control ${errors.contrasenia ? 'error' : ''}`}
+                required
+                placeholder="Mínimo 6 caracteres"
+              />
               {errors.contrasenia && <div className="error-message">{errors.contrasenia}</div>}
             </div>
             <div className="form-group">
               <label htmlFor="confirmarContrasenia">Confirmar contraseña:</label>
-              <input type="password" id="confirmarContrasenia" name="confirmarContrasenia" value={formData.confirmarContrasenia} onChange={handleChange} className={`form-control ${errors.confirmarContrasenia ? 'error' : ''}`} required placeholder="Repita su contraseña"/>
+              <input
+                type="password"
+                id="confirmarContrasenia"
+                name="confirmarContrasenia"
+                value={formData.confirmarContrasenia}
+                onChange={handleChange}
+                className={`form-control ${errors.confirmarContrasenia ? 'error' : ''}`}
+                required
+                placeholder="Repita su contraseña"
+              />
               {errors.confirmarContrasenia && <div className="error-message">{errors.confirmarContrasenia}</div>}
             </div>
 
