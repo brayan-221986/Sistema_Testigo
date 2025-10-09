@@ -1,0 +1,56 @@
+.seccion-reportes {
+  padding: 3rem 1rem;
+  background: #f9fafb;
+  text-align: center;
+}
+
+.seccion-reportes h2 {
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+  color: #222;
+}
+
+.tarjeta-reporte {
+  background: white;
+  border-radius: 1rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.3s;
+  height: 100%;
+}
+
+.tarjeta-reporte:hover {
+  transform: translateY(-5px);
+}
+
+.tarjeta-reporte img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+
+.subtitulo {
+  color: #666;
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+}
+
+.info-tarjeta {
+  padding: 1rem;
+}
+
+.fila {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+}
+
+p {
+  font-size: 0.95rem;
+  color: #444;
+}
+
+.swiper-pagination-bullet-active {
+  background: #2563eb;
+}

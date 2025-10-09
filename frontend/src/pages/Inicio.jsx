@@ -1,6 +1,7 @@
 import Navbar from "../components/Navbar.jsx";
 import "../style/inicio.css";
 import Mapa from "../components/mapaInicio.jsx";
+import ReportesCarousel from "../components/ReportesCarousel";
 
 export default function Inicio() {
   return (
@@ -18,34 +19,7 @@ export default function Inicio() {
 
       {/* SECCION REPORTES */}
       <section className="seccion-reportes">
-        <h2>Reportes recientes</h2>
-        <div className="contenedor-tarjetas">
-          <div className="tarjeta-reporte">
-            <h3>Robo en Av. Central</h3>
-            <p className="subtitulo">Zona urbana</p>
-            <img src="/auto-img.png" alt="Incidente" />
-            <div className="info-tarjeta">
-              <div className="fila">
-                <span>📍 Lima</span>
-                <span>⏰ Hace 2 h</span>
-              </div>
-              <p>Auto reportado por intento de robo en plena vía pública.</p>
-            </div>
-          </div>
-
-          <div className="tarjeta-reporte">
-            <h3>Fuga de gas</h3>
-            <p className="subtitulo">Residencial</p>
-            <img src="/megafono-img.png" alt="Incidente" />
-            <div className="info-tarjeta">
-              <div className="fila">
-                <span>📍 Arequipa</span>
-                <span>⏰ Hace 3 h</span>
-              </div>
-              <p>Vecinos alertaron una fuga de gas en edificio.</p>
-            </div>
-          </div>
-        </div>
+        <ReportesCarousel/>
       </section>
 
       {/* DIVISOR */}

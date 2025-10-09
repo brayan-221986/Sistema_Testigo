@@ -7,7 +7,7 @@ import '../style/sesion.css';
 import '../style/EditarPerfil.css'; // <-- importar estilos específicos de Editar Perfil
 
 const EditarPerfil = () => {
-  const { usuario, actualizarUsuario } = useAutentificacion();
+  const { /*usuario,*/ actualizarUsuario } = useAutentificacion();
   const [form, setForm] = useState({
     dni: '',
     nombres: '',
