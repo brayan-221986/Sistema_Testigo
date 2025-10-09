@@ -1,0 +1,274 @@
+/* SECCIÓN DEL MAPA */
+.seccion-mapa {
+  height: 800px;
+  background: #acffbe;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 1rem;
+  text-align: center;
+}
+
+.seccion-mapa h2 {
+  color: #014c11;
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+}
+
+/* Contenedor del mapa Leaflet */
+.contenedor-mapa {
+  width: min(95%, 1900px);
+  height: 90%;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 2px solid #00871d33;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* Estilo del mapa */
+.leaflet-container {
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+/* SECCIÓN REPORTES */
+.seccion-reportes {
+  padding: 3rem 1rem;
+  background: #fff;
+  text-align: center;
+}
+
+.seccion-reportes h2 {
+  color: #014c11;
+  margin-bottom: 2rem;
+}
+
+.contenedor-tarjetas {
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.tarjeta-reporte {
+  background: #acffbe;
+  opacity: 0.9;
+  border-radius: 8px;
+  width: 280px;
+  padding: 1rem;
+  text-align: left;
+}
+
+.tarjeta-reporte h3 {
+  font-size: 1.3rem;
+  color: #000;
+}
+
+.subtitulo {
+  color: #333;
+  font-weight: 500;
+}
+
+.tarjeta-reporte img {
+  width: 100%;
+  border-radius: 5px;
+  margin: 0.5rem 0;
+}
+
+.info-tarjeta {
+  font-size: 0.9rem;
+}
+
+.fila {
+  display: flex;
+  justify-content: space-between;
+}
+
+/* DIVISOR */
+.divisor {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 2rem 0;
+}
+
+.linea {
+  width: 40%;
+  height: 3px;
+  background: #00871d;
+}
+
+.circulo {
+  width: 30px;
+  height: 30px;
+  border: 3px solid #00871d;
+  border-radius: 50%;
+  margin: 0 1rem;
+}
+
+/* SECCIÓN ESTADÍSTICAS */
+.seccion-estadisticas {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 3rem;
+  flex-wrap: wrap;
+  padding: 3rem 1rem;
+}
+
+.item-estadistica {
+  text-align: center;
+  color: #014c11;
+}
+
+.item-estadistica img {
+  height: 60px;
+  margin-bottom: 1rem;
+}
+
+.item-estadistica h2 {
+  color: #00871d;
+  font-size: 3rem;
+}
+
+.rosquilla {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: conic-gradient(#00871d 75%, #ece9ff 0);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1rem auto;
+}
+
+.rosquilla-interna {
+  background: white;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #000;
+}
+
+.mejora {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  justify-content: center;
+  color: #014c11;
+}
+
+.mejora img {
+  height: 25px;
+}
+
+/* PIE DE PÁGINA */
+.pie {
+  background: #00871d;
+  color: white;
+  padding: 3rem 1rem;
+  text-align: center;
+}
+
+.contenido-pie {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 2rem;
+  text-align: left;
+}
+
+.logo-pie {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.logo-pie img {
+  height: 50px;
+}
+
+.enlaces-pie a {
+  display: block;
+  color: white;
+  text-decoration: none;
+  margin-bottom: 0.5rem;
+}
+
+.copy-pie {
+  border-top: 1px solid rgba(255, 255, 255, 0.5);
+  margin-top: 2rem;
+  padding-top: 1rem;
+  font-size: 0.9rem;
+}
+
+/* MEDIA QUERIES */
+
+/* Pantallas grandes (entre 1200 y 1900px) */
+@media (max-width: 1900px) {
+  .contenedor-mapa {
+    height: 700px;
+  }
+}
+
+/* Pantallas medianas (laptops o tablets horizontales) */
+@media (max-width: 1200px) {
+  .contenedor-mapa {
+    height: 500px;
+  }
+}
+
+/* Tablets verticales */
+@media (max-width: 992px) {
+  .contenedor-mapa {
+    height: 400px;
+  }
+}
+
+/* Móviles */
+@media (max-width: 768px) {
+  .leaflet-container {
+    height: 300px;
+  }
+
+  .contenedor-tarjetas,
+  .seccion-estadisticas {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .linea {
+    width: 30%;
+  }
+
+  .rosquilla {
+    width: 150px;
+    height: 150px;
+  }
+
+  .rosquilla-interna {
+    width: 90px;
+    height: 90px;
+    font-size: 1.5rem;
+  }
+
+  .pie {
+    text-align: center;
+  }
+
+  .contenido-pie {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .logo-pie img {
+    height: 40px;
+  }
+}

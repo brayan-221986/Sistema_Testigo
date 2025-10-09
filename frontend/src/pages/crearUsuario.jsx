@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { createUserAdmin } from '../services/api';
 import PlantillaAdmin from '../components/PlantillaAdmin';
-import '../components/CrearUsuario.css';
+import '../style/CrearUsuario.css';
 
 const CrearUsuario = () => {
   // Estado para los datos del formulario

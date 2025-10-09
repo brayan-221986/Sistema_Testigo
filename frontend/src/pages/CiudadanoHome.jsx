@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import LayoutPrincipal from "../components/PlantillaCiudadano";
-import '../components/CiudadanoHome.css';
+import '../style/CiudadanoHome.css';
 
 const CiudadanoHome = () => {
   const navigate = useNavigate();

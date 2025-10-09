@@ -3,8 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { useAutentificacion } from '../context/AutentificacionContext';
 import { getProfile, updateProfile } from '../services/api'; // funciones expuestas
 import LayoutPrincipal from '../components/PlantillaCiudadano';
-import '../components/sesion.css';
-import '../components/EditarPerfil.css'; // <-- importar estilos específicos de Editar Perfil
+import '../style/sesion.css';
+import '../style/EditarPerfil.css'; // <-- importar estilos específicos de Editar Perfil
 
 const EditarPerfil = () => {
   const { usuario, actualizarUsuario } = useAutentificacion();

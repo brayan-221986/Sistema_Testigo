@@ -1,5 +1,5 @@
 // src/services/usuariosService.js
-import api from './api'; // ya tienes configurado axios con baseURL y token
+import api from './api';
 
 export const getUsuarios = async () => {
   try {

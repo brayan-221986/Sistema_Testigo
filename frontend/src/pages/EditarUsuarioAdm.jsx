@@ -3,8 +3,8 @@ import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { getUsuarioPorId, updateUsuarioById } from "../services/usuariosService";
 import PlantillaAdmin from "../components/PlantillaAdmin";
-import "../components/sesion.css";
-import "../components/EditarPerfil.css";
+import "../style/sesion.css";
+import "../style/EditarPerfil.css";
 
 const EditarUsuarioAdmin = () => {
   const { id } = useParams();

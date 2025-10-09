@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import { useAutentificacion } from "../context/AutentificacionContext";
-import './Plantilla.css';
+import '../style/Plantilla.css';
 
 const LayoutPrincipal = ({ children, tituloHeader = "Dashboard" }) => {
   const navigate = useNavigate();

@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { consultarRENIEC } from '../services/reniecService';
 import { register } from '../services/api';
-import '../components/sesion.css';
+import '../style/sesion.css';
 
 const Registro = () => {
   const [formData, setFormData] = useState({

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getUsuarios } from "../services/usuariosService";
 import PlantillaAdmin from "../components/PlantillaAdmin";
-import "../components/ListarUsuarios.css";
+import "../style/ListarUsuarios.css";
 
 const AdminDashboard = () => {
   const [usuarios, setUsuarios] = useState([]);

@@ -1,0 +1,104 @@
+.barra-navegacion {
+  background: #fff;
+  border-bottom: 2px solid #eaeaea;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.contenedor-nav {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0.8rem 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo-nav {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  font-weight: 700;
+  color: #000;
+  font-size: 1.5rem;
+}
+
+.logo-nav img {
+  height: 45px;
+}
+
+.enlaces-nav {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  list-style: none;
+  transition: all 0.3s ease-in-out;
+}
+
+.enlaces-nav a {
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.2s;
+}
+
+.enlaces-nav a:hover {
+  color: #00871d;
+}
+
+.boton-nav {
+  background: #00871d;
+  color: white !important;
+  padding: 0.8rem 1rem;
+  border-radius: 50px;
+  transition: background 0.3s;
+}
+
+.boton-nav:hover {
+  background: #014c11;
+}
+
+/* BOTON HAMBURGUESA */
+.boton-menu {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 1.8rem;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .enlaces-nav {
+    display: none;
+    flex-direction: column;
+    background: #fff;
+    width: 100%;
+    position: absolute;
+    top: 65px;
+    left: 0;
+    padding: 1rem 0;
+    border-top: 2px solid #eee;
+  }
+
+  .enlaces-nav.activo {
+    display: flex;
+    animation: deslizarAbajo 0.3s ease-in-out;
+  }
+
+  .boton-menu {
+    display: block;
+  }
+}
+
+/* Animacion suave */
+@keyframes deslizarAbajo {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

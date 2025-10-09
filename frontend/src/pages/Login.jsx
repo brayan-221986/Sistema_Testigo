@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAutentificacion } from "../context/AutentificacionContext";
-import '../components/sesion.css';
+import '../style/sesion.css';
 
 const Login = () => {
   const { login } = useAutentificacion();
