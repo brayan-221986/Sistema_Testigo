@@ -66,6 +66,7 @@ const AdminDashboard = () => {
               <th>Correo</th>
               <th>Rol</th>
               <th>Editar</th>
+              <th>Eliminar</th>
             </tr>
           </thead>
           <tbody>
@@ -87,6 +88,9 @@ const AdminDashboard = () => {
                   >
                     Ver...
                   </span>
+                </td>
+                <td> 
+                  <span className="eliminar">❌</span>
                 </td>
               </tr>
             ))}
