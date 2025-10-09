@@ -102,3 +102,7 @@
 .editar-link:hover {
   color: #0f8c2b;
 }
+
+.eliminar {
+  margin-left: 20px;
+}
