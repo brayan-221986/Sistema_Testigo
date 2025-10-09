@@ -12,6 +12,7 @@ import CrearUsuario from './pages/crearUsuario';
 import AdminDashboard from './pages/AdminDashboard';
 import InstitucionHome from './pages/InstitucionHome';
 import CiudadanoHome from './pages/CiudadanoHome';
+import CiudadanoNuevoReporte from './pages/NuevoReporte';
 import EditarPerfil from './pages/EditarPerfil'; 
 import EditarUsuarioAdmin from './pages/EditarUsuarioAdm';
 
@@ -68,6 +69,14 @@ function App() {
           element={ 
             <RutaPrivada roles={["ciudadano"]}>
               <CiudadanoHome /> 
+            </RutaPrivada> 
+          } 
+        />
+        <Route 
+          path="/ciudadano/Nuevo-reporte" 
+          element={ 
+            <RutaPrivada roles={["ciudadano"]}>
+              <CiudadanoNuevoReporte /> 
             </RutaPrivada> 
           } 
         />

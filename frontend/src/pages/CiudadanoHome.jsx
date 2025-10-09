@@ -12,10 +12,10 @@ const CiudadanoHome = () => {
     setAceptado(!aceptado);
   };
 
-  // Navega a la página de descripción del reporte si el usuario aceptó los términos
+  // Navega a la página de nuevo reporte si el usuario aceptó los términos
   const manejarSiguiente = () => {
     if (aceptado) {
-      navigate('/descripcion-reporte');
+      navigate('/ciudadano/Nuevo-reporte');
     }
   };
 
