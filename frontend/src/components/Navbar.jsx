@@ -33,7 +33,7 @@ export default function Navbar() {
             </Link>
           </li>
           <li>
-            <Link to="/reportar" onClick={cerrarMenu} style={{ color: "#00871D" }}>
+            <Link to="/sobre-nosotros" onClick={cerrarMenu} style={{ color: "#00871D" }}>
               Sobre Nosotros
             </Link>
           </li>

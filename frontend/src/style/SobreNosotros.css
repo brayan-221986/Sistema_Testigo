@@ -1,0 +1,212 @@
+/* ===== MISION Y VISION ===== */
+.seccion-mision-vision {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  text-align: center;
+  padding: 4rem 2rem;
+  gap: 2rem; /* antes era 3rem */
+  flex-wrap: wrap;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.bloque {
+  flex: 1 1 300px;
+  max-width: 480px;
+}
+
+.bloque h2 {
+  color: #00871d;
+  font-weight: 700;
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+}
+
+.bloque p {
+  color: #444;
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+/* ===== DIVISOR ===== */
+.divisor-sobre-nosotros {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 3rem 0;
+}
+
+.divisor-sobre-nosotros .linea {
+  width: 35%;
+  height: 2px;
+  background: #00871d;
+}
+
+.divisor-sobre-nosotros .circulo {
+  width: 20px;
+  height: 20px;
+  border: 2px solid #00871d;
+  border-radius: 50%;
+  margin: 0 1rem;
+}
+
+/* ===== PROBLEMÁTICA ===== */
+.seccion-problematica {
+  text-align: center;
+  padding: 3rem 2rem;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.seccion-problematica h2 {
+  color: #00871d;
+  font-size: 1.8rem;
+  margin-bottom: 1.2rem;
+}
+
+.seccion-problematica p {
+  color: #333;
+  line-height: 1.8;
+  font-size: 1.05rem;
+}
+
+/* ===== EQUIPO ===== */
+.seccion-equipo {
+  position: relative;
+  text-align: center;
+  padding: 6rem 2rem 7rem;
+  background: linear-gradient(to bottom, #b9f5c7 50%, white 50%);
+  overflow: hidden;
+}
+
+.seccion-equipo h2 {
+  color: #00871d;
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  z-index: 2;
+  position: relative;
+}
+
+.descripcion-equipo {
+  max-width: 850px;
+  margin: 0 auto 3rem;
+  color: #333;
+  line-height: 1.8;
+  z-index: 2;
+  position: relative;
+}
+
+/* ===== TARJETAS DEL EQUIPO ===== */
+.contenedor-tarjetas {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  position: relative;
+  z-index: 2;
+}
+
+.tarjeta-equipo {
+  background: white;
+  border-radius: 15px;
+  width: 240px;
+  padding: 2rem 1rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.tarjeta-equipo:hover {
+  transform: translateY(-6px);
+}
+
+.foto-equipo {
+  width: 110px;
+  height: 110px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin: 0 auto 1rem;
+  display: block;
+  border: 3px solid #00871d1a;
+}
+
+.tarjeta-equipo h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 0.2rem;
+}
+
+.rol {
+  color: #00871d;
+  font-weight: 500;
+  margin-bottom: 1rem;
+}
+
+.tarjeta-equipo button {
+  background-color: #00871d;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  padding: 0.5rem 1.2rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.tarjeta-equipo button:hover {
+  background-color: #006b17;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 1024px) {
+  .seccion-mision-vision {
+    gap: 1.5rem;
+    padding: 3rem 1.5rem;
+  }
+
+  .bloque h2 {
+    font-size: 1.6rem;
+  }
+
+  .bloque p {
+    font-size: 0.95rem;
+  }
+
+  .tarjeta-equipo {
+    width: 200px;
+    padding: 1.5rem;
+  }
+
+  .foto-equipo {
+    width: 90px;
+    height: 90px;
+  }
+}
+
+@media (max-width: 768px) {
+  .seccion-mision-vision {
+    flex-direction: column;
+    align-items: center;
+    padding: 3rem 1.5rem;
+    gap: 1rem;
+  }
+
+  .bloque {
+    max-width: 95%;
+  }
+
+  .seccion-equipo {
+    background: linear-gradient(to bottom, #b9f5c7 60%, white 40%);
+    padding: 5rem 1rem;
+  }
+
+  .contenedor-tarjetas {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .tarjeta-equipo {
+    width: 80%;
+    max-width: 300px;
+  }
+}

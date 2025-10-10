@@ -4,6 +4,7 @@ import { Routes, Route } from 'react-router-dom';
 import { AutentificacionProvider } from "./context/AutentificacionContext";
 
 import Inicio from './pages/Inicio';
+import SobreNosotros from './pages/SobreNosotros';
 import Login from './pages/Login';
 import Registro from './pages/Registro';
 import CrearUsuario from './pages/crearUsuario';
@@ -26,6 +27,7 @@ function App() {
         <Route path="/" element={<Inicio />} />
         <Route path="/login" element={<Login />} />
         <Route path="/registro" element={<Registro />} />
+        <Route path="/sobre-nosotros" element={<SobreNosotros />} />
 
         {/* Rutas protegidas por rol */}
         <Route 

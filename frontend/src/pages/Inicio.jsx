@@ -79,7 +79,7 @@ export default function Inicio() {
 
           <div className="enlaces-pie">
             <a href="/">Inicio</a>
-            <a href="/sobreNosotros">Sobre Nosotros</a>
+            <a href="/sobre-nosotros">Sobre Nosotros</a>
           </div>
 
           <div className="contacto-pie" >
