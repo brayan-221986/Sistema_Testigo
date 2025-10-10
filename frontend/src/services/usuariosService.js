@@ -14,7 +14,7 @@ export const getUsuarios = async () => {
 /**
  * Obtener un usuario por su ID
  */
-export const getUsuarioPorId = async (id) => {
+export const obtenerUsuarioPorId = async (id) => {
   try {
     const response = await api.get(`/usuarios/${id}`);
     return response.data;
@@ -27,7 +27,7 @@ export const getUsuarioPorId = async (id) => {
 /**
  * Editar un usuario por su ID para el admin
  */
-export const updateUsuarioById = async (id, data) => {
+export const actualizarUsuarioPorId = async (id, data) => {
   try {
     const response = await api.put(`/usuarios/${id}`, data, {
       headers: { 'Content-Type': 'multipart/form-data' },

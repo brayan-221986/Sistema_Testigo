@@ -1,0 +1,201 @@
+.contenedor-editar-usuario {
+  padding: 20px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+/* --- FILA PRINCIPAL (FOTO + FORMULARIO) --- */
+.fila-editar {
+  display: flex;
+  gap: 40px; /* más espacio entre columnas */
+  align-items: flex-start;
+  flex-wrap: wrap; /* se adapta si la pantalla es pequeña */
+}
+
+/* --- COLUMNA IZQUIERDA: FOTO Y BOTÓN --- */
+.columna-foto {
+  width: 220px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.imagen-perfil {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  object-fit: cover;
+  background-color: #f0f0f0;
+  margin-bottom: 12px; /* espacio entre imagen y botón */
+}
+
+.boton-subir {
+  background-color: #17c23c;
+  color: white;
+  padding: 8px 14px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  display: inline-block;
+  transition: background-color 0.3s ease;
+}
+
+.boton-subir:hover {
+  background-color: #2e6f31;
+}
+
+/* --- COLUMNA DERECHA: FORMULARIO --- */
+.columna-formulario {
+  flex: 1;
+  min-width: 300px;
+}
+
+/* --- BLOQUE SUPERIOR (DNI, NOMBRES, APELLIDOS) --- */
+.bloque-superior {
+  max-width: 520px;
+}
+
+.bloque-superior .campo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.bloque-superior .campo label {
+  width: 150px;
+  color: #222;
+  font-weight: 400;
+  text-align: left;
+  margin-bottom: 0;
+}
+
+.bloque-superior .campo input {
+  flex: 1;
+  background-color: #e9e8e8;
+  border: 1px solid #656ed3;
+  border-radius: 8px;
+  padding: 6px 10px;
+  color: #222;
+}
+
+/* --- BLOQUE INFERIOR (Correo, Celular, Rol) --- */
+.bloque-inferior {
+  margin-top: 22px;
+  max-width: 520px;
+  margin-left: 0; /* 🔥 Eliminado el desplazamiento lateral */
+}
+
+.bloque-inferior .campo {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.bloque-inferior .campo label {
+  width: 100%;
+  color: #222;
+  font-weight: 400;
+  margin-bottom: 4px;
+}
+
+.campo-editable {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.campo-editable input,
+.campo-editable select {
+  flex: 1;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  transition: border-color 0.2s ease;
+}
+
+.campo-editable input:focus,
+.campo-editable select:focus {
+  border-color: #656ed3;
+  outline: none;
+}
+
+.campo-editable button {
+  margin-left: 10px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.campo-editable button img {
+  width: 32px;
+  height: 32px;
+}
+
+/* --- MENSAJE DE ERROR --- */
+.mensaje-error {
+  color: red;
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+/* --- BOTONES INFERIORES --- */
+.botones {
+  display: flex;
+  gap: 12px;
+  margin-top: 20px;
+  justify-content: flex-start;
+}
+
+.btn-cancelar,
+.btn-guardar {
+  padding: 10px 16px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.btn-cancelar {
+  background-color: #ccc;
+  color: #333;
+}
+
+.btn-cancelar:hover {
+  background-color: #b3b3b3;
+}
+
+.btn-guardar {
+  background-color: #17c23c;
+  color: white;
+}
+
+.btn-guardar:hover {
+  background-color: #2e6f31;
+}
+
+/* --- RESPONSIVE --- */
+@media (max-width: 768px) {
+  .fila-editar {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .columna-foto {
+    margin-bottom: 20px;
+  }
+
+  .bloque-superior,
+  .bloque-inferior {
+    max-width: 100%;
+  }
+
+  .bloque-superior .campo label {
+    width: 100px;
+  }
+}

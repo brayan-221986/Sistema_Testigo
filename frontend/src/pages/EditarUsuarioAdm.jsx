@@ -1,32 +1,31 @@
-// EditarUsuarioAdmin.jsx
+// EditarUsuarioAdm.jsx
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { getUsuarioPorId, updateUsuarioById } from "../services/usuariosService";
+import { obtenerUsuarioPorId, actualizarUsuarioPorId } from "../services/usuariosService";
 import PlantillaAdmin from "../components/PlantillaAdmin";
-import "../style/sesion.css";
-import "../style/EditarPerfil.css";
+import "../style/EditarUsuarioAdm.css";
 
-const EditarUsuarioAdmin = () => {
+const EditarUsuarioAdm = () => {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const [form, setForm] = useState({
+  const [formulario, setFormulario] = useState({
     dni: "",
     nombres: "",
     apellidos: "",
     correo: "",
-    nro_celular: "",
+    celular: "",
     rol: "",
   });
 
-  const [fotoPreview, setFotoPreview] = useState(null);
+  const [vistaPreviaFoto, setVistaPreviaFoto] = useState(null);
   const [archivoFoto, setArchivoFoto] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [cargando, setCargando] = useState(false);
   const [error, setError] = useState("");
 
   const [editable, setEditable] = useState({
     correo: false,
-    nro_celular: false,
+    celular: false,
     rol: false,
   });
 
@@ -34,16 +33,16 @@ const EditarUsuarioAdmin = () => {
   useEffect(() => {
     const cargarUsuario = async () => {
       try {
-        const data = await getUsuarioPorId(id);
-        setForm({
-          dni: data.dni,
-          nombres: data.nombres,
-          apellidos: `${data.apellido_paterno || ""} ${data.apellido_materno || ""}`.trim(),
-          correo: data.correo,
-          nro_celular: data.nro_celular,
-          rol: data.rol,
+        const datos = await obtenerUsuarioPorId(id);
+        setFormulario({
+          dni: datos.dni,
+          nombres: datos.nombres,
+          apellidos: `${datos.apellido_paterno || ""} ${datos.apellido_materno || ""}`.trim(),
+          correo: datos.correo,
+          celular: datos.nro_celular,
+          rol: datos.rol,
         });
-        setFotoPreview(data.foto || null);
+        setVistaPreviaFoto(datos.foto || null);
       } catch (err) {
         console.error("Error al cargar usuario:", err);
         setError("No se pudo cargar el usuario");
@@ -52,47 +51,47 @@ const EditarUsuarioAdmin = () => {
     cargarUsuario();
   }, [id]);
 
-  const handleChange = (e) => {
+  const manejarCambio = (e) => {
     const { name, value } = e.target;
-    setForm((prev) => ({ ...prev, [name]: value }));
+    setFormulario((prev) => ({ ...prev, [name]: value }));
     if (error) setError("");
   };
 
-  const toggleEdit = (campo) => {
+  const alternarEdicion = (campo) => {
     setEditable((prev) => ({ ...prev, [campo]: !prev[campo] }));
     setError("");
   };
 
-  const handleFoto = (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
-    setArchivoFoto(file);
-    setFotoPreview(URL.createObjectURL(file));
+  const manejarFoto = (e) => {
+    const archivo = e.target.files[0];
+    if (!archivo) return;
+    setArchivoFoto(archivo);
+    setVistaPreviaFoto(URL.createObjectURL(archivo));
   };
 
-  const validarEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  const validarCorreo = (correo) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(correo);
   const validarCelular = (cel) => /^\d{9}$/.test(cel);
 
-  const handleSubmit = async (e) => {
+  const manejarEnvio = async (e) => {
     e.preventDefault();
     setError("");
 
-    if (!validarEmail(form.correo)) {
+    if (!validarCorreo(formulario.correo)) {
       setError("Correo inválido. Verifica el formato.");
       return;
     }
-    if (!validarCelular(form.nro_celular)) {
+    if (!validarCelular(formulario.celular)) {
       setError("Número de celular inválido. Debe tener 9 dígitos.");
       return;
     }
 
-    setLoading(true);
+    setCargando(true);
     try {
-      const data = new FormData();
-      Object.keys(form).forEach((key) => data.append(key, form[key]));
-      if (archivoFoto) data.append("foto", archivoFoto);
+      const datos = new FormData();
+      Object.keys(formulario).forEach((clave) => datos.append(clave, formulario[clave]));
+      if (archivoFoto) datos.append("foto", archivoFoto);
 
-      await updateUsuarioById(id, data);
+      await actualizarUsuarioPorId(id, datos);
 
       alert("Usuario actualizado correctamente");
       navigate("/admin/dashboard");
@@ -100,140 +99,118 @@ const EditarUsuarioAdmin = () => {
       console.error("Error al actualizar:", err);
       setError("No se pudo actualizar el usuario");
     } finally {
-      setLoading(false);
+      setCargando(false);
     }
   };
 
   return (
     <PlantillaAdmin tituloHeader="Editar Usuario">
-      <div style={{ padding: 20, maxWidth: 900, margin: "0 auto" }}>
-        <form onSubmit={handleSubmit}>
-          <div style={{ display: "flex", gap: 20, alignItems: "flex-start" }}>
+      <div className="contenedor-editar-usuario">
+        <form onSubmit={manejarEnvio}>
+          <div className="fila-editar">
             {/* FOTO IZQUIERDA */}
-            <div style={{ width: 220, textAlign: "center" }}>
+            <div className="columna-foto">
               <img
-                src={fotoPreview || "/usuario-img.jpg"}
-                alt="foto"
-                style={{
-                  width: 180,
-                  height: 180,
-                  borderRadius: "50%",
-                  objectFit: "cover",
-                  backgroundColor: "#f0f0f0",
-                }}
+                src={vistaPreviaFoto || "/usuario-img.jpg"}
+                alt="foto usuario"
+                className="imagen-perfil"
               />
-              <div style={{ marginTop: 10 }}>
-                <label className="upload-label" style={{ cursor: "pointer" }}>
-                  Cambiar Imagen
-                  <input type="file" accept="image/*" onChange={handleFoto} style={{ display: "none" }} />
-                </label>
-              </div>
+              <label className="boton-subir">
+                Cambiar Imagen
+                <input type="file" accept="image/*" onChange={manejarFoto} hidden />
+              </label>
             </div>
 
             {/* CAMPOS DERECHA */}
-            <div style={{ flex: 1 }}>
+            <div className="columna-formulario">
               {/* BLOQUE SUPERIOR */}
-              <div className="top-fields">
-                <div className="field-row">
-                  <div className="field-label">Nº de DNI:</div>
-                  <div className="field-input">
-                    <input type="text" name="dni" value={form.dni} readOnly className="form-control readonly-grey" />
-                  </div>
+              <div className="bloque-superior">
+                <div className="campo">
+                  <label>DNI:</label>
+                  <input type="text" name="dni" value={formulario.dni} readOnly className="solo-lectura" />
                 </div>
 
-                <div className="field-row">
-                  <div className="field-label">Nombres:</div>
-                  <div className="field-input">
-                    <input type="text" name="nombres" value={form.nombres} readOnly className="form-control readonly-grey" />
-                  </div>
+                <div className="campo">
+                  <label>Nombres:</label>
+                  <input type="text" name="nombres" value={formulario.nombres} readOnly className="solo-lectura" />
                 </div>
 
-                <div className="field-row">
-                  <div className="field-label">Apellidos:</div>
-                  <div className="field-input">
-                    <input type="text" name="apellidos" value={form.apellidos} readOnly className="form-control readonly-grey" />
-                  </div>
+                <div className="campo">
+                  <label>Apellidos:</label>
+                  <input type="text" name="apellidos" value={formulario.apellidos} readOnly className="solo-lectura" />
                 </div>
               </div>
 
-              <div style={{ height: 28 }} />
-
               {/* BLOQUE INFERIOR */}
-              <div className="bottom-fields">
-                <div className="field-row">
-                  <div className="field-label">Correo:</div>
-                  <div className="field-input edit-wrapper">
+              <div className="bloque-inferior">
+                <div className="campo editable">
+                  <label>Correo:</label>
+                  <div className="campo-editable">
                     <input
                       type="email"
                       name="correo"
-                      value={form.correo}
-                      onChange={handleChange}
-                      className="form-control"
+                      value={formulario.correo}
+                      onChange={manejarCambio}
                       readOnly={!editable.correo}
                       placeholder="ejemplo@correo.com"
-                      style={{ flex: 1 }}
                     />
-                    <button type="button" className="edit-btn" onClick={() => toggleEdit("correo")}>
+                    <button type="button" onClick={() => alternarEdicion("correo")}>
                       <img src="/Boton_modificar.png" alt="editar" />
                     </button>
                   </div>
                 </div>
 
-                <div className="field-row">
-                  <div className="field-label">Nro de Celular:</div>
-                  <div className="field-input edit-wrapper">
+                <div className="campo editable">
+                  <label>Celular:</label>
+                  <div className="campo-editable">
                     <input
                       type="text"
-                      name="nro_celular"
-                      value={form.nro_celular}
-                      onChange={handleChange}
-                      className="form-control"
-                      readOnly={!editable.nro_celular}
+                      name="celular"
+                      value={formulario.celular}
+                      onChange={manejarCambio}
+                      readOnly={!editable.celular}
                       maxLength={9}
                       placeholder="912345678"
-                      style={{ flex: 1 }}
                     />
-                    <button type="button" className="edit-btn" onClick={() => toggleEdit("nro_celular")}>
+                    <button type="button" onClick={() => alternarEdicion("celular")}>
                       <img src="/Boton_modificar.png" alt="editar" />
                     </button>
                   </div>
                 </div>
 
-                <div className="field-row">
-                  <div className="field-label">Rol:</div>
-                  <div className="field-input edit-wrapper">
+                <div className="campo editable">
+                  <label>Rol:</label>
+                  <div className="campo-editable">
                     <select
                       name="rol"
-                      value={form.rol}
-                      onChange={handleChange}
-                      className="form-control"
+                      value={formulario.rol}
+                      onChange={manejarCambio}
                       disabled={!editable.rol}
-                      style={{ flex: 1 }}
                     >
                       <option value="admin">Administrador</option>
                       <option value="autoridad">Autoridad</option>
                       <option value="ciudadano">Usuario</option>
                     </select>
-                    <button type="button" className="edit-btn" onClick={() => toggleEdit("rol")}>
+                    <button type="button" onClick={() => alternarEdicion("rol")}>
                       <img src="/Boton_modificar.png" alt="editar" />
                     </button>
                   </div>
                 </div>
               </div>
 
-              {error && <div className="error-message" style={{ marginTop: 10 }}>{error}</div>}
+              {error && <div className="mensaje-error">{error}</div>}
 
-              <div className="perfil-btns" style={{ marginTop: 20 }}>
+              <div className="botones">
                 <button
                   type="button"
-                  className="btn btn-cancel perfil-cancel"
+                  className="btn-cancelar"
                   onClick={() => navigate("/admin/dashboard")}
-                  disabled={loading}
+                  disabled={cargando}
                 >
                   Cancelar
                 </button>
-                <button type="submit" className="btn btn-login perfil-save" disabled={loading}>
-                  {loading ? "Guardando..." : "Guardar Cambios"}
+                <button type="submit" className="btn-guardar" disabled={cargando}>
+                  {cargando ? "Guardando..." : "Guardar Cambios"}
                 </button>
               </div>
             </div>
@@ -244,4 +221,4 @@ const EditarUsuarioAdmin = () => {
   );
 };
 
-export default EditarUsuarioAdmin;
+export default EditarUsuarioAdm;
