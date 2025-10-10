@@ -1,6 +1,6 @@
 /* SECCIÓN DEL MAPA */
 .seccion-mapa {
-  height: 800px;
+  height: 40rem;
   background: #acffbe;
   display: flex;
   flex-direction: column;
@@ -33,65 +33,12 @@
   z-index: 0;
 }
 
-/* SECCIÓN REPORTES */
-.seccion-reportes {
-  padding: 3rem 1rem;
-  background: #fff;
-  text-align: center;
-}
-
-.seccion-reportes h2 {
-  color: #014c11;
-  margin-bottom: 2rem;
-}
-
-.contenedor-tarjetas {
-  display: flex;
-  gap: 1.5rem;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
-.tarjeta-reporte {
-  background: #acffbe;
-  opacity: 0.9;
-  border-radius: 8px;
-  width: 280px;
-  padding: 1rem;
-  text-align: left;
-}
-
-.tarjeta-reporte h3 {
-  font-size: 1.3rem;
-  color: #000;
-}
-
-.subtitulo {
-  color: #333;
-  font-weight: 500;
-}
-
-.tarjeta-reporte img {
-  width: 100%;
-  border-radius: 5px;
-  margin: 0.5rem 0;
-}
-
-.info-tarjeta {
-  font-size: 0.9rem;
-}
-
-.fila {
-  display: flex;
-  justify-content: space-between;
-}
-
 /* DIVISOR */
 .divisor {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 2rem 0;
+  margin: 0.5rem 0;
 }
 
 .linea {
@@ -112,61 +59,157 @@
 .seccion-estadisticas {
   display: flex;
   justify-content: center;
-  align-items: flex-start;
+  align-items: stretch;
   gap: 3rem;
   flex-wrap: wrap;
-  padding: 3rem 1rem;
-}
-
-.item-estadistica {
+  padding: 3rem 2rem;
   text-align: center;
+  background: white;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* TARJETA BASE */
+.item-estadistica {
+  background: white;
+  border-radius: 1rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  padding: 1rem 2rem;
+  flex: 1 1 300px;
+  max-width: 350px;
   color: #014c11;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
-.item-estadistica img {
-  height: 60px;
-  margin-bottom: 1rem;
+.item-estadistica:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
 }
 
-.item-estadistica h2 {
-  color: #00871d;
+/* TARJETA 1 - Megáfono + número */
+.tarjeta1 .encabezado {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.tarjeta1 img {
+  height: 100px;
+}
+
+.tarjeta1 h2 {
   font-size: 3rem;
+  color: #00871d;
+  font-weight: 800;
+  margin: 0;
+}
+
+.tarjeta1 .texto-mejora {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+  font-size: 1rem;
+  color: #014c11;
+  font-weight: 600;
+}
+
+/* TARJETA 2 - Rosquilla */
+.tarjeta2 {
+  text-align: center;
 }
 
 .rosquilla {
-  width: 200px;
-  height: 200px;
+  width: 180px;
+  height: 180px;
   border-radius: 50%;
-  background: conic-gradient(#00871d 75%, #ece9ff 0);
+  background: conic-gradient(#00871d 75%, #e5e5e5 0);
+  position: relative;
+  margin: 0 auto 1rem auto;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0 auto 1rem auto;
+  box-shadow: 0 0 10px rgba(0, 135, 29, 0.3);
 }
 
 .rosquilla-interna {
-  background: white;
   width: 120px;
   height: 120px;
+  background: white;
   border-radius: 50%;
+  position: absolute;
+}
+
+.porcentaje {
+  position: absolute;
+  font-size: 3.5rem;
+  font-weight: 800;
+  color: black;
+  z-index: 2;
+}
+
+.tarjeta2 p {
+  font-size: 1.1rem;
+  color: #014c11;
+  font-weight: 600;
+}
+
+/* TARJETA 3 - Tiempo promedio */
+.tarjeta3 .titulo {
+  font-size: 1.2rem;
+  color: #014c11;
+  margin-bottom: 0.8rem;
+  font-weight: 600;
+  background-color: white;
+}
+
+.valor-tiempo {
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: center;
-  font-size: 2rem;
-  font-weight: 700;
-  color: #000;
+  gap: 0.3rem;
+  margin-bottom: 1.2rem;
+}
+
+.valor-tiempo h2 {
+  font-size: 4rem;
+  font-weight: 800;
+  color: #00871d;
+  margin: 0;
+  line-height: 1;
+}
+
+.valor-tiempo .unidad {
+  font-size: 1.2rem;
+  color: #014c11;
+  margin: 0;
+  font-weight: 600;
 }
 
 .mejora {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
   justify-content: center;
-  color: #014c11;
+  gap: 0.6rem;
 }
 
 .mejora img {
-  height: 25px;
+  height: 24px;
+}
+
+.texto-mejora {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.1;
+  color: #014c11;
+  font-size: 0.95rem;
+  font-weight: 500;
 }
 
 /* PIE DE PÁGINA */
@@ -192,10 +235,17 @@
 }
 
 .logo-pie img {
-  height: 50px;
+  height: 80px;
 }
 
 .enlaces-pie a {
+  display: block;
+  color: white;
+  text-decoration: none;
+  margin-bottom: 0.5rem;
+}
+
+.contacto-pie p {
   display: block;
   color: white;
   text-decoration: none;
@@ -223,30 +273,6 @@
   .contenedor-mapa {
     height: 500px;
   }
-}
-
-/* Tablets verticales */
-@media (max-width: 992px) {
-  .contenedor-mapa {
-    height: 400px;
-  }
-}
-
-/* Móviles */
-@media (max-width: 768px) {
-  .leaflet-container {
-    height: 300px;
-  }
-
-  .contenedor-tarjetas,
-  .seccion-estadisticas {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .linea {
-    width: 30%;
-  }
 
   .rosquilla {
     width: 150px;
@@ -254,9 +280,70 @@
   }
 
   .rosquilla-interna {
+    width: 100px;
+    height: 100px;
+  }
+
+  .porcentaje {
+    font-size: 2.5rem;
+  }
+}
+
+/* Tablets verticales */
+@media (max-width: 992px) {
+  .contenedor-mapa {
+    height: 400px;
+  }
+
+  .seccion-estadisticas {
+    flex-direction: column;
+    gap: 2rem;
+    align-items: center;
+  }
+
+  .item-estadistica {
+    max-width: 90%;
+  }
+
+  .rosquilla {
+    width: 140px;
+    height: 140px;
+  }
+
+  .rosquilla-interna {
     width: 90px;
     height: 90px;
-    font-size: 1.5rem;
+  }
+
+  .porcentaje {
+    font-size: 1.8rem;
+  }
+}
+
+/* Móviles */
+@media (max-width: 768px) {
+  .leaflet-container {
+    height: 100%;
+  }
+
+  .tarjeta1 img {
+    height: 50px;
+  }
+
+  .tarjeta1 h2 {
+    font-size: 2.2rem;
+  }
+
+  .valor-tiempo h2 {
+    font-size: 2.5rem;
+  }
+
+  .valor-tiempo .unidad {
+    font-size: 1rem;
+  }
+
+  .seccion-estadisticas {
+    gap: 2.5rem;
   }
 
   .pie {
@@ -266,9 +353,14 @@
   .contenido-pie {
     flex-direction: column;
     align-items: center;
+    gap: 1.5rem;
   }
 
   .logo-pie img {
     height: 40px;
+  }
+
+  .contenedor-mapa {
+    height: 300px;
   }
 }

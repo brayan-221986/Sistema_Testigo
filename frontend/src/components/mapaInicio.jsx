@@ -22,7 +22,7 @@ export default function MapaInicio() {
     <div className="contenedor-mapa">
       <MapContainer
         center={[-13.517088, -71.978535]} // Cusco como centro
-        zoom={18}
+        zoom={15}
         scrollWheelZoom={true}
       >
         {/* Capa base de OpenStreetMap */}

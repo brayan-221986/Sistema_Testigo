@@ -11,16 +11,12 @@ export default function Inicio() {
         {/* SECCION MAPA */}
         <section className="seccion-mapa">
             <h2>Mapa de reportes</h2>
-            <div className="contenedor-mapa">
-                <Mapa />
-            </div>
+            <Mapa />
         </section>
 
 
       {/* SECCION REPORTES */}
-      <section className="seccion-reportes">
-        <ReportesCarousel/>
-      </section>
+      <ReportesCarousel/>
 
       {/* DIVISOR */}
       <div className="divisor">
@@ -29,48 +25,64 @@ export default function Inicio() {
         <div className="linea"></div>
       </div>
 
-      {/* SECCION ESTADISTICAS */}
+      {/* SECCIÓN ESTADÍSTICAS */}
       <section className="seccion-estadisticas">
-        <div className="item-estadistica">
-          <img src="/megafono-img.png" alt="Reportes" />
-          <h2>320</h2>
-          <p>Reportes activos</p>
+        {/* TARJETA 1 */}
+        <div className="item-estadistica tarjeta1">
+          <div className="encabezado">
+            <img src="/megafono-img.png" alt="Reportes" />
+            <h2>750</h2>
+          </div>
+          <div className="texto-mejora">
+            <span>Denuncias recibidas</span>
+            <span>hasta la fecha.</span>
+          </div>
         </div>
 
-        <div className="item-estadistica">
+        {/* TARJETA 2 */}
+        <div className="item-estadistica tarjeta2">
           <div className="rosquilla">
-            <div className="rosquilla-interna">75%</div>
+            <div className="rosquilla-interna"></div>
+            <div className="porcentaje">75%</div>
           </div>
-          <p>Eficiencia de respuesta</p>
+          <p>Tasa de resolución</p>
         </div>
 
-        <div className="item-estadistica">
-          <img src="/auto-img.png" alt="Casos resueltos" />
-          <h2>240</h2>
-          <p>Casos resueltos</p>
+        {/* TARJETA 3 */}
+        <div className="item-estadistica tarjeta3">
+          <p className="titulo">Tiempo promedio de respuesta</p>
+
+          {/* Agrupamos el número y la unidad */}
+          <div className="valor-tiempo">
+            <h2>12</h2>
+            <p className="unidad">horas</p>
+          </div>
+
           <div className="mejora">
-            <img src="/flecha-img.png" alt="Sube" />
-            <span>+10% este mes</span>
+            <img src="/flecha-abajo.png" alt="Baja" />
+            <div className="texto-mejora">
+              <span>Se redujo 3 horas</span>
+              <span>en el último mes.</span>
+            </div>
           </div>
         </div>
+
       </section>
+
 
       {/* PIE DE PAGINA */}
       <footer className="pie">
         <div className="contenido-pie">
           <div className="logo-pie">
             <img src="/logo.png" alt="testiGO logo" />
-            <h3>testiGO</h3>
           </div>
 
           <div className="enlaces-pie">
             <a href="/">Inicio</a>
-            <a href="/reportar">Reportar</a>
-            <a href="/mapa">Mapa</a>
-            <a href="/contacto">Contacto</a>
+            <a href="/sobreNosotros">Sobre Nosotros</a>
           </div>
 
-          <div>
+          <div className="contacto-pie" >
             <p>Contacto: soporte@testigo.com</p>
             <p>Tel: +51 999 999 999</p>
           </div>
@@ -80,6 +92,7 @@ export default function Inicio() {
           © 2025 testiGO — Todos los derechos reservados
         </div>
       </footer>
+
     </div>
   );
 }
