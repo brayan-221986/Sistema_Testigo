@@ -139,24 +139,33 @@ const EditarPerfil = () => {
 
   return (
     <LayoutPrincipal tituloHeader="Editar Perfil">
-      <div style={{ padding: 20, maxWidth: 900, margin: '0 auto' }}>
+      <div className="contenedor-perfil">
         <form onSubmit={handleSubmit}>
-          <div style={{ display: 'flex', gap: 20, alignItems: 'flex-start' }}>
+          <div className="fila-principal">
             {/* FOTO A LA IZQUIERDA */}
-            <div style={{ width: 220, textAlign: 'center' }}>
-              <img src={vistaPrevia || '/usuario-img.jpg'} alt="foto" style={{ width: 180, height: 180, borderRadius: '50%', objectFit: 'cover', backgroundColor: '#f0f0f0' }} />
-              <div style={{ marginTop: 10 }}>
-                <label className="upload-label" style={{ cursor: 'pointer' }}>
+            <div className="columna-foto">
+              <img 
+                src={vistaPrevia || '/usuario-img.jpg'} 
+                alt="foto" 
+                className="perfil-img" 
+              />
+              <div className="contenedor-boton-subir">
+                <label className="upload-label">
                   Subir Imagen
-                  <input type="file" accept="image/*" onChange={manejarFoto} style={{ display: 'none' }} />
+                  <input 
+                    type="file" 
+                    accept="image/*" 
+                    onChange={manejarFoto} 
+                    className="input-oculto"
+                  />
                 </label>
               </div>
             </div>
 
             {/* CAMPOS A LA DERECHA */}
-            <div style={{ flex: 1 }}>
+            <div className="columna-campos">
               {/* Bloque superior: DNI / Nombres / Apellidos (label izquierda, input derecha) */}
-              <div className="top-fields">
+              <div className="campos-superiores">
                 <div className="field-row">
                   <div className="field-label">Nº de DNI:</div>
                   <div className="field-input">
@@ -188,10 +197,10 @@ const EditarPerfil = () => {
               </div>
 
               {/* Espacio extra entre bloques */}
-              <div style={{ height: 28 }} />
+              <div className="espacio-bloques" />
 
               {/* Bloque inferior: Correo y demas (MODIFICADO: input primero, botón editar a la derecha) */}
-              <div className="bottom-fields">
+              <div className="campos-inferiores">
                 <div className="field-row">
                   <div className="field-label">Correo:</div>
                   <div className="field-input edit-wrapper">
@@ -266,13 +275,22 @@ const EditarPerfil = () => {
                 </div>
               </div>
 
-              {error && <div className="error-message" style={{ marginTop: 10 }}>{error}</div>}
+              {error && <div className="mensaje-error">{error}</div>}
 
-              <div className="perfil-btns" style={{ marginTop: 20 }}>
-                <button type="button" className="btn btn-cancel perfil-cancel" onClick={() => navegar('/ciudadano/home')} disabled={cargando}>
+              <div className="contenedor-botones perfil-btns">
+                <button 
+                  type="button" 
+                  className="btn btn-cancel perfil-cancel" 
+                  onClick={() => navegar('/ciudadano/home')} 
+                  disabled={cargando}
+                >
                   Cancelar
                 </button>
-                <button type="submit" className="btn btn-login perfil-save" disabled={cargando}>
+                <button 
+                  type="submit" 
+                  className="btn btn-login perfil-save" 
+                  disabled={cargando}
+                >
                   {cargando ? 'Guardando...' : 'Guardar Cambios'}
                 </button>
               </div>

@@ -170,6 +170,57 @@
   margin-right: 0;
 }
 
+/* ======= CONTENEDORES Y FILAS ======= */
+/* Contenedor principal del formulario */
+.contenedor-perfil {
+  padding: 20px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+/* Fila principal que contiene foto y campos */
+.fila-principal {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+}
+
+/* Columna izquierda con la foto */
+.columna-foto {
+  width: 220px;
+  text-align: center;
+}
+
+/* Contenedor del botón subir imagen */
+.contenedor-boton-subir {
+  margin-top: 10px;
+}
+
+/* Columna derecha con los campos */
+.columna-campos {
+  flex: 1;
+}
+
+/* Espacio entre bloques */
+.espacio-bloques {
+  height: 28px;
+}
+
+/* Mensaje de error */
+.mensaje-error {
+  margin-top: 10px;
+}
+
+/* Contenedor de botones */
+.contenedor-botones {
+  margin-top: 20px;
+}
+
+/* Ocultar input de archivo */
+.input-oculto {
+  display: none;
+}
+
 /* ======= RESPONSIVE ======= */
 /* === Ajustes Responsive específicos para celulares === */
 @media (max-width: 768px) {
