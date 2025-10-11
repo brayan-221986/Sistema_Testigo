@@ -185,6 +185,16 @@ const actualizarUsuarioPorId = async (id, data, file) => {
   });
 };
 
+const listarInstituciones = async (req, res) => {
+  try {
+    const instituciones = await usuariosModel.getInstitucionesConReportes();
+    res.json(instituciones);
+  } catch (error) {
+    console.error("Error al obtener instituciones:", error);
+    res.status(500).json({ message: "Error al obtener instituciones" });
+  }
+};
+
 module.exports = {
   listarUsuarios,
   crearUsuario,
@@ -193,5 +203,6 @@ module.exports = {
   obtenerPerfil,
   actualizarPerfil,
   obtenerUsuarioPorId,
-  actualizarUsuarioPorId
+  actualizarUsuarioPorId,
+  listarInstituciones
 };

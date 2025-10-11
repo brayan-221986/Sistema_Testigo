@@ -81,10 +81,30 @@ const actualizarUsuario = async ({ id, dni, correo, nro_celular, contrasena, fot
   return result.rows[0];
 };
 
+// Obtener instituciones (rol autoridad) con cantidad de reportes recibidos
+const getInstitucionesConReportes = async () => {
+  const query = `
+    SELECT 
+      u.id,
+      u.nombres,
+      u.correo,
+      COALESCE(COUNT(r.id), 0) AS reportes_recibidos
+    FROM usuarios u
+    LEFT JOIN reportes r ON u.id = r.autoridad_id
+    WHERE u.rol = 'autoridad'
+    GROUP BY u.id
+    ORDER BY u.id;
+  `;
+  const result = await pool.query(query);
+  return result.rows;
+};
+
+
 module.exports = {
   getUsuarios,
   crearUsuario,
   buscarUsuarioPorCorreoODni,
   getUsuarioPorId,
-  actualizarUsuario
+  actualizarUsuario,
+  getInstitucionesConReportes
 };

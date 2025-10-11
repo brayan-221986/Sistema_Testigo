@@ -9,6 +9,9 @@ const upload = require('../middlewares/upload');
 // Listar usuarios (solo admin)
 router.get('/', verificarToken, permitirRol(['admin']), usuariosController.listarUsuarios);
 
+// Listar instituciones (solo admin)
+router.get('/instituciones', verificarToken, permitirRol(['admin']), usuariosController.listarInstituciones);
+
 // Crear usuario por administrador (con foto opcional)
 router.post('/admin', verificarToken, permitirRol(['admin']), upload.single("foto"), usuariosController.crearUsuarioAdm);
 
