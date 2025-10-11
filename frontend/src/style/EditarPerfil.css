@@ -82,19 +82,19 @@
 }
 
 .edit-wrapper {
-  position: relative;  /* Añadido: para posicionamiento del botón */
+  position: relative;  
   display: flex;
   align-items: center;
   width: 100%;
 }
 
 .edit-btn {
-  position: absolute;  /* Cambiado: posicionamiento absoluto */
-  right: 10px;        /* Añadido: distancia desde la derecha */
-  top: 50%;           /* Añadido: centrado vertical */
-  transform: translateY(-50%);  /* Añadido: ajuste de centrado */
-  width: 40px;        /* Reducido el tamaño */
-  height: 40px;       /* Reducido el tamaño */
+  position: absolute;  
+  right: 10px;     
+  top: 50%;        
+  transform: translateY(-50%);  
+  width: 40px;      
+  height: 40px;      
   background: transparent;
   border: none;
   cursor: pointer;
@@ -104,12 +104,12 @@
 }
 
 .edit-btn:hover {
-  transform: translateY(-50%); /* Mantener solo el centrado vertical en hover */
+  transform: translateY(-50%); 
 }
 
 .edit-btn img {
-  width: 26px;        /* Reducido el tamaño */
-  height: 26px;       /* Reducido el tamaño */
+  width: 26px;    
+  height: 26px;   
   object-fit: contain;
 }
 
