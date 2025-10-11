@@ -2,10 +2,12 @@
 
 import React, { useState } from 'react';
 import { createUserAdmin } from '../services/api';
+import { useNavigate } from "react-router-dom";
 import PlantillaAdmin from '../components/PlantillaAdmin';
 import '../style/CrearUsuario.css';
 
 const CrearUsuario = () => {
+  const navigate = useNavigate();
   // Estado para los datos del formulario
   const [formData, setFormData] = useState({
     dni: '',
@@ -17,6 +19,9 @@ const CrearUsuario = () => {
     contrasena: '',
     confirmarContrasena: '',
   });
+  const handleCancel = () => {
+    navigate("/admin/dashboard");
+  };
 
   const [imagen, setImagen] = useState(null);
   const [archivo, setArchivo] = useState(null);
@@ -128,7 +133,7 @@ const CrearUsuario = () => {
               {/* Botones del formulario */}
               <div className="form-actions">
                 <button type="submit" className="submit-button">Guardar Cambios</button>
-                <button type="button" className="cancel-button">Cancelar</button>
+                <button type="button" className="cancel-button" onClick={handleCancel}>Cancelar</button>
               </div>
             </form>
           </div>

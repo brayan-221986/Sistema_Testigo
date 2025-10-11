@@ -38,3 +38,16 @@ export const actualizarUsuarioPorId = async (id, data) => {
     throw error;
   }
 };
+
+/**
+ * Instituciones
+ */
+export const getInstituciones = async () => {
+  try {
+    const response = await api.get('/usuarios/instituciones');
+    return response.data;
+  } catch (error) {
+    console.error('Error al obtener instituciones:', error);
+    throw error;
+  }
+};

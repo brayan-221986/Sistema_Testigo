@@ -8,7 +8,7 @@ import SobreNosotros from './pages/SobreNosotros';
 import Login from './pages/Login';
 import Registro from './pages/Registro';
 import CrearUsuario from './pages/crearUsuario';
-
+import InstitucionColaboradoras from './pages/InstitucionesColaboradoras'
 // Nuevas páginas
 import AdminDashboard from './pages/AdminDashboard';
 import InstitucionHome from './pages/InstitucionHome';
@@ -53,6 +53,14 @@ function App() {
           element={
             <RutaPrivada roles={["admin"]}>
               <EditarUsuarioAdmin />
+            </RutaPrivada>
+          }
+        />
+        <Route
+          path="/admin/instituciones-colaboradoras"
+          element={
+            <RutaPrivada roles={["admin"]}>
+              <InstitucionColaboradoras />
             </RutaPrivada>
           }
         />
