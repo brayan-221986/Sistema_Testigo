@@ -1,4 +1,4 @@
-/* Estructura principal */
+/* ======== ESTRUCTURA PRINCIPAL ======== */
 .admin-layout {
   display: flex;
 }
@@ -17,7 +17,7 @@
   box-sizing: border-box;
 }
 
-/* Encabezado tipo banner (ocupa todo el ancho) */
+/* ======== ENCABEZADO ======== */
 .encabezado-pagina {
   background-color: #e9e9e9;
   padding: 25px 40px;
@@ -30,13 +30,14 @@
   color: #000;
 }
 
-/* Barra de acciones (buscar + botón) */
+/* ======== BARRA DE ACCIONES ======== */
 .acciones-barra {
   display: flex;
-  justify-content: space-between; /* para que el botón se vaya a la derecha */
+  justify-content: space-between;
   align-items: center;
   padding: 20px 0;
-  margin-bottom: 30px; /* SEPARACIÓN ENTRE BUSCADOR Y TABLA */
+  margin-bottom: 30px;
+  flex-wrap: wrap; /* permite que los elementos bajen si no hay espacio */
 }
 
 .buscador {
@@ -45,7 +46,7 @@
   border: 1px solid #ccc;
   font-size: 16px;
   width: 250px;
-  margin-right: 20px; /* Espacio entre input y botón */
+  margin-right: 20px;
 }
 
 .crear-btn {
@@ -63,14 +64,13 @@
   background-color: #13a431;
 }
 
-/* Tabla de instituciones */
+/* ======== TABLA ======== */
 .instituciones-table {
   width: 100%;
   border-collapse: collapse;
   background-color: white;
   border-radius: 8px;
   overflow: hidden;
-  /* Quitamos el margin-top porque ya lo da .acciones-barra */
 }
 
 .instituciones-table th {
@@ -105,4 +105,76 @@
 
 .eliminar {
   margin-left: 20px;
+}
+
+/* ======== RESPONSIVE DESIGN ======== */
+
+/* Para pantallas menores a 1024px*/
+@media (max-width: 1024px) {
+  .main-content {
+    margin-left: 0; 
+  }
+
+  .contenido-interno {
+    padding: 0 20px;
+  }
+
+  .encabezado-pagina {
+    padding: 20px;
+  }
+
+  .encabezado-pagina h1 {
+    font-size: 22px;
+  }
+
+  .buscador {
+    width: 200px;
+  }
+}
+
+/* Para pantallas menores a 768px */
+@media (max-width: 768px) {
+  .acciones-barra {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 15px;
+  }
+
+  .buscador {
+    width: 100%;
+    margin: 0;
+  }
+
+  .crear-btn {
+    width: 100%;
+  }
+
+  .instituciones-table th,
+  .instituciones-table td {
+    font-size: 14px;
+    padding: 10px;
+  }
+}
+
+/* Para pantallas menores a 480px */
+@media (max-width: 480px) {
+  .encabezado-pagina h1 {
+    font-size: 18px;
+    text-align: center;
+  }
+
+  .contenido-interno {
+    padding: 0 10px;
+  }
+
+  .instituciones-table {
+    display: block;
+    overflow-x: auto; /* permite hacer scroll horizontal */
+    white-space: nowrap;
+  }
+
+  .crear-btn {
+    font-size: 13px;
+    padding: 8px 12px;
+  }
 }
