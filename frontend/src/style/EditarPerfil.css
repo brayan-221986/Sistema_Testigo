@@ -81,26 +81,35 @@
   min-width: 0;
 }
 
-.boton-editar {
-  margin-left: 10px;
-  width: 30px;
-  height: 30px;
+.edit-wrapper {
+  position: relative;  /* Añadido: para posicionamiento del botón */
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.edit-btn {
+  position: absolute;  /* Cambiado: posicionamiento absoluto */
+  right: 10px;        /* Añadido: distancia desde la derecha */
+  top: 50%;           /* Añadido: centrado vertical */
+  transform: translateY(-50%);  /* Añadido: ajuste de centrado */
+  width: 40px;        /* Reducido el tamaño */
+  height: 40px;       /* Reducido el tamaño */
   background: transparent;
   border: none;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  transition: transform 0.2s ease;
 }
 
-.boton-editar:hover {
-  transform: scale(1.1);
+.edit-btn:hover {
+  transform: translateY(-50%); /* Mantener solo el centrado vertical en hover */
 }
 
-.boton-editar img {
-  width: 26px;
-  height: 26px;
+.edit-btn img {
+  width: 26px;        /* Reducido el tamaño */
+  height: 26px;       /* Reducido el tamaño */
   object-fit: contain;
 }
 
@@ -221,61 +230,161 @@
   display: none;
 }
 
-/* ======= RESPONSIVE ======= */
-/* === Ajustes Responsive específicos para celulares === */
-@media (max-width: 768px) {
-  /* Imagen más pequeña y centrada */
+@media (max-width: 992px) {
+  .contenedor-perfil {
+    padding: 15px;
+    max-width: 100%;
+  }
+
+  .campos-superiores,
+  .campos-inferiores {
+    max-width: 100%;
+  }
+
   .perfil-img {
-    width: 40px;
-    height: 40px;
+    width: 120px;
+    height: 120px;
   }
+}
 
-  .perfil-section {
-    gap: 12px;
-  }
-
-  .upload-label {
-    font-size: 13px;
-    padding: 6px 12px;
-  }
-
-  /* Ajuste de inputs para ocupar todo el ancho */
-  .campo-fila {
+@media (max-width: 768px) {
+  .fila-principal {
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
+    gap: 30px;
   }
 
-  .campo-entrada,
-  .campo-etiqueta {
+  .columna-foto {
+    width: 100%;
+    max-width: 300px;
+  }
+
+  .columna-campos {
     width: 100%;
   }
 
-  /* Centra los botones sin ocupar demasiado espacio */
+  .campo-fila {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .campo-etiqueta {
+    width: 100%;
+    text-align: left;
+  }
+
+  .campo-entrada {
+    width: 100%;
+  }
+
+  .contenedor-edicion {
+    width: 100%;
+  }
+
+  .edit-btn {
+    width: 24px;
+    height: 24px;
+  }
+
+  .edit-btn img {
+    width: 23px;
+    height: 23px;
+  }
+
   .perfil-btns {
-    justify-content: center;
-    gap: 10px;
+    flex-direction: column;
+    width: 100%;
   }
 
   .perfil-btns .btn {
-    flex: 1 1 45%;
-    max-width: 160px;
+    width: 100%;
+    margin: 5px 0;
   }
 }
 
 @media (max-width: 480px) {
+  .contenedor-perfil {
+    padding: 10px;
+  }
+
   .perfil-img {
-    width: 40px;
-    height: 40px;
+    width: 100px;
+    height: 100px;
   }
 
   .upload-label {
-    font-size: 12px;
-    padding: 5px 10px;
+    padding: 6px 12px;
+    font-size: 13px;
+  }
+
+  .form-control {
+    font-size: 14px;
+    padding: 8px;
+  }
+
+  .campo-fila {
+    margin-bottom: 12px;
+  }
+
+  .campo-etiqueta {
+    font-size: 14px;
+  }
+
+  .mensaje-error {
+    font-size: 13px;
+  }
+
+  .edit-btn {
+    width: 22px;
+    height: 22px;
+  }
+
+  .edit-btn img {
+    width: 18px;
+    height: 18px;
   }
 }
 
+/* Ajustes de altura para dispositivos pequeños */
+@media (max-height: 600px) {
+  .contenedor-perfil {
+    padding: 10px 5px;
+  }
 
-/* ======= DIFERENCIAR BLOQUE SUPERIOR ======= */
+  .campos-superiores {
+    margin-bottom: 15px;
+  }
+
+  .espacio-bloques {
+    height: 15px;
+  }
+
+  .campo-fila {
+    margin-bottom: 10px;
+  }
+}
+
+/* Ajustes para orientación horizontal en móviles */
+@media (max-height: 500px) and (orientation: landscape) {
+  .contenedor-perfil {
+    padding: 5px;
+  }
+
+  .fila-principal {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+
+  .columna-foto {
+    width: 150px;
+  }
+
+  .perfil-img {
+    width: 80px;
+    height: 80px;
+  }
+}
+
 .campos-superiores .form-control,
 .campos-superiores .form-control[readonly],
 .campos-superiores input.readonly-grey {
