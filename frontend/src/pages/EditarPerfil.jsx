@@ -7,41 +7,40 @@ import '../style/sesion.css';
 import '../style/EditarPerfil.css'; // <-- importar estilos específicos de Editar Perfil
 
 const EditarPerfil = () => {
-  const { /*usuario,*/ actualizarUsuario } = useAutentificacion();
-  const [form, setForm] = useState({
+  const { actualizarUsuario } = useAutentificacion();
+  const [formulario, setFormulario] = useState({
     dni: '',
     nombres: '',
     apellidos: '',
     correo: '',
     nro_celular: ''
   });
-  const [fotoPreview, setFotoPreview] = useState(null);
+  const [vistaPrevia, setVistaPrevia] = useState(null);
   const [archivoFoto, setArchivoFoto] = useState(null);
   const [nuevaContrasena, setNuevaContrasena] = useState('');
   const [confirmarContrasena, setConfirmarContrasena] = useState('');
-  const [loading, setLoading] = useState(false);
+  const [cargando, setCargando] = useState(false);
   const [error, setError] = useState('');
-  // Estado para controlar edición por campo: solo cuando se pulsa el lápiz se podrá modificar
-  const [editable, setEditable] = useState({
+  const [camposEditables, setCamposEditables] = useState({
     correo: false,
     nro_celular: false,
     contrasena: false
   });
-  const navigate = useNavigate();
+  const navegar = useNavigate();
 
   useEffect(() => {
     const cargarPerfil = async () => {
       try {
         const res = await getProfile();
         const perfil = res.data.usuario;
-        setForm({
+        setFormulario({
           dni: perfil.dni || '',
           nombres: perfil.nombres || '',
           apellidos: `${perfil.apellido_paterno || ''} ${perfil.apellido_materno || ''}`.trim(),
           correo: perfil.correo || '',
           nro_celular: perfil.nro_celular || ''
         });
-        setFotoPreview(perfil.foto || null);
+        setVistaPrevia(perfil.foto || null);
       } catch (e) {
         console.error('Error cargando perfil', e);
         setError('No se pudo cargar el perfil');
@@ -50,36 +49,37 @@ const EditarPerfil = () => {
     cargarPerfil();
   }, []);
 
-  const handleChange = (e) => {
+  // Renombrar funciones
+  const manejarCambio = (e) => {
     const { name, value } = e.target;
-    setForm(prev => ({ ...prev, [name]: value }));
+    setFormulario(previo => ({ ...previo, [name]: value }));
     if (error) setError('');
   };
 
   // Alterna la edición de un campo (correo, nro_celular, contrasena)
-  const toggleEdit = (campo) => {
-    setEditable(prev => ({ ...prev, [campo]: !prev[campo] }));
+  const alternarEdicion = (campo) => {
+    setCamposEditables(previo => ({ ...previo, [campo]: !previo[campo] }));
     // si desactivamos edición, limpiamos valores temporales de contraseñas
-    if (campo === 'contrasena' && editable.contrasena) {
+    if (campo === 'contrasena' && camposEditables.contrasena) {
       setNuevaContrasena('');
       setConfirmarContrasena('');
     }
     setError('');
   };
 
-  const handleFoto = (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
-    setArchivoFoto(file);
-    setFotoPreview(URL.createObjectURL(file));
+  const manejarFoto = (e) => {
+    const archivo = e.target.files[0];
+    if (!archivo) return;
+    setArchivoFoto(archivo);
+    setVistaPrevia(URL.createObjectURL(archivo));
   };
 
-  const validarEmail = (email) => {
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  const validarCorreo = (correo) => {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(correo);
   };
 
-  const validarCelular = (cel) => {
-    return /^\d{9}$/.test(cel);
+  const validarCelular = (celular) => {
+    return /^\d{9}$/.test(celular);
   };
 
   const handleSubmit = async (e) => {
@@ -87,16 +87,16 @@ const EditarPerfil = () => {
     setError('');
 
     // Validaciones sólo de los campos que están visibles/activados para edición o siempre obligatorios
-    if (!validarEmail(form.correo)) {
+    if (!validarCorreo(formulario.correo)) {
       setError('Correo inválido. Verifica el formato.');
       return;
     }
-    if (!validarCelular(form.nro_celular)) {
+    if (!validarCelular(formulario.nro_celular)) {
       setError('Número de celular inválido. Debe tener 9 dígitos.');
       return;
     }
 
-    if (editable.contrasena) {
+    if (camposEditables.contrasena) {
       if (nuevaContrasena && nuevaContrasena.length < 6) {
         setError('La nueva contraseña debe tener al menos 6 caracteres');
         return;
@@ -107,33 +107,33 @@ const EditarPerfil = () => {
       }
     }
 
-    setLoading(true);
+    setCargando(true);
     try {
       const data = new FormData();
       // DNI, nombres y apellidos son de solo lectura pero los incluimos si es necesario
-      if (form.dni) data.append('dni', form.dni);
-      data.append('correo', form.correo);
-      data.append('nro_celular', form.nro_celular);
-      if (editable.contrasena && nuevaContrasena) data.append('contrasena', nuevaContrasena);
+      if (formulario.dni) data.append('dni', formulario.dni);
+      data.append('correo', formulario.correo);
+      data.append('nro_celular', formulario.nro_celular);
+      if (camposEditables.contrasena && nuevaContrasena) data.append('contrasena', nuevaContrasena);
       if (archivoFoto) data.append('foto', archivoFoto);
 
       const res = await updateProfile({
-        dni: form.dni,
-        correo: form.correo,
-        nro_celular: form.nro_celular,
-        contrasena: (editable.contrasena && nuevaContrasena) ? nuevaContrasena : undefined,
+        dni: formulario.dni,
+        correo: formulario.correo,
+        nro_celular: formulario.nro_celular,
+        contrasena: (camposEditables.contrasena && nuevaContrasena) ? nuevaContrasena : undefined,
         foto: archivoFoto || undefined
       });
 
       const usuarioActualizado = res.data.usuario;
       if (actualizarUsuario) actualizarUsuario(usuarioActualizado);
       alert('Perfil actualizado correctamente');
-      navigate('/ciudadano/home');
+      navegar('/ciudadano/home');
     } catch (e) {
       console.error('Error actualizando perfil', e);
       setError(e.response?.data?.error || e.message || 'Error al actualizar perfil');
     } finally {
-      setLoading(false);
+      setCargando(false);
     }
   };
 
@@ -144,11 +144,11 @@ const EditarPerfil = () => {
           <div style={{ display: 'flex', gap: 20, alignItems: 'flex-start' }}>
             {/* FOTO A LA IZQUIERDA */}
             <div style={{ width: 220, textAlign: 'center' }}>
-              <img src={fotoPreview || '/usuario-img.jpg'} alt="foto" style={{ width: 180, height: 180, borderRadius: '50%', objectFit: 'cover', backgroundColor: '#f0f0f0' }} />
+              <img src={vistaPrevia || '/usuario-img.jpg'} alt="foto" style={{ width: 180, height: 180, borderRadius: '50%', objectFit: 'cover', backgroundColor: '#f0f0f0' }} />
               <div style={{ marginTop: 10 }}>
                 <label className="upload-label" style={{ cursor: 'pointer' }}>
                   Subir Imagen
-                  <input type="file" accept="image/*" onChange={handleFoto} style={{ display: 'none' }} />
+                  <input type="file" accept="image/*" onChange={manejarFoto} style={{ display: 'none' }} />
                 </label>
               </div>
             </div>
@@ -163,7 +163,7 @@ const EditarPerfil = () => {
                     <input
                       type="text"
                       name="dni"
-                      value={form.dni}
+                      value={formulario.dni}
                       className="form-control readonly-grey"
                       maxLength={8}
                       placeholder="DNI"
@@ -175,14 +175,14 @@ const EditarPerfil = () => {
                 <div className="field-row">
                   <div className="field-label">Nombres:</div>
                   <div className="field-input">
-                    <input type="text" name="nombres" value={form.nombres} readOnly className="form-control readonly-grey" />
+                    <input type="text" name="nombres" value={formulario.nombres} readOnly className="form-control readonly-grey" />
                   </div>
                 </div>
 
                 <div className="field-row">
                   <div className="field-label">Apellidos:</div>
                   <div className="field-input">
-                    <input type="text" name="apellidos" value={form.apellidos} readOnly className="form-control readonly-grey" />
+                    <input type="text" name="apellidos" value={formulario.apellidos} readOnly className="form-control readonly-grey" />
                   </div>
                 </div>
               </div>
@@ -198,15 +198,15 @@ const EditarPerfil = () => {
                     <input
                       type="email"
                       name="correo"
-                      value={form.correo}
-                      onChange={handleChange}
+                      value={formulario.correo}
+                      onChange={manejarCambio}
                       className="form-control"
-                      readOnly={!editable.correo}
+                      readOnly={!camposEditables.correo}
                       placeholder="ejemplo@correo.com"
-                      aria-disabled={!editable.correo}
+                      aria-disabled={!camposEditables.correo}
                       style={{ flex: 1 }} /* nuevo: que el input ocupe el espacio disponible */
                     />
-                    <button type="button" className="edit-btn" onClick={() => toggleEdit('correo')} title="Modificar correo">
+                    <button type="button" className="edit-btn" onClick={() => alternarEdicion('correo')} title="Modificar correo">
                       <img src="/Boton_modificar.png" alt="editar" />
                     </button>
                   </div>
@@ -218,16 +218,16 @@ const EditarPerfil = () => {
                     <input
                       type="text"
                       name="nro_celular"
-                      value={form.nro_celular}
-                      onChange={handleChange}
+                      value={formulario.nro_celular}
+                      onChange={manejarCambio}
                       className="form-control"
-                      readOnly={!editable.nro_celular}
+                      readOnly={!camposEditables.nro_celular}
                       placeholder="912345678"
-                      aria-disabled={!editable.nro_celular}
+                      aria-disabled={!camposEditables.nro_celular}
                       maxLength={9}
                       style={{ flex: 1 }}
                     />
-                    <button type="button" className="edit-btn" onClick={() => toggleEdit('nro_celular')} title="Modificar celular">
+                    <button type="button" className="edit-btn" onClick={() => alternarEdicion('nro_celular')} title="Modificar celular">
                       <img src="/Boton_modificar.png" alt="editar" />
                     </button>
                   </div>
@@ -241,11 +241,11 @@ const EditarPerfil = () => {
                       value={nuevaContrasena}
                       onChange={e => setNuevaContrasena(e.target.value)}
                       className="form-control"
-                      placeholder={editable.contrasena ? "Ingrese nueva contraseña (mín 6 caracteres)" : "Dejar vacío para mantener actual"}
-                      readOnly={!editable.contrasena}
+                      placeholder={camposEditables.contrasena ? "Ingrese nueva contraseña (mín 6 caracteres)" : "Dejar vacío para mantener actual"}
+                      readOnly={!camposEditables.contrasena}
                       style={{ flex: 1 }}
                     />
-                    <button type="button" className="edit-btn" onClick={() => toggleEdit('contrasena')} title="Modificar contraseña">
+                    <button type="button" className="edit-btn" onClick={() => alternarEdicion('contrasena')} title="Modificar contraseña">
                       <img src="/Boton_modificar.png" alt="editar" />
                     </button>
                   </div>
@@ -260,7 +260,7 @@ const EditarPerfil = () => {
                       onChange={e => setConfirmarContrasena(e.target.value)}
                       className="form-control"
                       placeholder="Repita nueva contraseña"
-                      readOnly={!editable.contrasena}
+                      readOnly={!camposEditables.contrasena}
                     />
                   </div>
                 </div>
@@ -269,11 +269,11 @@ const EditarPerfil = () => {
               {error && <div className="error-message" style={{ marginTop: 10 }}>{error}</div>}
 
               <div className="perfil-btns" style={{ marginTop: 20 }}>
-                <button type="button" className="btn btn-cancel perfil-cancel" onClick={() => navigate('/ciudadano/home')} disabled={loading}>
+                <button type="button" className="btn btn-cancel perfil-cancel" onClick={() => navegar('/ciudadano/home')} disabled={cargando}>
                   Cancelar
                 </button>
-                <button type="submit" className="btn btn-login perfil-save" disabled={loading}>
-                  {loading ? 'Guardando...' : 'Guardar Cambios'}
+                <button type="submit" className="btn btn-login perfil-save" disabled={cargando}>
+                  {cargando ? 'Guardando...' : 'Guardar Cambios'}
                 </button>
               </div>
             </div>

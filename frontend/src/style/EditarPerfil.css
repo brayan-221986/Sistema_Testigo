@@ -16,72 +16,72 @@
 }
 
 /* ======= DISTRIBUCIÓN GENERAL ======= */
-.field-row {
+.campo-fila {
   display: flex;
   align-items: center;
   gap: 12px;
   margin-bottom: 14px;
 }
 
-.field-label {
+.campo-etiqueta {
   width: 150px;
   font-weight: 400;
-  color: var(--gray-text);
+  color: var(--texto-gris);
   text-align: left;
 }
 
-.field-input {
+.campo-entrada {
   flex: 1;
   display: flex;
   align-items: center;
 }
 
 /* ======= BLOQUES SUPERIOR E INFERIOR ======= */
-.top-fields,
-.bottom-fields {
+.campos-superiores,
+.campos-inferiores {
   max-width: 520px;
   width: 100%;
   margin: 0 auto;
 }
 
-.top-fields {
+.campos-superiores {
   margin-bottom: 28px;
 }
 
 /* Bloque inferior: apila los campos label/input */
-.bottom-fields .field-row {
+.campos-inferiores .campo-fila {
   flex-direction: column;
   align-items: flex-start;
   gap: 8px;
   margin-bottom: 16px;
 }
 
-.bottom-fields .field-label {
+.campos-inferiores .campo-etiqueta {
   width: 100%;
   margin-bottom: 4px;
   font-weight: 400;
   color: var(--gray-text);
 }
 
-.bottom-fields .field-input {
+.campos-inferiores .campo-entrada {
   width: 100%;
   display: flex;
   align-items: center;
 }
 
 /* ======= INPUTS Y BOTONES DE EDICIÓN ======= */
-.bottom-fields .edit-wrapper {
+.contenedor-edicion {
   display: flex;
   align-items: center;
   width: 100%;
 }
 
-.bottom-fields .edit-wrapper .form-control {
+.contenedor-edicion .form-control {
   flex: 1 1 auto;
   min-width: 0;
 }
 
-.bottom-fields .edit-wrapper .edit-btn {
+.boton-editar {
   margin-left: 10px;
   width: 30px;
   height: 30px;
@@ -94,11 +94,11 @@
   transition: transform 0.2s ease;
 }
 
-.bottom-fields .edit-wrapper .edit-btn:hover {
+.boton-editar:hover {
   transform: scale(1.1);
 }
 
-.bottom-fields .edit-wrapper .edit-btn img {
+.boton-editar img {
   width: 26px;
   height: 26px;
   object-fit: contain;
@@ -189,13 +189,13 @@
   }
 
   /* Ajuste de inputs para ocupar todo el ancho */
-  .field-row {
+  .campo-fila {
     flex-direction: column;
     align-items: flex-start;
   }
 
-  .field-input,
-  .field-label {
+  .campo-entrada,
+  .campo-etiqueta {
     width: 100%;
   }
 
@@ -225,9 +225,9 @@
 
 
 /* ======= DIFERENCIAR BLOQUE SUPERIOR ======= */
-.top-fields .form-control,
-.top-fields .form-control[readonly],
-.top-fields input.readonly-grey {
+.campos-superiores .form-control,
+.campos-superiores .form-control[readonly],
+.campos-superiores input.readonly-grey {
   background-color: #e9e8e8;
   border-color: var(--border-blue);
 }
