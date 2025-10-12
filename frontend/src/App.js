@@ -16,6 +16,7 @@ import CiudadanoHome from './pages/CiudadanoHome';
 import CiudadanoNuevoReporte from './pages/NuevoReporte';
 import EditarPerfil from './pages/EditarPerfil'; 
 import EditarUsuarioAdmin from './pages/EditarUsuarioAdm';
+import CiudadanoMisReportes from './pages/MisReportes';
 
 import RutaPrivada from "./components/RutaPrivada"
 
@@ -87,6 +88,15 @@ function App() {
           element={ 
             <RutaPrivada roles={["ciudadano"]}>
               <CiudadanoNuevoReporte /> 
+            </RutaPrivada> 
+          } 
+        />
+
+        <Route 
+          path="/ciudadano/Mis-reportes" 
+          element={ 
+            <RutaPrivada roles={["ciudadano"]}>
+              <CiudadanoMisReportes /> 
             </RutaPrivada> 
           } 
         />
