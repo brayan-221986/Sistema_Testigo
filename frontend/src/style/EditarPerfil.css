@@ -1,18 +1,18 @@
-/* 🎨 Estilos específicos para la página Editar Perfil */
+/* Estilos específicos para la página Editar Perfil */
 
 /* ======= COLORES Y BASE ======= */
 :root {
-  --gray-bg: #f0f0f0;
-  --gray-text: #222;
-  --primary-green: #17C23C;
-  --primary-green-dark: #2e6f31;
-  --border-blue: #656ed3;
+  --fondo-gris: #f0f0f0;
+  --texto-gris: #222;
+  --verde-principal: #17C23C;
+  --verde-principal-oscuro: #2e6f31;
+  --borde-azul: #656ed3;
 }
 
 /* ======= CAMPOS DE SOLO LECTURA ======= */
 .readonly-grey {
-  background-color: var(--gray-bg);
-  color: var(--gray-text);
+  background-color: var(--fondo-gris);
+  color: var(--texto-gris);
 }
 
 /* ======= DISTRIBUCIÓN GENERAL ======= */
@@ -70,46 +70,63 @@
 }
 
 /* ======= INPUTS Y BOTONES DE EDICIÓN ======= */
-.contenedor-edicion {
+/* base para todos los inputs (uniformiza aspecto del celular y otros) */
+.form-control {
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  background-color: #fff;
+  color: var(--texto-gris);
+  box-sizing: border-box;
+  font-size: 14px;
+  line-height: 1.2;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: var(--borde-azul);
+  box-shadow: 0 0 0 3px rgba(101,110,211,0.06);
+}
+
+/* wrapper que contiene input + botón editar; el botón estará fuera del borde del input */
+.edit-wrapper {
   display: flex;
   align-items: center;
   width: 100%;
+  gap: 8px;
 }
 
-.contenedor-edicion .form-control {
+/* el input dentro del wrapper ocupa el espacio disponible */
+.edit-wrapper .form-control {
   flex: 1 1 auto;
   min-width: 0;
 }
 
-.edit-wrapper {
-  position: relative;  
-  display: flex;
-  align-items: center;
-  width: 100%;
-}
-
+/* botón ya no es absoluto: se muestra a la derecha fuera del input */
 .edit-btn {
-  position: absolute;  
-  right: 10px;     
-  top: 50%;        
-  transform: translateY(-50%);  
-  width: 40px;      
-  height: 40px;      
+  position: relative;
+  margin-left: 6px;
+  width: 36px;
+  height: 36px;
   background: transparent;
-  border: none;
+  border: 1px solid transparent;
+  border-radius: 8px;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  padding: 4px;
 }
 
 .edit-btn:hover {
-  transform: translateY(-50%); 
+  transform: none;
+  background: rgba(0,0,0,0.03);
 }
 
 .edit-btn img {
-  width: 26px;    
-  height: 26px;   
+  width: 20px;
+  height: 20px;
   object-fit: contain;
 }
 
@@ -133,7 +150,7 @@
 /* ======= BOTÓN SUBIR IMAGEN ======= */
 .upload-label {
   display: inline-block;
-  background-color: var(--primary-green);
+  background-color: var(--verde-principal);
   color: white;
   padding: 8px 16px;
   border-radius: 12px;
@@ -145,7 +162,7 @@
 }
 
 .upload-label:hover {
-  background-color: var(--primary-green-dark);
+  background-color: var(--verde-principal-oscuro);
   transform: translateY(-2px);
 }
 
@@ -281,14 +298,15 @@
     width: 100%;
   }
 
+  /* adaptar botón edit a tamaños pequeños */
   .edit-btn {
-    width: 24px;
-    height: 24px;
+    width: 30px;
+    height: 30px;
   }
 
   .edit-btn img {
-    width: 23px;
-    height: 23px;
+    width: 18px;
+    height: 18px;
   }
 
   .perfil-btns {
@@ -312,6 +330,16 @@
     height: 100px;
   }
 
+  .edit-btn {
+    width: 30px;
+    height: 30px;
+  }
+
+  .edit-btn img {
+    width: 18px;
+    height: 18px;
+  }
+
   .upload-label {
     padding: 6px 12px;
     font-size: 13px;
@@ -332,16 +360,6 @@
 
   .mensaje-error {
     font-size: 13px;
-  }
-
-  .edit-btn {
-    width: 22px;
-    height: 22px;
-  }
-
-  .edit-btn img {
-    width: 18px;
-    height: 18px;
   }
 }
 
@@ -389,5 +407,5 @@
 .campos-superiores .form-control[readonly],
 .campos-superiores input.readonly-grey {
   background-color: #e9e8e8;
-  border-color: var(--border-blue);
+  border-color: var(--borde-azul);
 }

@@ -213,7 +213,6 @@ const EditarPerfil = () => {
                       readOnly={!camposEditables.correo}
                       placeholder="ejemplo@correo.com"
                       aria-disabled={!camposEditables.correo}
-                      style={{ flex: 1 }} /* nuevo: que el input ocupe el espacio disponible */
                     />
                     <button type="button" className="edit-btn" onClick={() => alternarEdicion('correo')} title="Modificar correo">
                       <img src="/Boton_modificar.png" alt="editar" />
@@ -234,7 +233,6 @@ const EditarPerfil = () => {
                       placeholder="912345678"
                       aria-disabled={!camposEditables.nro_celular}
                       maxLength={9}
-                      style={{ flex: 1 }}
                     />
                     <button type="button" className="edit-btn" onClick={() => alternarEdicion('nro_celular')} title="Modificar celular">
                       <img src="/Boton_modificar.png" alt="editar" />
@@ -252,7 +250,6 @@ const EditarPerfil = () => {
                       className="form-control"
                       placeholder={camposEditables.contrasena ? "Ingrese nueva contraseña (mín 6 caracteres)" : "Dejar vacío para mantener actual"}
                       readOnly={!camposEditables.contrasena}
-                      style={{ flex: 1 }}
                     />
                     <button type="button" className="edit-btn" onClick={() => alternarEdicion('contrasena')} title="Modificar contraseña">
                       <img src="/Boton_modificar.png" alt="editar" />
