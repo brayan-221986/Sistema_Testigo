@@ -12,6 +12,7 @@ import InstitucionColaboradoras from './pages/InstitucionesColaboradoras'
 // Nuevas páginas
 import AdminDashboard from './pages/AdminDashboard';
 import InstitucionHome from './pages/InstitucionHome';
+import ReportesRevision from './pages/ReportesRevision';
 import CiudadanoHome from './pages/CiudadanoHome';
 import CiudadanoNuevoReporte from './pages/NuevoReporte';
 import EditarPerfil from './pages/EditarPerfil'; 
@@ -69,10 +70,18 @@ function App() {
 
 
         <Route 
-          path="/institucion/home" 
+          path="/autoridad/home" 
           element={ 
-            <RutaPrivada roles={["institucion"]}>
+            <RutaPrivada roles={["autoridad"]}>
               <InstitucionHome /> 
+            </RutaPrivada> 
+          } 
+        />
+        <Route 
+          path="/autoridad/ReportesRevision" 
+          element={ 
+            <RutaPrivada roles={["autoridad"]}>
+              <ReportesRevision /> 
             </RutaPrivada> 
           } 
         />

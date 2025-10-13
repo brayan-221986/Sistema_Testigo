@@ -3,6 +3,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useAutentificacion } from "../context/AutentificacionContext";
+import PlantillaAutoridad from "../components/PlantillaAutoridad";
 
 const InstitucionHome = () => {
   const navigate = useNavigate();
@@ -18,13 +19,15 @@ const InstitucionHome = () => {
   if (!usuario) return <p>Cargando...</p>;
 
   return (
-    <div>
-      <h1>Inicio de Institución</h1>
-      <p>Bienvenido, {usuario.nombres}. Aquí puedes registrar y gestionar casos de tu institución.</p>
-      <button onClick={handleLogout} style={{ marginTop: "20px" }}>
-        Cerrar Sesión
-      </button>
-    </div>
+    <PlantillaAutoridad tituloHeader="Inicio" >
+      <div>
+        <h1>Inicio de Institución</h1>
+        <p>Bienvenido, {usuario.nombres}. Aquí puedes registrar y gestionar casos de tu institución.</p>
+        <button onClick={handleLogout} style={{ marginTop: "20px" }}>
+          Cerrar Sesión
+        </button>
+      </div>
+    </PlantillaAutoridad>
   );
 };
 

@@ -69,7 +69,7 @@ const Login = () => {
 
         const rol = usuario.rol.toLowerCase();
         if (rol === "admin") navigate("/admin/dashboard");
-        else if (rol === "institucion") navigate("/institucion/home");
+        else if (rol === "autoridad") navigate("/autoridad/home");
         else navigate("/ciudadano/home");
 
     } catch (error) {
