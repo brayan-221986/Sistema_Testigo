@@ -2,8 +2,11 @@ import React from "react";
 import { MapPin, Building2, CalendarDays, Eye } from "lucide-react";
 import LayoutPrincipal from "../components/PlantillaCiudadano";
 import "../style/MisReportes.css";
+import { useNavigate } from "react-router-dom";
 
 const MisReportes = () => {
+  const navigate = useNavigate();
+
   const reportes = [
     {
       id: 1,
@@ -78,7 +81,12 @@ const MisReportes = () => {
                 <CalendarDays size={16} /> {r.fecha}
               </p>
               <span className={getEstadoClase(r.estado)}>{r.estado}</span>
-              <button className="btn-detalle">
+              <button
+                className="btn-detalle"
+                onClick={() =>
+                  navigate(`/ciudadano/Mis-reportes/${r.id}`)
+                }
+              >
                 <Eye size={16} /> Ver Detalles
               </button>
             </div>

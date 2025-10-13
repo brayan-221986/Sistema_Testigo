@@ -38,7 +38,14 @@ const LayoutPrincipal = ({ children, tituloHeader = "Dashboard" }) => {
       <aside className={`sidebar ${menuAbierto ? 'active' : ''}`}>
         <div className="perfil">
           {/* Foto del usuario, usa ruta por defecto si no hay foto */}
-          <img className="foto-usuario" src={usuario?.foto || '/usuario-img.jpg'} alt='foto del ciudadano'/>
+          <img
+            className="foto-usuario"
+            src={usuario?.foto || '/usuario-img.jpg'}
+            alt='foto del ciudadano'
+            title="Editar perfil"
+            onClick={() => navegarConCierre('/perfil')}
+            style={{ cursor: 'pointer' }}
+          />
           <p>BIENVENIDO:</p>
           <p>{usuario?.nombres || 'Usuario'}</p>
         </div>
