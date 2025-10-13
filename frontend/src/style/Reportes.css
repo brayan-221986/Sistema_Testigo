@@ -1,0 +1,146 @@
+.reportes-page {
+  padding: 20px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* Encabezado: logo centrado arriba y título debajo */
+.reportes-header {
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  gap: 8px;
+  margin-bottom: 18px;
+}
+
+.logo-wrapper {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.reportes-logo {
+  width: 370px;
+  height: auto;
+}
+
+.reportes-title {
+  margin: 0;
+  font-size: 28px;
+  font-weight: 700;
+  color: #00871d;
+  letter-spacing: 0.5px;
+  text-align: left;
+}
+
+/* El listado ahora muestra todos los reportes; mantengo estilos de tabla */
+.reportes-table-wrapper {
+  overflow-x: auto;
+  border-radius: 8px;
+  background: transparent;
+}
+
+.reportes-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 700px;
+}
+
+.reportes-table thead th {
+  text-align: left;
+  padding: 12px 16px;
+  background: #f1f5f9;
+  color: #1f2937;
+  font-weight: 600;
+}
+
+.reportes-table tbody td {
+  padding: 12px 16px;
+  border-bottom: 8px solid transparent;
+}
+
+.fila-verde {
+  background: #f6fbf6;
+}
+
+.fila-blanca {
+  background: #ffffff;
+}
+
+.ver-link {
+  background: transparent;
+  border: none;
+  color: #0b8f26;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 600;
+}
+
+/* Estados con colores diferenciados */
+.estado {
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.estado.enviado {
+  background-color: #c7f0c7;
+  color: #0a7a10;
+}
+
+.estado.en-proceso {
+  background-color: #f5f6c8;
+  color: #7a6b00;
+}
+
+.estado.resuelto {
+  background-color: #bfeee0;
+  color: #006a3e;
+}
+
+/* eliminada la paginación: no se mostrará nada en el pie */
+
+/* responsive */
+@media (max-width: 768px) {
+  .reportes-logo { width: 120px; }
+  .reportes-title { font-size: 18px; }
+  .reportes-table { min-width: 0; }
+  .reportes-table thead th, .reportes-table tbody td { padding: 10px; font-size: 14px; }
+}
+
+.reporte-detalle { /* por si se reutiliza más adelante */
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 16px;
+}
+
+.volver {
+  background: transparent;
+  border: 1px solid #ccc;
+  padding: 6px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-bottom: 12px;
+}
+
+.detalle-seccion {
+  margin-top: 12px;
+  padding: 12px;
+  border-radius: 8px;
+  background: #fff;
+  border: 1px solid #eee;
+}
+
+.placeholder-fotos,
+.placeholder-mapa {
+  height: 160px;
+  background: #f5f5f5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #777;
+}

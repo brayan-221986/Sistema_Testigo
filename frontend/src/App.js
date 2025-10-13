@@ -17,6 +17,7 @@ import CiudadanoNuevoReporte from './pages/NuevoReporte';
 import EditarPerfil from './pages/EditarPerfil'; 
 import EditarUsuarioAdmin from './pages/EditarUsuarioAdm';
 import CiudadanoMisReportes from './pages/MisReportes';
+import Reportes from './pages/Reportes';
 
 import RutaPrivada from "./components/RutaPrivada"
 
@@ -110,6 +111,7 @@ function App() {
             </RutaPrivada>
           }
         />
+        <Route path="/reportes" element={<Reportes />} />
       </Routes>
     </AutentificacionProvider>
   );
