@@ -1,46 +1,101 @@
-// src/pages/ListarInstituciones.jsx
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { getInstituciones } from "../services/usuariosService";
+// import { getInstituciones } from "../services/usuariosService";
 import PlantillaAdmin from "../components/PlantillaAdmin";
 import "../style/InstitucionesColaboradoras.css";
 
 const ListarInstituciones = () => {
-  const [instituciones, setInstituciones] = useState([]);
-  const [busqueda, setBusqueda] = useState("");
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
   const navigate = useNavigate();
+  const [busqueda, setBusqueda] = useState("");
 
-  useEffect(() => {
-    const fetchInstituciones = async () => {
-      try {
-        const data = await getInstituciones();
-        setInstituciones(data);
-      } catch (err) {
-        console.error(err);
-        setError("No se pudo cargar la lista de instituciones");
-      } finally {
-        setLoading(false);
-      }
-    };
+  // Datos de prueba (dummy)
+  const institucionesDummy = [
+    {
+      id: 1,
+      nombres: "Usuario 1",
+      reportes_recibidos: 3,
+      correo: "alma.lawson@example.com",
+    },
+    {
+      id: 2,
+      nombres: "Usuario 2",
+      reportes_recibidos: 2,
+      correo: "tim.jennings@example.com",
+    },
+    {
+      id: 3,
+      nombres: "Usuario 3",
+      reportes_recibidos: 5,
+      correo: "debra.holt@example.com",
+    },
+    {
+      id: 4,
+      nombres: "Usuario 4",
+      reportes_recibidos: 3,
+      correo: "kenzi.lawson@example.com",
+    },
+    {
+      id: 5,
+      nombres: "Usuario 5",
+      reportes_recibidos: 1,
+      correo: "georgia.young@example.com",
+    },
+    {
+      id: 6,
+      nombres: "Usuario 6",
+      reportes_recibidos: 4,
+      correo: "michelle.rivera@example.com",
+    },
+    {
+      id: 7,
+      nombres: "Usuario 7",
+      reportes_recibidos: 2,
+      correo: "georgia.young@example.com",
+    },
+    {
+      id: 8,
+      nombres: "Usuario 8",
+      reportes_recibidos: 1,
+      correo: "alma.lawson@example.com",
+    },
+    {
+      id: 9,
+      nombres: "Usuario 9",
+      reportes_recibidos: 3,
+      correo: "bill.sanders@example.com",
+    },
+  ];
 
-    fetchInstituciones();
-  }, []);
+  // const [instituciones, setInstituciones] = useState([]);
+  // const [loading, setLoading] = useState(true);
+  // const [error, setError] = useState(null);
 
-  // Filtro por nombre o correo
-  const institucionesFiltradas = instituciones.filter((i) =>
+  // useEffect(() => {
+  //   const fetchInstituciones = async () => {
+  //     try {
+  //       const data = await getInstituciones();
+  //       setInstituciones(data);
+  //     } catch (err) {
+  //       console.error(err);
+  //       setError("No se pudo cargar la lista de instituciones");
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   };
+
+  //   fetchInstituciones();
+  // }, []);
+
+  // Filtrado por nombre o correo
+  const institucionesFiltradas = institucionesDummy.filter((i) =>
     (i.nombres || "").toLowerCase().includes(busqueda.toLowerCase()) ||
     (i.correo || "").toLowerCase().includes(busqueda.toLowerCase())
   );
 
-  if (loading) return <p>Cargando instituciones...</p>;
-  if (error) return <p>{error}</p>;
-
   return (
     <PlantillaAdmin tituloHeader="Instituciones">
       <div className="contenido-interno">
-        {/* Barra superior con búsqueda y botón */}
+        {/* Barra de búsqueda y botón */}
         <div className="acciones-barra">
           <input
             type="text"
@@ -75,12 +130,14 @@ const ListarInstituciones = () => {
                 className={index % 2 === 0 ? "fila-verde" : "fila-blanca"}
               >
                 <td>{inst.nombres}</td>
-                <td>{inst.reportes_recibidos ?? 0}</td>
+                <td>{inst.reportes_recibidos}</td>
                 <td>{inst.correo}</td>
                 <td>
                   <span
                     className="editar-link"
-                    onClick={() => navigate(`/admin/instituciones/${inst.id}`)}
+                    onClick={() =>
+                      navigate(`/admin/instituciones/${inst.id}`)
+                    }
                   >
                     Ver...
                   </span>
