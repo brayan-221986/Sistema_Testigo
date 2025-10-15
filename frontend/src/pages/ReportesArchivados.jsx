@@ -69,7 +69,7 @@ const AutoridadHome = () => {
   };
 
   return (
-    <PlantillaAutoridad tituloHeader="Inicio">
+    <PlantillaAutoridad tituloHeader="Reportes Archivados">
       {/* Barra superior con búsqueda */}
       <div className="acciones-barra">
         <input
