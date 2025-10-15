@@ -1,12 +1,12 @@
 // AutoridadHome.jsx
 import /*React,*/ { useState } from "react";
-//import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { MapPin, Building2, CalendarDays, Eye } from "lucide-react";
 //import { useAutentificacion } from "../context/AutentificacionContext";
 import PlantillaAutoridad from "../components/PlantillaAutoridad";
 
 const AutoridadHome = () => {
-  //const navigate = useNavigate();
+  const navigate = useNavigate();
   //const { usuario, logout } = useAutentificacion();
 
   //  Estado para el texto de búsqueda
@@ -101,7 +101,7 @@ const AutoridadHome = () => {
                   <CalendarDays size={16} /> {r.fecha}
                 </p>
                 <span className={getEstadoClase(r.estado)}>{r.estado}</span>
-                <button className="btn-detalle">
+                <button className="btn-detalle" onClick={() => navigate(`/autoridad/Mis-reportes/${r.id}`)}>
                   <Eye size={16} /> Ver Detalles
                 </button>
               </div>

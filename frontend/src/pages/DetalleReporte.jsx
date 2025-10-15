@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import LayoutPrincipal from "../components/PlantillaCiudadano";
+import { useAutentificacion } from "../context/AutentificacionContext"; 
+import PlantillaCiudadano from "../components/PlantillaCiudadano";
+import PlantillaAutoridad from "../components/PlantillaAutoridad";
 import "../style/DetalleReporte.css";
 import "../style/reportesCarousel.css";
 import { MapContainer, TileLayer, Marker } from "react-leaflet";
@@ -32,6 +34,7 @@ const obtenerReporteMock = (id) => {
 
 export default function DetalleReporte() {
   const { id } = useParams();
+  const { usuario } = useAutentificacion(); // 👈 para saber si es autoridad o ciudadano
   const [reporte, setReporte] = useState(null);
   const [indexImagen, setIndexImagen] = useState(0);
 
@@ -41,6 +44,10 @@ export default function DetalleReporte() {
   }, [id]);
 
   if (!reporte) return null;
+
+  // Seleccionar layout dinámico según rol
+  const Layout =
+    usuario?.rol === "autoridad" ? PlantillaAutoridad : PlantillaCiudadano;
 
   // Mostrar siempre la información de la institución; usar valores por defecto si no hay asignación
   const institucion = reporte.institucion || {
@@ -65,7 +72,7 @@ export default function DetalleReporte() {
   };
 
   return (
-    <LayoutPrincipal tituloHeader="Detalle Reporte">
+    <Layout tituloHeader="Detalle Reporte">
       <div className="detalle-container">
         <h1 className="detalle-titulo">DETALLES DEL REPORTE</h1>
 
@@ -166,10 +173,13 @@ export default function DetalleReporte() {
           </div>
         </div>
 
-        <div className="acciones-pie">
-          <button className="btn-cancelar" onClick={cancelarReporte}>Cancelar Reporte</button>
-        </div>
+        {/* Solo mostrar el botón si el rol es ciudadano */}
+        {usuario?.rol === "ciudadano" && (
+          <div className="acciones-pie">
+            <button className="btn-cancelar" onClick={cancelarReporte}>Cancelar Reporte</button>
+          </div>
+        )}
       </div>
-    </LayoutPrincipal>
+    </Layout>
   );
 }

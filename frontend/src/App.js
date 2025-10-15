@@ -132,6 +132,15 @@ function App() {
           } 
         />
 
+        <Route 
+          path="/autoridad/Mis-reportes/:id" 
+          element={ 
+            <RutaPrivada roles={["autoridad"]}>
+              <DetalleReporte /> 
+            </RutaPrivada> 
+          } 
+        />
+
         {/* Ruta para editar perfil: requiere autenticación, cualquier rol */}
         <Route
           path="/perfil"
