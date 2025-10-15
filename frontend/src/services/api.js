@@ -108,6 +108,34 @@ export const authService = {
     }
 };
 
+// ===========================================================
+// Servicios de reportes
+// ===========================================================
+
+export const reportesService = {
+    // Crear un nuevo reporte
+    crearReporte: async (reporteData) => {
+    // reporteData YA es un FormData, no necesitamos crear otro
+    return await api.post("/reportes", reporteData, {
+        headers: { "Content-Type": "multipart/form-data" },
+    });
+    },
+    // Obtener todos los reportes (solo admins)
+    obtenerTodos: async () => {
+        return await api.get("/reportes");
+    },
+
+    // Obtener reportes del usuario actual
+    obtenerPorUsuario: async () => {
+        return await api.get("/reportes/mis-reportes");
+    }
+};
+
+
+// Reportes
+export const crearReporte = reportesService.crearReporte;
+export const obtenerTodosReportes = reportesService.obtenerTodos;
+export const obtenerReportesUsuario = reportesService.obtenerPorUsuario;
 
 // Exportar funciones individuales para uso directo
 export const login = authService.login;

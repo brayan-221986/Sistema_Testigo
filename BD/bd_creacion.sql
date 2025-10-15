@@ -24,7 +24,7 @@ CREATE TABLE categoria (
 );
 -- Tabla de estados de reporte
 CREATE TABLE estado_reporte (
-    id SERIAL PRIMARY KEY,
+    id SERIAL PRIMARY KEY, -- 1: Nuevo, 2: En revision, 3: Finalizado, 4: Rechazado
     estado VARCHAR(50)
 );
 -- Tabla de reportes

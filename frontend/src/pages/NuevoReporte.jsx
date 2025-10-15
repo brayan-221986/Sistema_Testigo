@@ -2,10 +2,11 @@ import React, { useState, useEffect } from 'react';
 import LayoutPrincipal from "../components/PlantillaCiudadano";
 import '../style/NuevoReporte.css';
 import L from 'leaflet';
-import { MapContainer, TileLayer, Marker, useMapEvents } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, useMapEvents, useMap } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
-
-import { MapPin } from 'lucide-react';
+import { MapPin, Search } from 'lucide-react';
+import axios from 'axios';
+import { getProfile, crearReporte } from '../services/api';
 
 delete L.Icon.Default.prototype._getIconUrl;
 
@@ -15,19 +16,25 @@ L.Icon.Default.mergeOptions({
   shadowUrl: require('leaflet/dist/images/marker-shadow.png'),
 });
 
-// Componente para manejar clicks y colocar marcador
+// =================== COMPONENTES MAPA ===================
 function LocationMarker({ position, setPosition }) {
   useMapEvents({
     click(e) {
       setPosition(e.latlng);
     },
   });
-
-  return position === null ? null : (
-    <Marker position={position}></Marker>
-  );
+  return position ? <Marker position={position} /> : null;
 }
 
+function MoverMapa({ position }) {
+  const map = useMap();
+  useEffect(() => {
+    if (position) map.flyTo(position, 16);
+  }, [position]);
+  return null;
+}
+
+// =================== COMPONENTE PRINCIPAL ===================
 const NuevoReporte = () => {
   const [formData, setFormData] = useState({
     titulo: '',
@@ -36,16 +43,15 @@ const NuevoReporte = () => {
     longitud: '',
     direccion: '',
     distrito: '',
-    estado_id:'',
-    ciudadano_id:'',
+    estado_id: 1, // Estado "Nuevo"
     categoria: '',
-    archivo: null,
+    archivos: [],
   });
 
-  // Estado para la posición en el mapa
   const [position, setPosition] = useState(null);
+  const [cargando, setCargando] = useState(false);
 
-  // Actualiza latitud y longitud en formData cuando cambia la posición
+  // Actualiza latitud/longitud al hacer click en el mapa
   useEffect(() => {
     if (position) {
       setFormData(prev => ({
@@ -56,40 +62,118 @@ const NuevoReporte = () => {
     }
   }, [position]);
 
-  // Manejo de inputs
+  // Maneja cambios del formulario
   const handleChange = (e) => {
     const { name, value, files } = e.target;
-    setFormData({
-      ...formData,
-      [name]: files ? files[0] : value,
+    if (files) {
+      setFormData(prev => ({
+        ...prev,
+        archivos: [...prev.archivos, ...Array.from(files)],
+      }));
+    } else {
+      setFormData(prev => ({ ...prev, [name]: value }));
+    }
+  };
+
+  // Enviar formulario al backend
+  const handleEnviar = async () => {
+  if (!formData.titulo || !formData.descripcion) {
+    alert("Por favor completa todos los campos obligatorios.");
+    return;
+  }
+
+  setCargando(true);
+  try {
+    const data = new FormData();
+    
+    // Agregar campos individualmente
+    data.append("titulo", formData.titulo);
+    data.append("descripcion", formData.descripcion);
+    data.append("latitud", formData.latitud.toString());
+    data.append("longitud", formData.longitud.toString());
+    data.append("direccion", formData.direccion);
+    data.append("distrito", formData.distrito);
+    data.append("estado_id", formData.estado_id.toString());
+    data.append("categoria", formData.categoria);
+
+    // Debug: mostrar valores antes de enviar
+    console.log("Valores a enviar:", {
+      titulo: formData.titulo,
+      descripcion: formData.descripcion,
+      latitud: formData.latitud,
+      longitud: formData.longitud,
+      direccion: formData.direccion,
+      distrito: formData.distrito,
+      estado_id: formData.estado_id,
+      categoria: formData.categoria
     });
+
+    formData.archivos.forEach(file => data.append("archivos", file));
+
+    const res = await crearReporte(data);
+
+      alert("Reporte enviado correctamente.");
+      console.log("Respuesta:", res.data);
+
+      // Reset form
+      setFormData({
+        titulo: '',
+        descripcion: '',
+        latitud: '',
+        longitud: '',
+        direccion: '',
+        distrito: '',
+        estado_id: 1,
+        categoria: '',
+        archivos: [],
+      });
+      setPosition(null);
+    } catch (error) {
+      console.error("Error al enviar reporte:", error);
+      alert("Error al enviar el reporte. Intenta nuevamente.");
+    } finally {
+      setCargando(false);
+    }
   };
 
-  // Enviar formulario (aquí pondrías la llamada a la API)
-  const handleEnviar = () => {
-    console.log("Formulario enviado:", formData);
-  };
-
-  // Cancelar formulario
   const handleCancelar = () => {
-    console.log("Formulario cancelado");
+    window.history.back();
   };
 
-  // Obtener ubicación real con geolocalización y poner marcador
+  // Obtener ubicación real del usuario
   const obtenerUbicacionReal = () => {
     if (!navigator.geolocation) {
       alert("Geolocalización no soportada por tu navegador.");
       return;
     }
-
     navigator.geolocation.getCurrentPosition(
-      (pos) => {
-        setPosition({ lat: pos.coords.latitude, lng: pos.coords.longitude });
-      },
-      (error) => {
-        alert("Error al obtener ubicación: " + error.message);
-      }
+      (pos) => setPosition({ lat: pos.coords.latitude, lng: pos.coords.longitude }),
+      (error) => alert("Error al obtener ubicación: " + error.message)
     );
+  };
+
+  // Buscar dirección en Perú
+  const buscarDireccion = async () => {
+    const consulta = `${formData.direccion || ''}, ${formData.distrito || ''}`;
+    if (!consulta.trim()) {
+      alert("Por favor ingrese una dirección o distrito para buscar.");
+      return;
+    }
+    try {
+      const response = await fetch(
+        `https://nominatim.openstreetmap.org/search?format=json&countrycodes=pe&bounded=1&viewbox=-81,-18,-68,-0&q=${encodeURIComponent(consulta)}`
+      );
+      const data = await response.json();
+
+      if (data && data.length > 0) {
+        const { lat, lon } = data[0];
+        setPosition({ lat: parseFloat(lat), lng: parseFloat(lon) });
+      } else {
+        alert("No se encontró la ubicación ingresada.");
+      }
+    } catch (error) {
+      alert("Error al buscar dirección: " + error.message);
+    }
   };
 
   return (
@@ -124,22 +208,19 @@ const NuevoReporte = () => {
         </select>
 
         <label>Ubicación:</label>
-        <div className="mapa" style={{ height: "300px", width: "100%" }}>
-          <MapContainer 
-            center={position || [-13.517088, -71.978535]} 
-            zoom={14} 
-            style={{ height: "100%", width: "100%" }}
-          >
+        <div className="mapa">
+          <MapContainer center={position || [-13.517088, -71.978535]} zoom={14}>
             <TileLayer
               attribution='&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a>'
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
             <LocationMarker position={position} setPosition={setPosition} />
+            <MoverMapa position={position} />
           </MapContainer>
         </div>
 
-        <button className="btn-ubicacion" onClick={obtenerUbicacionReal} style={{ marginTop: '10px' }}>
-          <MapPin size={20} style={{ marginRight: '8px' }} />
+        <button className="btn-ubicacion" onClick={obtenerUbicacionReal}>
+          <MapPin size={20} />
           Ubicación Real
         </button>
 
@@ -151,31 +232,76 @@ const NuevoReporte = () => {
               name="distrito"
               value={formData.distrito}
               onChange={handleChange}
+              placeholder="Ej. San Sebastián"
             />
           </div>
-          <div>
-            <label>Dirección:</label>
-            <input
-              type="text"
-              name="direccion"
-              value={formData.direccion}
-              onChange={handleChange}
-            />
+          <div className="f-direccion">
+            <div>
+              <label>Dirección:</label>
+              <input
+                type="text"
+                name="direccion"
+                value={formData.direccion}
+                onChange={handleChange}
+                placeholder="Ej. Av. La Cultura 123"
+              />
+            </div>
+            <button
+              type="button"
+              className="btn-ubicar"
+              onClick={buscarDireccion}
+              title="Buscar en el mapa"
+            >
+              <Search size={18} />
+            </button>
           </div>
         </div>
 
         <label>Adjuntar Archivos:</label>
-        <div className="adjuntar-archivos">
+        <div className="boton_subir">
           <input
             type="file"
-            name="archivo"
+            id="input-archivos"
+            name="archivos"
+            multiple
+            accept="image/*,video/*"
             onChange={handleChange}
+            style={{ display: 'none' }}
           />
+          <button
+            type="button"
+            className="btn-subir"
+            onClick={() => document.getElementById('input-archivos').click()}
+          >
+            + Elegir Archivos
+          </button>
+        </div>
+
+        <div className="adjuntar-archivos">
+          {formData.archivos.length > 0 ? (
+            <div className="preview-contenedor">
+              {formData.archivos.map((file, index) => {
+                const isImage = file.type.startsWith("image/");
+                const isVideo = file.type.startsWith("video/");
+                const previewURL = URL.createObjectURL(file);
+                return (
+                  <div className="preview-item" key={index}>
+                    {isImage && <img src={previewURL} alt={`preview-${index}`} />}
+                    {isVideo && <video src={previewURL} controls />}
+                  </div>
+                );
+              })}
+            </div>
+          ) : (
+            <p className="texto-placeholder">No se han adjuntado archivos aún.</p>
+          )}
         </div>
 
         <div className="botones-formulario">
           <button className="btn-cancelar" onClick={handleCancelar}>Cancelar</button>
-          <button className="btn-enviar" onClick={handleEnviar}>Enviar</button>
+          <button className="btn-enviar" onClick={handleEnviar} disabled={cargando}>
+            {cargando ? "Enviando..." : "Enviar"}
+          </button>
         </div>
       </div>
     </LayoutPrincipal>

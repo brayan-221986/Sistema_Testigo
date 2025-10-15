@@ -19,7 +19,9 @@ app.use(express.json());   // Parseo de JSON en el body de las solicitudes
 
 // Rutas
 const usuariosRoutes = require('./routes/usuariosRoutes');
+const reportesRoutes = require('./routes/reportesRoutes');
 app.use('/usuarios', usuariosRoutes);
+app.use('/reportes', reportesRoutes);
 
 // Ruta de prueba
 app.get('/', (req, res) => {
