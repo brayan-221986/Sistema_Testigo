@@ -1,0 +1,135 @@
+.estadisticas-contenedor {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 1rem 2rem;
+}
+
+/* PANEL DE KPIs */
+.panel-kpis {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.kpi-card {
+  background: white;
+  border-radius: 1rem;
+  padding: 1.2rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  text-align: center;
+  transition: transform 0.2s ease;
+}
+
+.kpi-card:hover {
+  transform: translateY(-4px);
+}
+
+.kpi-card h3 {
+  font-size: 1rem;
+  color: #6b7280;
+  margin-bottom: 0.5rem;
+}
+
+.kpi-card p {
+  font-size: 1.6rem;
+  font-weight: bold;
+  color: #111827;
+}
+
+/* GRAFICOS */
+.grafico-card {
+  background: white;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.grafico-card h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #111827;
+  margin-bottom: 1rem;
+}
+
+/* ===================== */
+/*   RESPONSIVE STYLES   */
+/* ===================== */
+
+/* Tablets */
+@media (max-width: 992px) {
+  .estadisticas-contenedor {
+    padding: 1rem 1.5rem;
+    gap: 1.5rem;
+  }
+
+  .kpi-card p {
+    font-size: 1.4rem;
+  }
+
+  .grafico-card {
+    padding: 1.2rem;
+  }
+}
+
+/* Celulares medianos */
+@media (max-width: 768px) {
+  .estadisticas-contenedor {
+    padding: 1rem;
+  }
+
+  .panel-kpis {
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  }
+
+  .kpi-card p {
+    font-size: 1.3rem;
+  }
+
+  .grafico-card {
+    padding: 1rem;
+  }
+}
+
+/* Celulares pequeños */
+@media (max-width: 480px) {
+  .estadisticas-contenedor {
+    gap: 1rem;
+  }
+
+  .panel-kpis {
+    grid-template-columns: 1fr;
+  }
+
+  .kpi-card {
+    padding: 1rem;
+  }
+
+  .kpi-card h3 {
+    font-size: 0.9rem;
+  }
+
+  .kpi-card p {
+    font-size: 1.2rem;
+  }
+
+  .grafico-card {
+    padding: 0.8rem;
+  }
+
+  .grafico-card h3 {
+    font-size: 1rem;
+  }
+}
+
+/* Pantallas muy grandes */
+@media (min-width: 1600px) {
+  .estadisticas-contenedor {
+    max-width: 1600px;
+    margin: 0 auto;
+  }
+
+  .kpi-card p {
+    font-size: 1.8rem;
+  }
+}

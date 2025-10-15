@@ -11,6 +11,7 @@
   box-sizing: border-box;
 }
 
+
 /* NUEVO CONTENEDOR INTERNO CON MÁRGENES LATERALES */
 .contenido-interno {
   padding: 0 50px;
@@ -28,6 +29,33 @@
   font-size: 26px;
   font-weight: bold;
   color: #000;
+}
+
+/* ======== BARRA DE BUSQUEDA ========*/
+.acciones-barra {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 1rem;
+}
+
+.buscador {
+  width: 250px;
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  outline: none;
+  transition: border 0.2s ease;
+}
+
+.buscador:focus {
+  border-color: #2e7d32; /* Verde del tema */
+}
+
+.sin-resultados {
+  text-align: center;
+  color: #777;
+  margin-top: 2rem;
+  font-style: italic;
 }
 
 /* ======== BARRA DE ACCIONES ======== */

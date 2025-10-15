@@ -97,6 +97,11 @@
   color: #7a6b00;
 }
 
+.estado.archivado {
+  background-color: #ffa9a9;
+  color: #aa0000;
+}
+
 .estado.resuelto {
   background-color: #bfeee0;
   color: #006a3e;

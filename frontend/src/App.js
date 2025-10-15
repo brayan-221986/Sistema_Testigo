@@ -11,8 +11,9 @@ import CrearUsuario from './pages/crearUsuario';
 import InstitucionColaboradoras from './pages/InstitucionesColaboradoras'
 // Nuevas páginas
 import AdminDashboard from './pages/AdminDashboard';
-import InstitucionHome from './pages/InstitucionHome';
+import AutoridadHome from './pages/AutoridadHome';
 import ReportesRevision from './pages/ReportesRevision';
+import ReportesArchivados from './pages/ReportesArchivados';
 import CiudadanoHome from './pages/CiudadanoHome';
 import CiudadanoNuevoReporte from './pages/NuevoReporte';
 import EditarPerfil from './pages/EditarPerfil'; 
@@ -20,6 +21,7 @@ import EditarUsuarioAdmin from './pages/EditarUsuarioAdm';
 import CiudadanoMisReportes from './pages/MisReportes';
 import Reportes from './pages/Reportes';
 import DetalleReporte from './pages/DetalleReporte';
+import EstadisticasCiudadano from './pages/EstadisticasCiudadano';
 
 import RutaPrivada from "./components/RutaPrivada"
 
@@ -68,13 +70,11 @@ function App() {
             </RutaPrivada>
           }
         />
-
-
         <Route 
           path="/autoridad/home" 
           element={ 
             <RutaPrivada roles={["autoridad"]}>
-              <InstitucionHome /> 
+              <AutoridadHome /> 
             </RutaPrivada> 
           } 
         />
@@ -86,6 +86,16 @@ function App() {
             </RutaPrivada> 
           } 
         />
+
+        <Route 
+          path="/autoridad/ReportesArchivados" 
+          element={ 
+            <RutaPrivada roles={["autoridad"]}>
+              <ReportesArchivados /> 
+            </RutaPrivada> 
+          } 
+        />
+
         <Route 
           path="/ciudadano/home" 
           element={ 
@@ -102,7 +112,14 @@ function App() {
             </RutaPrivada> 
           } 
         />
-
+        <Route 
+          path="/ciudadano/EstadisticasCiudadano" 
+          element={ 
+            <RutaPrivada roles={["ciudadano"]}>
+              <EstadisticasCiudadano /> 
+            </RutaPrivada> 
+          } 
+        />
         <Route 
           path="/ciudadano/Mis-reportes" 
           element={ 
@@ -116,6 +133,15 @@ function App() {
           path="/ciudadano/Mis-reportes/:id" 
           element={ 
             <RutaPrivada roles={["ciudadano"]}>
+              <DetalleReporte /> 
+            </RutaPrivada> 
+          } 
+        />
+
+        <Route 
+          path="/autoridad/Mis-reportes/:id" 
+          element={ 
+            <RutaPrivada roles={["autoridad"]}>
               <DetalleReporte /> 
             </RutaPrivada> 
           } 
