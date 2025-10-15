@@ -11,8 +11,9 @@ import CrearUsuario from './pages/crearUsuario';
 import InstitucionColaboradoras from './pages/InstitucionesColaboradoras'
 // Nuevas páginas
 import AdminDashboard from './pages/AdminDashboard';
-import InstitucionHome from './pages/InstitucionHome';
+import AutoridadHome from './pages/AutoridadHome';
 import ReportesRevision from './pages/ReportesRevision';
+import ReportesArchivados from './pages/ReportesArchivados';
 import CiudadanoHome from './pages/CiudadanoHome';
 import CiudadanoNuevoReporte from './pages/NuevoReporte';
 import EditarPerfil from './pages/EditarPerfil'; 
@@ -74,7 +75,7 @@ function App() {
           path="/autoridad/home" 
           element={ 
             <RutaPrivada roles={["autoridad"]}>
-              <InstitucionHome /> 
+              <AutoridadHome /> 
             </RutaPrivada> 
           } 
         />
@@ -86,6 +87,16 @@ function App() {
             </RutaPrivada> 
           } 
         />
+
+        <Route 
+          path="/autoridad/ReportesArchivados" 
+          element={ 
+            <RutaPrivada roles={["autoridad"]}>
+              <ReportesArchivados /> 
+            </RutaPrivada> 
+          } 
+        />
+
         <Route 
           path="/ciudadano/home" 
           element={ 
