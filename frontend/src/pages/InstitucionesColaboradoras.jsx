@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, /*useEffect*/ } from "react";
 import { useNavigate } from "react-router-dom";
 // import { getInstituciones } from "../services/usuariosService";
 import PlantillaAdmin from "../components/PlantillaAdmin";
