@@ -157,6 +157,14 @@ function App() {
           }
         />
         <Route path="/reportes" element={<Reportes />} />
+        <Route 
+          path="/reportes/:id" 
+          element={ 
+            <RutaPrivada>
+              <DetalleReporte /> 
+            </RutaPrivada> 
+          } 
+        />
       </Routes>
     </AutentificacionProvider>
   );

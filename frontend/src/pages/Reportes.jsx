@@ -1,4 +1,5 @@
 import React, { useMemo } from "react";
+import { useNavigate } from "react-router-dom";
 import LayoutPrincipal from "../components/PlantillaCiudadano";
 import "../style/Reportes.css";
 import { Eye } from "lucide-react";
@@ -23,6 +24,7 @@ const generarDatosEjemplo = () => {
 };
 
 export default function Reportes() {
+  const navigate = useNavigate();
   const datos = useMemo(() => generarDatosEjemplo(), []);
   const ordenadosPorFecha = useMemo(
     () => [...datos].sort((a, b) => new Date(b.fechaReporte) - new Date(a.fechaReporte)),
@@ -30,8 +32,7 @@ export default function Reportes() {
   );
 
   const verDetalle = (id) => {
-    // placeholder - detalle se implementará después
-    console.log("Ver detalle del reporte", id);
+    navigate(`/reportes/${id}`);
   };
 
   return (
