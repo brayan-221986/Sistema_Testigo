@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 import { useAutentificacion } from "../context/AutentificacionContext"; 
 import PlantillaCiudadano from "../components/PlantillaCiudadano";
 import PlantillaAutoridad from "../components/PlantillaAutoridad";
@@ -34,6 +34,7 @@ const obtenerReporteMock = (id) => {
 
 export default function DetalleReporte() {
   const { id } = useParams();
+  const location = useLocation();
   const { usuario } = useAutentificacion(); // 👈 para saber si es autoridad o ciudadano
   const [reporte, setReporte] = useState(null);
   const [indexImagen, setIndexImagen] = useState(0);
@@ -173,8 +174,8 @@ export default function DetalleReporte() {
           </div>
         </div>
 
-        {/* Solo mostrar el botón si el rol es ciudadano */}
-        {usuario?.rol === "ciudadano" && (
+        {/* Solo mostrar el botón si el rol es ciudadano y está en la sección de sus reportes */}
+        {usuario?.rol === "ciudadano" && location.pathname.startsWith("/ciudadano/Mis-reportes/") && (
           <div className="acciones-pie">
             <button className="btn-cancelar" onClick={cancelarReporte}>Cancelar Reporte</button>
           </div>
