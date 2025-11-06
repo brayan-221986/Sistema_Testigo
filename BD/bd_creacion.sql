@@ -59,3 +59,12 @@ CREATE TABLE notificaciones (
     tipo VARCHAR(50),
     fecha TIMESTAMP DEFAULT NOW()
 );
+
+
+-- Agregar valores por defecto
+INSERT INTO estado_reporte 
+VALUES 
+(1, 'Nuevo'),
+(2, 'En revisión'),
+(3, 'Finalizado'),
+(4, 'Rechazado');
