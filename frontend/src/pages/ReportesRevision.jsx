@@ -1,12 +1,25 @@
-import React from "react";
+// ReportesRevision.jsx
+import { useState } from "react";
 import { MapPin, Building2, CalendarDays, Eye } from "lucide-react";
-import { useNavigate } from "react-router-dom";
-import LayoutPrincipal from "../components/PlantillaAutoridad";
+import PlantillaAutoridad from "../components/PlantillaAutoridad";
+import ModalDetallesAutoridad from "../components/ModalDetallesAutoridad";
 import "../style/MisReportes.css";
 
 const ReportesRevision = () => {
-  const navigate = useNavigate();
+  // ---------------------------
+  // ESTADO DE BÚSQUEDA
+  // ---------------------------
+  const [busqueda, setBusqueda] = useState("");
 
+  // ---------------------------
+  // ESTADO DEL MODAL
+  // ---------------------------
+  const [modalAbierto, setModalAbierto] = useState(false);
+  const [reporteSeleccionado, setReporteSeleccionado] = useState(null);
+
+  // ---------------------------
+  // REPORTES
+  // ---------------------------
   const reportes = [
     {
       id: 1,
@@ -16,6 +29,7 @@ const ReportesRevision = () => {
       fecha: "Set 07, 2025",
       estado: "En Revisión",
       imagen: "/baches.jpg",
+      evidencias: ["/baches.jpg", "/auto.jpg"],
     },
     {
       id: 2,
@@ -25,6 +39,7 @@ const ReportesRevision = () => {
       fecha: "Set 05, 2025",
       estado: "En Revisión",
       imagen: "/baches.jpg",
+      evidencias: ["/baches.jpg", "/auto.jpg"],
     },
     {
       id: 3,
@@ -34,9 +49,25 @@ const ReportesRevision = () => {
       fecha: "Jul 27, 2025",
       estado: "En Revisión",
       imagen: "/baches.jpg",
+      evidencias: ["/baches.jpg", "/auto.jpg"],
     },
   ];
 
+  // ---------------------------
+  // FILTRO DINÁMICO
+  // ---------------------------
+  const reportesFiltrados = reportes.filter((r) => {
+    const texto = busqueda.toLowerCase();
+    return (
+      r.titulo.toLowerCase().includes(texto) ||
+      r.direccion.toLowerCase().includes(texto) ||
+      r.entidad.toLowerCase().includes(texto)
+    );
+  });
+
+  // ---------------------------
+  // COLORES POR ESTADO
+  // ---------------------------
   const getEstadoClase = (estado) => {
     switch (estado) {
       case "Enviado":
@@ -50,22 +81,35 @@ const ReportesRevision = () => {
     }
   };
 
+  // ---------------------------
+  // FUNCIÓN ABRIR MODAL
+  // ---------------------------
+  const handleVerDetalles = (reporte) => {
+    setReporteSeleccionado(reporte);
+    setModalAbierto(true);
+  };
+
   return (
-    <LayoutPrincipal tituloHeader="Reportes en Revisión">
-      {/* Barra superior con búsqueda y botón */}
+    <PlantillaAutoridad tituloHeader="Reportes en Revisión">
+      {/* Barra superior con búsqueda */}
       <div className="acciones-barra">
         <input
-        type="text"
-        placeholder="Buscar..."
-        className="buscador"
+          type="text"
+          placeholder="Buscar por título, dirección o entidad..."
+          className="buscador"
+          value={busqueda}
+          onChange={(e) => setBusqueda(e.target.value)}
         />
       </div>
+
+      {/* Lista de reportes */}
       <div className="mis-reportes">
-        {reportes.map((r) => (
+        {reportesFiltrados.map((r) => (
           <div key={r.id} className="reporte-card">
             <div className="reporte-img">
               <img src={r.imagen} alt={r.titulo} />
             </div>
+
             <div className="reporte-info">
               <h3>{r.titulo}</h3>
               <p className="info-line">
@@ -75,19 +119,32 @@ const ReportesRevision = () => {
                 <Building2 size={16} /> {r.entidad}
               </p>
             </div>
+
             <div className="reporte-meta">
               <p className="info-line fecha">
                 <CalendarDays size={16} /> {r.fecha}
               </p>
               <span className={getEstadoClase(r.estado)}>{r.estado}</span>
-              <button className="btn-detalle" onClick={() => navigate(`/autoridad/Mis-reportes/${r.id}`)}>
+
+              {/* BOTÓN QUE AHORA ABRE EL MODAL */}
+              <button
+                className="btn-detalle"
+                onClick={() => handleVerDetalles(r)}
+              >
                 <Eye size={16} /> Ver Detalles
               </button>
             </div>
           </div>
         ))}
       </div>
-    </LayoutPrincipal>
+
+      {/* MODAL */}
+      <ModalDetallesAutoridad
+        open={modalAbierto}
+        onClose={() => setModalAbierto(false)}
+        reporte={reporteSeleccionado}
+      />
+    </PlantillaAutoridad>
   );
 };
 
