@@ -22,6 +22,7 @@ import CiudadanoMisReportes from './pages/MisReportes';
 import Reportes from './pages/Reportes';
 import DetalleReporte from './pages/DetalleReporte';
 import EstadisticasCiudadano from './pages/EstadisticasCiudadano';
+import EstadisticasAutoridad from "./pages/EstadisticasAutoridad";
 
 import RutaPrivada from "./components/RutaPrivada"
 
@@ -94,6 +95,14 @@ function App() {
               <ReportesArchivados /> 
             </RutaPrivada> 
           } 
+        />
+        <Route 
+          path="/autoridad/estadisticas" 
+          element={
+            <RutaPrivada roles={["autoridad"]}>
+              <EstadisticasAutoridad />
+            </RutaPrivada>
+          }
         />
 
         <Route 
