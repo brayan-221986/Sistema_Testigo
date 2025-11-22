@@ -48,7 +48,7 @@ const LayoutPrincipal = ({ children, tituloHeader = "Dashboard" }) => {
           <button onClick={() => navegarConCierre('/autoridad/ReportesRecibidos')}>Reportes Recibidos</button>
           <button onClick={() => navegarConCierre('/autoridad/ReportesRevision')}>Reportes en Revision</button>
           <button onClick={() => navegarConCierre('/autoridad/ReportesArchivados')}>Reportes Archivados</button>
-          <button onClick={() => navegarConCierre('/autoridad/Estadisticas')}>Estadisticas</button>
+          <button onClick={() => navegarConCierre('/autoridad/estadisticas')}>Estadisticas</button>
           <button onClick={manejarCerrarSesion}>Cerrar Sesión</button>
         </nav>
 

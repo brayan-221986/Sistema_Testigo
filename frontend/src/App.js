@@ -23,6 +23,7 @@ import Reportes from './pages/Reportes';
 import DetalleReporte from './pages/DetalleReporte';
 import EstadisticasCiudadano from './pages/EstadisticasCiudadano';
 import EstadisticasAutoridad from "./pages/EstadisticasAutoridad";
+import EditarInstitucion from "./pages/EditarInstitucion";
 
 import RutaPrivada from "./components/RutaPrivada"
 
@@ -70,6 +71,10 @@ function App() {
               <InstitucionColaboradoras />
             </RutaPrivada>
           }
+        />
+        <Route 
+          path="/admin/instituciones/:id/editar" 
+          element={<EditarInstitucion />} 
         />
         <Route 
           path="/autoridad/home" 

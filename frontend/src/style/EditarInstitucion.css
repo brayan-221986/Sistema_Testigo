@@ -1,0 +1,151 @@
+:root {
+  --gris-bg: #f0f0f0;
+  --gris-texto: #333;
+  --borde-azul: #656ed3;
+  --verde: #17c23c;
+  --verde-oscuro: #2e6f31;
+}
+
+/* CONTENEDOR PRINCIPAL GRID */
+.editar-inst-container {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  grid-template-areas:
+    "foto bloque"
+    "bloque2 bloque2"
+    "botones botones"; /* <-- NUEVA FILA */
+  gap: 20px;
+  padding: 30px;
+  max-width: 1000px;
+  margin: auto;
+}
+
+/* ÁREAS */
+.inst-foto-col { grid-area: foto; text-align: center; }
+.inst-bloque { grid-area: bloque; }
+.inst-bloque2 { grid-area: bloque2; }
+
+/* FOTO */
+.inst-foto {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  background-color: #dcdcdc;
+  margin: auto;
+}
+
+.inst-btn-subir {
+  margin-top: 12px;
+  background-color: var(--verde);
+  padding: 8px 16px;
+  border-radius: 12px;
+  color: white;
+  cursor: pointer;
+  display: inline-block;
+}
+.inst-btn-subir:hover {
+  background-color: var(--verde-oscuro);
+}
+
+/* BLOQUES */
+.inst-bloque,
+.inst-bloque2 {
+  background: white;
+  padding: 20px;
+  border-radius: 14px;
+  border: 1px solid #e2e2e2;
+}
+
+/* CAMPOS */
+.inst-campo { 
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 16px;
+}
+.inst-campo label {
+  margin-bottom: 6px;
+  font-weight: 500;
+  color: var(--gris-texto);
+}
+.inst-campo input {
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+}
+.inst-campo input:disabled {
+  background-color: var(--gris-bg);
+  border-color: var(--borde-azul);
+}
+
+/* CAMPOS EDITABLES */
+.campo-editable {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.campo-editable input { flex: 1; }
+.campo-editable button {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+.campo-editable button img {
+  width: 28px;
+  height: 28px;
+}
+
+/* BOTONES */
+.inst-botones {
+  grid-area: botones;  /* <-- LOS COLOCAMOS AHÍ */
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.btn-cancelar,
+.btn-guardar {
+  padding: 10px 16px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+/* Cancelar */
+.btn-cancelar {
+  background-color: #ccc;
+  color: #333;
+}
+.btn-cancelar:hover {
+  background-color: #b3b3b3;
+}
+
+/* Guardar */
+.btn-guardar {
+  background-color: #17c23c;
+  color: #fff;
+}
+.btn-guardar:hover {
+  background-color: #2e6f31;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .editar-inst-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .inst-bloque,
+  .inst-bloque2 {
+    width: 100%;
+  }
+
+  .inst-botones {
+    justify-content: center; /* mantiene el centrado en móviles */
+    width: 100%;
+  }
+}
+
+

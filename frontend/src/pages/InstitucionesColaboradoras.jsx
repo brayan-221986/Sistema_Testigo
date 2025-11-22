@@ -136,7 +136,7 @@ const ListarInstituciones = () => {
                   <span
                     className="editar-link"
                     onClick={() =>
-                      navigate(`/admin/instituciones/${inst.id}`)
+                      navigate(`/admin/instituciones/${inst.id}/editar`)
                     }
                   >
                     Ver...
