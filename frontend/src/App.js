@@ -24,6 +24,7 @@ import DetalleReporte from './pages/DetalleReporte';
 import EstadisticasCiudadano from './pages/EstadisticasCiudadano';
 import EstadisticasAutoridad from "./pages/EstadisticasAutoridad";
 import EditarInstitucion from "./pages/EditarInstitucion";
+import CrearInstitucion from "./pages/CrearInstitucion"; // Importar la nueva página
 import ReportesRecibidos from './pages/ReportesRecibidos';
 
 import RutaPrivada from "./components/RutaPrivada"
@@ -70,6 +71,14 @@ function App() {
           element={
             <RutaPrivada roles={["admin"]}>
               <InstitucionColaboradoras />
+            </RutaPrivada>
+          }
+        />
+        <Route 
+          path="/admin/crear-institucion" 
+          element={
+            <RutaPrivada roles={["admin"]}>
+              <CrearInstitucion />
             </RutaPrivada>
           }
         />
