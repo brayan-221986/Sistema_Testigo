@@ -1,0 +1,91 @@
+.mis-reportes {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 15px;
+}
+
+.reporte-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #f3f3f3;
+  border-radius: 10px;
+  padding: 15px 20px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.reporte-img {
+  width: 90px;
+  height: 90px;
+  border-radius: 8px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.reporte-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.reporte-info {
+  flex: 1;
+  margin-left: 20px;
+}
+
+.reporte-info h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.info-line {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.9rem;
+  color: #333;
+  margin: 2px 0;
+}
+
+.reporte-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
+}
+
+.fecha {
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.estado {
+  font-weight: 600;
+  border-radius: 12px;
+  padding: 4px 10px;
+  font-size: 0.8rem;
+}
+
+.estado.nuevo {
+  background-color: #59DC75;
+  color: #647800;
+}
+.btn-detalle {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background-color: #0b8f26;
+  color: white;
+  border: none;
+  border-radius: 15px;
+  padding: 6px 12px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: background 0.2s;
+}
+
+.btn-detalle:hover {
+  background-color: #06701e;
+}

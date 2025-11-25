@@ -24,6 +24,7 @@ import DetalleReporte from './pages/DetalleReporte';
 import EstadisticasCiudadano from './pages/EstadisticasCiudadano';
 import EstadisticasAutoridad from "./pages/EstadisticasAutoridad";
 import EditarInstitucion from "./pages/EditarInstitucion";
+import ReportesRecibidos from './pages/ReportesRecibidos';
 
 import RutaPrivada from "./components/RutaPrivada"
 
@@ -84,6 +85,16 @@ function App() {
             </RutaPrivada> 
           } 
         />
+
+        <Route 
+          path="/autoridad/ReportesRecibidos" 
+          element={ 
+            <RutaPrivada roles={["autoridad"]}>
+              <ReportesRecibidos /> 
+            </RutaPrivada> 
+          } 
+        />
+
         <Route 
           path="/autoridad/ReportesRevision" 
           element={ 
