@@ -27,6 +27,7 @@ import EditarInstitucion from "./pages/EditarInstitucion";
 import CrearInstitucion from "./pages/CrearInstitucion"; // Importar la nueva página
 import ReportesRecibidos from './pages/ReportesRecibidos';
 import ReportesTotales from './pages/ReportesTotales';
+import EstadisticasAdmin from './pages/EstadisticasAdmin';
 
 import RutaPrivada from "./components/RutaPrivada"
 
@@ -99,11 +100,7 @@ function App() {
           path="/admin/estadisticas" 
           element={
             <RutaPrivada roles={["admin"]}>
-              {/* Aquí iría el componente de Estadísticas del Admin */}
-              <div style={{padding: '40px', textAlign: 'center'}}>
-                <h2>Estadísticas del Administrador</h2>
-                <p>Página en construcción...</p>
-              </div>
+              <EstadisticasAdmin />
             </RutaPrivada>
           }
         />
