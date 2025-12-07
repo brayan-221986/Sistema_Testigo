@@ -5,8 +5,7 @@ import L from 'leaflet';
 import { MapContainer, TileLayer, Marker, useMapEvents, useMap } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import { MapPin, Search } from 'lucide-react';
-import axios from 'axios';
-import { getProfile, crearReporte } from '../services/api';
+import {crearReporte } from '../services/api';
 
 delete L.Icon.Default.prototype._getIconUrl;
 
@@ -30,7 +29,7 @@ function MoverMapa({ position }) {
   const map = useMap();
   useEffect(() => {
     if (position) map.flyTo(position, 16);
-  }, [position]);
+  }, [position, map]);
   return null;
 }
 
