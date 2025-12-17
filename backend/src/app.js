@@ -1,48 +1,26 @@
-// app.js
-
 require('dotenv').config();
-
-// Verificar que JWT_SECRET esté definido
-if (!process.env.JWT_SECRET) {
-  throw new Error('JWT_SECRET no definido en .env');
-}
 
 const express = require('express');
 const cors = require('cors');
-const pool = require('./config/db'); // Inicializa conexión con la base de datos
 
 const app = express();
 
+// Validar variables críticas
+if (!process.env.JWT_SECRET) {
+  throw new Error('JWT_SECRET no definido');
+}
+
 // Middlewares
-app.use(cors());           // Permite solicitudes desde otros dominios
-app.use(express.json());   // Parseo de JSON en el body de las solicitudes
+app.use(cors());
+app.use(express.json());
 
 // Rutas
-const usuariosRoutes = require('./routes/usuariosRoutes');
-const reportesRoutes = require('./routes/reportesRoutes');
-app.use('/usuarios', usuariosRoutes);
-app.use('/reportes', reportesRoutes);
-
-// Ruta de prueba
 app.get('/', (req, res) => {
-  res.send('Servidor Express funcionando');
+  res.send('Backend activo');
 });
 
-// Middleware global de manejo de errores
-app.use((err, req, res, next) => {
-  console.error(err); // Logging interno
-
-  res.status(err.status || 500).json({
-    ok: false,
-    mensaje: err.message || 'Ocurrió un error interno en el servidor'
-  });
-});
-
-
-// Puerto desde .env o 4000 por defecto
+// Puerto dinámico
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => {
   console.log(`Servidor corriendo en puerto ${PORT}`);
 });
-
-
