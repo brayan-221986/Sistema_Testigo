@@ -42,7 +42,7 @@ app.use((err, req, res, next) => {
 // Puerto desde .env o 4000 por defecto
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => {
-  console.log(`Servidor corriendo en http://localhost:${PORT}`);
+  console.log(`Servidor corriendo en puerto ${PORT}`);
 });
 
 
