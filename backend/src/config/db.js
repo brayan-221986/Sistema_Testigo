@@ -12,8 +12,8 @@ const conectarDB = async () => {
   try {
     await pool.query('SELECT 1');
     console.log('Conexión a PostgreSQL exitosa');
-  } catch (err) {
-    console.error('Error de conexión a PostgreSQL', err);
+  } catch (error) {
+    console.error('Error conectando a PostgreSQL:', error);
     setTimeout(conectarDB, 5000);
   }
 };
