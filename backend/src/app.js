@@ -19,25 +19,6 @@ app.get('/', (req, res) => {
   res.send('Backend activo');
 });
 
-const pool = require('./config/db');
-
-app.get('/test-db', async (req, res) => {
-  try {
-    const result = await pool.query('SELECT NOW()');
-    res.json({
-      ok: true,
-      time: result.rows[0]
-    });
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({
-      ok: false,
-      error: err.message
-    });
-  }
-});
-
-
 // Puerto dinámico
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => {
