@@ -19,6 +19,10 @@ app.get('/', (req, res) => {
   res.send('Backend activo');
 });
 
+const reniecRoutes = require('./routes/reniecRoutes');
+app.use('/reniec', reniecRoutes);
+
+
 // Puerto dinámico
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => {
